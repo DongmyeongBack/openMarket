@@ -75,12 +75,17 @@
 
 /* 경고 메시지 스타일 */
 .error-message {
+    width: 80%;
     /* 에러 색상 변수 적용 */
     color: var(--error-color);
     font-size: 0.9rem;
     text-align: left;
     min-height: 20px;
-    margin-top: 5px;
+    margin: 5px auto 0 auto;
+}
+
+.error-message .show {
+    display: block;
 }
 
 /* 로그인 버튼 */
