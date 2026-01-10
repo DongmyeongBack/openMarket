@@ -1,0 +1,99 @@
+/* 컨테이너 중앙 정렬 */
+.login-container {
+    max-width: 550px;
+    margin: 100px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+/* 탭 스타일 */
+.login-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #888;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+    color: #333;
+    border-bottom: 2px solid #21bf48; /* 포인트 컬러 */
+    font-weight: 700;
+}
+
+/* 폼 스타일 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #21bf48;
+}
+
+/* 경고 메시지 스타일 */
+.error-message {
+    color: #eb5757;
+    font-size: 0.9rem;
+    text-align: left;
+    min-height: 20px; /* 메시지가 없어도 레이아웃 흔들림 방지 */
+}
+
+/* 로그인 버튼 */
+.login-btn {
+    background-color: #21bf48;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #1ea83f;
+}
+
+/* 하단 링크 */
+.links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #888;
+    font-size: 0.9rem;
+}
