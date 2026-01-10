@@ -47,7 +47,7 @@ body {
 
 /* 요구사항: 입력창 focus 이벤트 시 스타일 */
 .input-style:focus {
-    border-bottom: 2px solid var(--main-color);
+    outline: 1px solid var(--main-color);
 }
 
 /* 요구사항: 에러 발생 시 스타일 (자바스크립트로 클래스 추가) */

@@ -4,15 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>HODU - 회원가입</title>
-        <link rel="stylesheet" href="/styles/reset.css" />
-        <link rel="stylesheet" href="/styles/common.css" />
+        <link rel="stylesheet" href="/src/styles/reset.css" />
+        <link rel="stylesheet" href="/src/styles/common.css" />
         <link rel="stylesheet" href="./signup.css" />
     </head>
     <body>
         <div class="signup-container">
-            <header class="logo-area">
-                <img src="/src/assets/Logo-hodu.png" alt="HODU" class="logo" />
-            </header>
+            <img src="/src/assets/Logo-hodu.png" alt="HODU" class="logo" />
 
             <main class="signup-box">
                 <div class="tab-menu">
@@ -59,17 +57,16 @@
                             <input type="text" id="phoneLast" maxlength="4" class="phone-input" />
                         </div>
                     </div>
-
-                    <div class="terms-group">
-                        <input type="checkbox" id="agreeTerms" />
-                        <label for="agreeTerms">
-                            호두샵의 <span class="highlight">이용약관</span> 및
-                            <span class="highlight">개인정보처리방침</span>에 대한 내용을 확인하였고 동의합니다.
-                        </label>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="btn-submit" disabled>가입하기</button>
                 </form>
+                <div class="terms-group">
+                    <input type="checkbox" id="agreeTerms" />
+                    <label for="agreeTerms">
+                        호두샵의 <span class="highlight">이용약관</span> 및
+                        <span class="highlight">개인정보처리방침</span>에 대한 내용을 확인하였고 동의합니다.
+                    </label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit" disabled>가입하기</button>
             </main>
         </div>
 
