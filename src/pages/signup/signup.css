@@ -1,0 +1,154 @@
+.signup-container {
+    width: 550px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.logo {
+    width: 200px;
+    margin-bottom: 40px;
+}
+
+/* 탭 메뉴 스타일 */
+.signup-box {
+    background: var(--text-white);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tab-menu {
+    display: flex;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 20px 0;
+    border: none;
+    background-color: #f2f2f2; /* 배경색 유지 */
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color); /* 변수 적용 */
+    color: var(--text-grey); /* 텍스트 색상 명시 (선택사항) */
+}
+
+.tab-btn.active {
+    background-color: var(--text-white);
+    border-bottom: none;
+    color: var(--main-color); /* 활성 탭 텍스트 색상 (선택사항, 디자인에 따라 조정 가능) */
+    z-index: 1;
+}
+
+/* 폼 스타일 */
+.signup-form {
+    padding: 35px;
+    text-align: left;
+    border: 1px solid var(--border-color); /* 변수 적용 */
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 16px;
+    color: var(--text-grey); /* 변수 적용 */
+    margin-bottom: 10px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color); /* 변수 적용 */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: var(--text-dark); /* 입력 텍스트 색상 */
+}
+
+input:focus,
+select:focus {
+    outline: 1px solid var(--main-color); /* 변수 적용 */
+}
+
+/* 아이디 중복확인 버튼 레이아웃 */
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-check {
+    width: 120px;
+    background-color: var(--main-color); /* 변수 적용 */
+    color: var(--text-white); /* 변수 적용 */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 휴대폰 번호 레이아웃 */
+.phone-row {
+    display: flex;
+    gap: 10px;
+}
+
+.phone-select {
+    flex: 1;
+}
+
+.phone-input {
+    flex: 1;
+    text-align: center;
+}
+
+/* 에러 메시지 */
+.error-msg {
+    color: var(--error-color); /* 변수 적용 */
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 약관 동의 */
+.terms-group {
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-grey); /* 변수 적용 */
+}
+
+.highlight {
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--text-dark); /* 강조 문구는 조금 더 진하게 처리하거나 유지 */
+}
+
+/* 가입하기 버튼 */
+.btn-submit {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: var(--border-color); /* 비활성 상태는 회색 변수 사용 */
+    color: var(--text-white); /* 변수 적용 */
+    transition: background-color 0.3s;
+}
+
+/* 활성화 된 버튼 스타일 */
+.btn-submit:not(:disabled) {
+    background-color: var(--main-color); /* 변수 적용 */
+}
