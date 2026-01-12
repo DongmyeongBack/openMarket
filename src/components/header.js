@@ -4,8 +4,8 @@ export default class Header {
     constructor($target) {
         this.$target = $target;
         // 로컬 스토리지에서 토큰과 유저 타입 가져오기 (가정)
-        this.token = localStorage.getItem("token");
-        this.userType = localStorage.getItem("user_type"); // 'BUYER' or 'SELLER'
+        this.token = sessionStorage.getItem("token");
+        this.userType = sessionStorage.getItem("user_type"); // 'BUYER' or 'SELLER'
 
         this.render();
         this.setEvent();
@@ -137,7 +137,7 @@ export default class Header {
         // 3. 로그아웃 로직
         if (logoutBtn) {
             logoutBtn.addEventListener("click", () => {
-                localStorage.clear(); // 토큰 및 유저 정보 삭제
+                sessionStorage.clear(); // 토큰 및 유저 정보 삭제
                 alert("로그아웃 되었습니다.");
                 window.location.href = "/"; // 메인으로 리다이렉트
             });

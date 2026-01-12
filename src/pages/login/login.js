@@ -87,9 +87,9 @@ loginForm.addEventListener("submit", async (e) => {
         */
 
         // 1. 토큰 및 유저 정보 저장 (로컬 스토리지)
-        localStorage.setItem("token", data.access);
-        localStorage.setItem("userType", data.user.user_type);
-        localStorage.setItem("username", data.user.username);
+        sessionStorage.setItem("token", data.access);
+        sessionStorage.setItem("userType", data.user.user_type);
+        sessionStorage.setItem("username", data.user.username);
 
         // 2. 알림 및 페이지 이동
         alert(`${loginType} 회원으로 로그인되었습니다.`);
