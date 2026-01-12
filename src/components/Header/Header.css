@@ -14,9 +14,9 @@ header {
     max-width: 1280px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px;
+    gap: 30px;
 }
 
 /* Logo */
@@ -35,7 +35,7 @@ header {
 .search-input {
     width: 100%;
     padding: 13px 22px;
-    border: 2px solid #21bf48; /* 호두 그린 */
+    border: 2px solid var(--main-color); /* 호두 그린 */
     border-radius: 50px;
     font-size: 16px;
     outline: none;
@@ -46,7 +46,7 @@ header {
     right: 22px;
     top: 50%;
     transform: translateY(-50%);
-    background: url("/src/assets/images/icon-search.svg") no-repeat center; /* 아이콘 경로 확인 필요 */
+    background: url("/src/assets/images/icon-search.png") no-repeat center;
     width: 28px;
     height: 28px;
     border: none;
@@ -59,6 +59,7 @@ header {
     align-items: center;
     gap: 26px;
     position: relative; /* 드롭다운 위치 기준 */
+    margin-left: auto;
 }
 
 .nav-btn {
@@ -79,11 +80,21 @@ header {
     height: 32px;
 }
 
+#my-page-btn.active {
+    color: var(--main-color);
+}
+
+/* 버튼이 활성화(active) 되었을 때 이미지 색상 변경 (필터 사용) */
+#my-page-btn.active img {
+    /* 이 필터 조합이 회색/검정 아이콘을 #21bf48 (호두 그린) 색상으로 바꿔줍니다 */
+    filter: invert(64%) sepia(35%) saturate(1008%) hue-rotate(84deg) brightness(92%) contrast(84%);
+}
+
 /* 판매자 센터 버튼 스타일 */
 .btn-seller-center {
     display: flex;
     align-items: center;
-    background-color: #21bf48;
+    background-color: var(--main-color);
     color: #fff;
     border-radius: 5px;
     padding: 10px 20px;
@@ -102,7 +113,7 @@ header {
 /* --- Dropdown (My Page) --- */
 .my-page-dropdown {
     position: absolute;
-    top: 60px; /* 버튼 아래 */
+    top: 65px; /* 버튼 아래 */
     right: 0;
     width: 130px;
     background: #fff;
@@ -124,7 +135,7 @@ header {
     content: "";
     position: absolute;
     top: -8px;
-    right: 15px; /* 마이페이지 아이콘 위치에 맞춰 조정 */
+    right: 20px; /* 마이페이지 아이콘 위치에 맞춰 조정 */
     width: 16px;
     height: 16px;
     background: #fff;
@@ -136,17 +147,18 @@ header {
 
 .dropdown-item {
     width: 100%;
+    font-weight: 500;
     background: #fff;
     border: none;
     padding: 8px;
-    font-size: 14px;
-    color: #767676;
+    font-size: 16px;
+    color: var(--text-grey);
     cursor: pointer;
     text-align: center;
     border-radius: 5px;
 }
 
 .dropdown-item:hover {
-    border: 1px solid #767676;
-    color: #000;
+    border: 1px solid var(--text-black);
+    color: var(--text-black);
 }
