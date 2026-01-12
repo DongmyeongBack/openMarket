@@ -1,4 +1,4 @@
-/* 기본적인 사용자 지정 Reset CSS 예시 */
+/* 기본?�인 ?�용??지??Reset CSS ?�시 */
 
 /* ======== 기본 리셋 ======== */
 * {
@@ -32,7 +32,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ====== 리스트 ===== */
+/* ====== 리스??===== */
 ul,
 ol,
 li {
@@ -57,10 +57,10 @@ textarea {
     border: none;
     background: transparent;
     font-family: inherit;
-    outline: none; /* focus 스타일은 common.css에서 커스텀 */
+    outline: none; /* focus ?��??��? common.css?�서 커스?� */
 }
 
-/* ===== 접근성 ===== */
+/* ===== ?�근??===== */
 .sr-only {
     position: absolute;
     left: -9999px;
@@ -73,5 +73,5 @@ textarea {
 .ellipsis {
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis; /* 요소의 크기를 넘친 텍스트를 말줄임 처리합니다. */
+    text-overflow: ellipsis; /* ?�소???�기�??�친 ?�스?��? 말줄??처리?�니?? */
 }

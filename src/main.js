@@ -1,4 +1,4 @@
-import Header from "/src/components/Header.js";
+import Header from "/src/components/Header/Header.js";
 
 // DOM이 로드된 후 실행
 document.addEventListener("DOMContentLoaded", () => {
