@@ -97,14 +97,24 @@ loginForm.addEventListener("submit", async (e) => {
             window.location.href = "/";
         }
     } catch (error) {
-        // [에러 발생 시 동작]
         console.error("로그인 에러:", error);
 
-        // 에러 메시지 표시 (api.js에서 throw한 메시지가 error.message에 담김)
-        errorMessage.textContent = error.message;
+        // 기본 에러 메시지 설정
+        let displayMessage = "로그인 중 오류가 발생했습니다.";
+
+        // 서버에서 전달한 상세 에러 데이터가 있는 경우 (error.data.error 확인)
+        if (error.data && error.data.error) {
+            displayMessage = error.data.error;
+        } else if (error.message && error.message !== "API_ERROR") {
+            // 통신 장애 등 다른 에러 메시지가 있는 경우
+            displayMessage = error.message;
+        }
+
+        // 에러 메시지 표시
+        errorMessage.textContent = displayMessage;
         errorMessage.classList.add("show");
 
-        // [요구사항] 비밀번호 입력창 비우고 포커스
+        // 비밀번호 입력창 비우고 포커스
         passwordInput.value = "";
         passwordInput.focus();
     }
