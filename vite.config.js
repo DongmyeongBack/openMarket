@@ -14,9 +14,6 @@ export default defineConfig({
                 // 3. 회원가입 페이지 (여기가 중요!)
                 signup: resolve(__dirname, "src/pages/signup/index.html"),
 
-                // 4. 상품 목록
-                productList: resolve(__dirname, "src/pages/product-list/index.html"),
-
                 // 5. 상품 상세
                 productDetail: resolve(__dirname, "src/pages/product-detail/index.html"),
             },

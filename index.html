@@ -3,20 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HODU - 홈</title>
+        <title>쇼핑몰 (상품 목록)</title>
 
         <link rel="stylesheet" href="/src/styles/reset.css" />
         <link rel="stylesheet" href="/src/styles/common.css" />
+        <link rel="stylesheet" href="/src/pages/product-list/list.css" />
     </head>
     <body>
         <header id="header"></header>
 
-        <main>
-            <h1>환영합니다! HODU 쇼핑몰입니다.</h1>
+        <main class="product-list-container">
+            <ul id="product-grid" class="product-grid"></ul>
         </main>
 
         <footer id="footer"></footer>
 
         <script type="module" src="/src/main.js"></script>
+        <script type="module" src="/src/pages/product-list/list.js"></script>
     </body>
 </html>

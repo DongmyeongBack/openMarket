@@ -1,0 +1,96 @@
+/* 전체 레이아웃 컨테이너 */
+.product-list-container {
+    width: 1280px; /* 제공해주신 디자인 기준 너비 */
+    margin: 80px auto; /* 상하 여백, 좌우 중앙 정렬 */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* 그리드 레이아웃 설정 */
+.product-grid {
+    display: grid;
+    /* 3열 구조, 각 열의 너비는 동일(1fr) */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px; /* 카드 사이 간격 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 상품 카드 개별 아이템 */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* 상품 카드 링크 영역 */
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상품 이미지 */
+.product-img {
+    width: 100%;
+    aspect-ratio: 380 / 380; /* 정사각형 비율 유지 (디자인에 따라 4/3 등 조절 가능) */
+    object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 */
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background-color: #f2f2f2; /* 이미지 로딩 전 배경색 */
+}
+
+/* 판매자 (스토어 이름) */
+.seller-name {
+    font-size: 16px;
+    color: var(--text-grey);
+    margin-bottom: 10px;
+}
+
+/* 상품명 */
+.product-name {
+    font-size: 18px;
+    font-weight: 400; /* 디자인에 따라 조절 */
+    color: var(--text-black);
+    margin-bottom: 10px;
+
+    /* 긴 제목 말줄임표 처리 (...) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 가격 */
+.product-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-black);
+}
+
+.product-price span {
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+/* 반응형 처리 (화면이 작아지면 2열, 1열로 변경) */
+@media (max-width: 1280px) {
+    .product-list-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 태블릿: 2열 */
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 모바일: 1열 */
+    }
+}

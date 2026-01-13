@@ -1,6 +1,6 @@
 // src/utils/api.js
 
-const BASE_URL = "https://api.wenivops.co.kr";
+const BASE_URL = "https://api.wenivops.co.kr/services/open-market";
 
 export const request = async (url, options = {}) => {
     try {
