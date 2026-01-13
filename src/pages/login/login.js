@@ -66,7 +66,6 @@ loginForm.addEventListener("submit", async (e) => {
             body: JSON.stringify({
                 username: username,
                 password: password,
-                login_type: loginType, // API 스펙에 따라 필요하다면 주석 해제하여 사용
             }),
         });
 
