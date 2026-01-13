@@ -2,6 +2,16 @@
 import { request } from "/src/utils/api.js";
 import { showLoginModal } from "/src/components/Modal/Modal.js";
 
+import Header from "/src/components/Header/Header.js";
+import Footer from "/src/components/Footer/Footer.js";
+
+/* [추가] 공통 컴포넌트 초기화 */
+const headerTarget = document.getElementById("header");
+new Header(headerTarget);
+
+const footerTarget = document.getElementById("footer");
+new Footer(footerTarget);
+
 let product = null;
 let quantity = 1;
 
