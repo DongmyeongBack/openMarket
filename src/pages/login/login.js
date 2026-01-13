@@ -72,15 +72,6 @@ loginForm.addEventListener("submit", async (e) => {
         // [성공 처리]
         // api.js에서 에러가 발생하면 throw 하므로, 여기까지 코드가 도달했다면 성공입니다.
 
-        // 1. 토큰 및 유저 정보 저장 (session 스토리지)
-        sessionStorage.setItem("token", data.token); // 응답 데이터 구조에 따라 data.access 또는 data.token 확인 필요
-        sessionStorage.setItem("userType", data.user_type); // 응답 구조 확인 필요 (보통 data.user.user_type 등)
-        /* 주의: 실제 API 응답 구조가 기존 코드와 같다면 아래와 같이 저장해야 합니다.
-           sessionStorage.setItem("token", data.access);
-           sessionStorage.setItem("userType", data.user.user_type);
-           sessionStorage.setItem("username", data.user.username);
-        */
-
         // 위 코드를 기존 로직(기존 코드의 data 구조)에 맞춰 복원하면 다음과 같습니다:
         sessionStorage.setItem("token", data.access);
         sessionStorage.setItem("userType", data.user.user_type);

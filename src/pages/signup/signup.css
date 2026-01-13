@@ -114,6 +114,10 @@ select:focus {
     margin-top: 8px;
 }
 
+.error-msg.success {
+    color: var(--main-color);
+}
+
 .hidden {
     display: none;
 }

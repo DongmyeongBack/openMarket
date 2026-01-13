@@ -33,7 +33,7 @@ function showError(input, message) {
 
     if (!errorMsg) {
         errorMsg = document.createElement("p");
-        errorMsg.className = "error-msg error-message";
+        errorMsg.className = "error-msg";
         parent.appendChild(errorMsg);
     }
 
@@ -41,6 +41,24 @@ function showError(input, message) {
     errorMsg.textContent = message;
     errorMsg.classList.remove("hidden");
     errorMsg.classList.add("show");
+    errorMsg.classList.remove("success");
+}
+
+function showSuccess(input, message) {
+    const parent = input.closest(".input-group") || input.parentElement;
+    let errorMsg = parent.querySelector(".error-msg");
+
+    if (!errorMsg) {
+        errorMsg = document.createElement("p");
+        errorMsg.className = "error-msg error-message";
+        parent.appendChild(errorMsg);
+    }
+
+    input.classList.remove("error");
+    errorMsg.textContent = message;
+    errorMsg.classList.remove("hidden");
+    errorMsg.classList.add("show");
+    errorMsg.classList.add("show", "success");
 }
 
 // 헬퍼 함수: 에러 메시지 숨김
@@ -94,13 +112,8 @@ function validateUsernameFormat() {
         state.username = false;
         return false;
     }
-    if (!regex.test(value)) {
-        showError(inputs.username, "아이디는 영어 소문자, 대문자, 숫자만 가능합니다.");
-        state.username = false;
-        return false;
-    }
-    if (value.length > 20) {
-        showError(inputs.username, "아이디는 20자 이하여야 합니다.");
+    if (!regex.test(value) || value.length > 20) {
+        showError(inputs.username, "20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.");
         state.username = false;
         return false;
     }
@@ -118,13 +131,10 @@ async function checkIdDuplicate() {
             body: JSON.stringify({ username }),
         });
 
-        // 성공 시 (200 OK)
-        // 서버 응답 예시: { "message": "사용 가능한 아이디입니다." }
-        alert(result.message || "사용 가능한 아이디입니다.");
+        showSuccess(inputs.username, "멋진 아이디네요 :)");
 
         state.username = true;
         state.usernameChecked = true;
-        clearError(inputs.username);
     } catch (error) {
         console.error("ID Check Error:", error);
 
@@ -136,7 +146,7 @@ async function checkIdDuplicate() {
             errorMessage =
                 error.data.FAIL_Message ||
                 (error.data.username && error.data.username[0]) ||
-                "이미 등록된 아이디입니다.";
+                "이미 사용 중인 아이디입니다.";
         }
 
         // 2. 화면에 에러 표시
@@ -153,6 +163,7 @@ async function checkIdDuplicate() {
 inputs.username.addEventListener("input", () => {
     state.usernameChecked = false;
     state.username = false;
+    clearError(inputs.username);
     checkAllValid();
 });
 
