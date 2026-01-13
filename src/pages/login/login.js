@@ -1,3 +1,6 @@
+// [변경] 공용 API 함수 임포트
+import { request } from "/src/utils/api.js";
+
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("username");
@@ -5,8 +8,7 @@ const passwordInput = document.getElementById("password");
 const errorMessage = document.getElementById("errorMessage");
 const tabs = document.querySelectorAll(".tab-btn");
 
-// API 기본 경로 (제시해주신 주소)
-const API_URL = "https://api.wenivops.co.kr/services/open-market";
+// [삭제] API_URL 상수는 api.js에서 관리하므로 제거
 
 // 현재 로그인 타입 (기본값: BUYER)
 let loginType = "BUYER";
@@ -29,7 +31,6 @@ tabs.forEach((tab) => {
 });
 
 // 2. 로그인 폼 제출 이벤트 핸들러
-// [중요] 비동기 통신(await)을 위해 async 키워드 추가
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // 폼 기본 제출 방지
 
@@ -56,37 +57,32 @@ loginForm.addEventListener("submit", async (e) => {
         return;
     }
 
-    // 3. 실제 API 호출 로직
+    // 3. 실제 API 호출 로직 (request 함수 사용)
     try {
-        const res = await fetch(`${API_URL}/accounts/login/`, {
+        // [변경] fetch -> request 사용
+        // request 함수 내부에서 BASE_URL과 Headers(Content-Type)를 처리해줍니다.
+        const data = await request("/accounts/login/", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: JSON.stringify({
                 username: username,
                 password: password,
-                // login_type: loginType, // [참고] API 명세에는 없었으나, 보통 구매자/판매자 구분을 위해 필요할 수 있습니다. 필요 없다면 이 줄을 지우세요.
+                login_type: loginType, // API 스펙에 따라 필요하다면 주석 해제하여 사용
             }),
         });
 
-        const data = await res.json();
-
-        // [실패 처리] status가 200이 아니거나, 401 에러인 경우
-        if (!res.ok) {
-            // 에러 메시지 출력 (API에서 주는 메시지 or 기본 메시지)
-            const msg = data.error || "아이디 또는 비밀번호가 일치하지 않습니다.";
-            throw new Error(msg);
-        }
-
         // [성공 처리]
-        // (선택사항) 탭과 실제 반환된 유저 타입이 일치하는지 확인
-        /* if (data.user.user_type !== loginType) {
-             throw new Error("회원 유형이 일치하지 않습니다.");
-        } 
-        */
+        // api.js에서 에러가 발생하면 throw 하므로, 여기까지 코드가 도달했다면 성공입니다.
 
         // 1. 토큰 및 유저 정보 저장 (session 스토리지)
+        sessionStorage.setItem("token", data.token); // 응답 데이터 구조에 따라 data.access 또는 data.token 확인 필요
+        sessionStorage.setItem("userType", data.user_type); // 응답 구조 확인 필요 (보통 data.user.user_type 등)
+        /* 주의: 실제 API 응답 구조가 기존 코드와 같다면 아래와 같이 저장해야 합니다.
+           sessionStorage.setItem("token", data.access);
+           sessionStorage.setItem("userType", data.user.user_type);
+           sessionStorage.setItem("username", data.user.username);
+        */
+
+        // 위 코드를 기존 로직(기존 코드의 data 구조)에 맞춰 복원하면 다음과 같습니다:
         sessionStorage.setItem("token", data.access);
         sessionStorage.setItem("userType", data.user.user_type);
         sessionStorage.setItem("username", data.user.username);
@@ -104,7 +100,7 @@ loginForm.addEventListener("submit", async (e) => {
         // [에러 발생 시 동작]
         console.error("로그인 에러:", error);
 
-        // 에러 메시지 표시
+        // 에러 메시지 표시 (api.js에서 throw한 메시지가 error.message에 담김)
         errorMessage.textContent = error.message;
         errorMessage.classList.add("show");
 
