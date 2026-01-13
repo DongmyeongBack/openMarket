@@ -113,13 +113,13 @@ async function checkIdDuplicate() {
     const username = inputs.username.value.trim();
 
     try {
-        // api.js의 request 함수 사용 (BASE_URL, Headers 자동 처리)
         const result = await request("/accounts/validate-username/", {
             method: "POST",
             body: JSON.stringify({ username }),
         });
 
-        // 성공 시 (api.js에서 response.ok가 아니면 에러를 throw 함)
+        // 성공 시 (200 OK)
+        // 서버 응답 예시: { "message": "사용 가능한 아이디입니다." }
         alert(result.message || "사용 가능한 아이디입니다.");
 
         state.username = true;
@@ -127,8 +127,21 @@ async function checkIdDuplicate() {
         clearError(inputs.username);
     } catch (error) {
         console.error("ID Check Error:", error);
-        // api.js가 throw한 에러 메시지 사용
-        showError(inputs.username, error.message);
+
+        // 1. 서버가 보내준 상세 에러 메시지 추출
+        let errorMessage = "아이디 확인 중 오류가 발생했습니다.";
+
+        if (error.data) {
+            // 서버 응답 구조에 따라 메시지 추출 (FAIL_Message 또는 필드 에러)
+            errorMessage =
+                error.data.FAIL_Message ||
+                (error.data.username && error.data.username[0]) ||
+                "이미 등록된 아이디입니다.";
+        }
+
+        // 2. 화면에 에러 표시
+        showError(inputs.username, errorMessage);
+
         state.username = false;
         state.usernameChecked = false;
         inputs.username.focus();
@@ -250,7 +263,7 @@ function checkAllValid() {
     }
 }
 
-// 9. 회원가입 제출 (Submit)
+// 9. 회원가입 제출 (Submit) 부분 수정
 submitBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -263,7 +276,6 @@ submitBtn.addEventListener("click", async (e) => {
     };
 
     try {
-        // api.js request 사용
         await request("/accounts/buyer/signup/", {
             method: "POST",
             body: JSON.stringify(formData),
@@ -273,7 +285,29 @@ submitBtn.addEventListener("click", async (e) => {
         window.location.href = "/login.html";
     } catch (error) {
         console.error("Signup Error:", error);
-        // api.js가 throw한 에러 메시지 알림
-        alert(error.message || "회원가입 요청 중 문제가 발생했습니다.");
+
+        // 서버에서 상세 에러 데이터(error.data)가 넘어온 경우
+        if (error.data) {
+            const errorData = error.data;
+
+            // 각 필드별로 에러 메시지 표시
+            for (const key in errorData) {
+                const message = errorData[key][0]; // 첫 번째 에러 메시지 추출
+
+                if (inputs[key]) {
+                    // username, password, name 등 기본 필드
+                    showError(inputs[key], message);
+                } else if (key === "phone_number") {
+                    // phone_number는 input이 3개로 나뉘어 있으므로 중간 번호창에 표시
+                    showError(inputs.phoneMiddle, message);
+                } else {
+                    // 그 외 정의되지 않은 에러는 alert
+                    alert(message);
+                }
+            }
+        } else {
+            // 통신 장애 등 일반 에러
+            alert(error.message || "회원가입 중 오류가 발생했습니다.");
+        }
     }
 });
