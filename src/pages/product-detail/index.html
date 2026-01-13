@@ -1,62 +1,58 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>상품 상세</title>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8" />
+        <title>상품 상세</title>
 
-    <link rel="stylesheet" href="../../styles/reset.css" />
-    <link rel="stylesheet" href="../../styles/common.css" />
-    <link rel="stylesheet" href="./detail.css" />
-  </head>
-  <body>
-    <main class="product-detail-container">
-      <section class="product-detail">
-        <!-- 이미지 -->
-        <div class="product-image">
-          <img id="productImage" alt="상품 이미지" />
-        </div>
+        <link rel="stylesheet" href="/src/styles/reset.css" />
+        <link rel="stylesheet" href="/src/styles/common.css" />
+        <link rel="stylesheet" href="./detail.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <main class="product-detail-container">
+            <section class="product-detail">
+                <!-- 이미지 -->
+                <div class="product-image">
+                    <img id="productImage" alt="상품 이미지" />
+                </div>
 
-        <!-- 상품 정보 -->
-        <div class="product-info">
-          <span class="seller-name" id="sellerName"></span>
-          <h1 id="productName"></h1>
+                <!-- 상품 정보 -->
+                <div class="product-info">
+                    <span class="seller-name" id="sellerName"></span>
+                    <h1 id="productName"></h1>
 
-          <p class="price">
-            <strong id="productPrice"></strong><span>원</span>
-          </p>
+                    <p class="price"><strong id="productPrice"></strong><span>원</span></p>
 
-          <p class="shipping" id="shippingInfo"></p>
+                    <p class="shipping" id="shippingInfo"></p>
 
-          <div class="quantity-box">
-            <button id="minusBtn">-</button>
-            <span id="quantity">1</span>
-            <button id="plusBtn">+</button>
-          </div>
+                    <div class="quantity-box">
+                        <button id="minusBtn">-</button>
+                        <span id="quantity">1</span>
+                        <button id="plusBtn">+</button>
+                    </div>
 
-          <div class="total-box">
-            <span>총 상품 금액</span>
-            <strong>
-              <span id="totalQuantity">1</span>개 |
-              <span id="totalPrice"></span>원
-            </strong>
-          </div>
+                    <div class="total-box">
+                        <span>총 상품 금액</span>
+                        <strong> <span id="totalQuantity">1</span>개 | <span id="totalPrice"></span>원 </strong>
+                    </div>
 
-          <div class="action-buttons">
-            <button class="buy">바로 구매</button>
-            <button class="cart">장바구니</button>
-          </div>
-        </div>
-      </section>
+                    <div class="action-buttons">
+                        <button class="buy">바로 구매</button>
+                        <button class="cart">장바구니</button>
+                    </div>
+                </div>
+            </section>
 
-      <!-- 하단 탭 버튼 -->
-      <nav class="detail-tab">
-        <button class="tab active">버튼</button>
-        <button class="tab">리뷰</button>
-        <button class="tab">Q&amp;A</button>
-        <button class="tab">반품/교환정보</button>
-      </nav>
-    </main>
+            <!-- 하단 탭 버튼 -->
+            <nav class="detail-tab">
+                <button class="tab active">버튼</button>
+                <button class="tab">리뷰</button>
+                <button class="tab">Q&amp;A</button>
+                <button class="tab">반품/교환정보</button>
+            </nav>
+        </main>
 
-    <script type="module" src="./detail.js"></script>
-  </body>
+        <script type="module" src="./detail.js"></script>
+    </body>
 </html>
