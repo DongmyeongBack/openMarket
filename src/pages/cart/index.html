@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="./cart.css" />
+    <link rel="stylesheet" href="../../components/Modal/Modal.css" />
+  </head>
+  <body>
+    <main class="cart-container">
+      <h1 class="cart-title">장바구니</h1>
+
+      <section class="cart-list" id="cartList">
+        <!-- JS로 아이템 렌더링 -->
+      </section>
+
+      <section class="cart-summary">
+        <div>
+          <span>총 상품금액</span>
+          <strong id="totalPrice">0</strong>원
+        </div>
+        <button class="order-btn">주문하기</button>
+      </section>
+    </main>
+
+    <!-- 수량 변경 모달 -->
+    <div id="modal-root"></div>
+
+    <script type="module" src="./cart.js"></script>
+  </body>
+</html>
