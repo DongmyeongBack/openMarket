@@ -1,0 +1,96 @@
+/* Footer 전체 영역 */
+.footer {
+    width: 100%;
+    background-color: #f2f2f2; /* 배경색은 common 변수에 없으므로 유지 */
+    padding: 40px 0;
+    margin-top: auto;
+    /* font-family 삭제: common.css의 body 설정을 상속받음 */
+}
+
+/* 중앙 정렬을 위한 내부 컨테이너 */
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- 상단 영역 (메뉴 + SNS) --- */
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-dark); /* #333 -> var(--text-dark) */
+}
+
+.footer-nav li a {
+    text-decoration: none;
+    color: var(--text-dark); /* #333 -> var(--text-dark) */
+}
+
+/* '개인정보처리방침' 볼드 처리 */
+.footer-nav li a.bold {
+    font-weight: 700;
+}
+
+/* 메뉴 사이 세로선(|) */
+.footer-nav .divider {
+    margin: 0 10px;
+    /* #ccc -> var(--border-color) : 시스템 일관성을 위해 테두리 색상 변수 사용 */
+    color: var(--text-dark);
+    font-size: 12px;
+}
+
+/* SNS 아이콘 영역 */
+.footer-sns {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-sns a img {
+    width: 30px;
+    height: 30px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.footer-sns a img:hover {
+    opacity: 1;
+}
+
+/* --- 구분선 --- */
+.footer-line {
+    width: 100%;
+    height: 1px;
+    /* #ddd -> var(--border-color) : 미세한 차이지만 변수 사용 권장 */
+    background-color: var(--border-color);
+    margin-bottom: 20px;
+}
+
+/* --- 하단 정보 영역 --- */
+.footer-bottom {
+    color: var(--text-grey); /* #767676 -> var(--text-grey) */
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.company-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.company-info {
+    font-style: normal;
+}
