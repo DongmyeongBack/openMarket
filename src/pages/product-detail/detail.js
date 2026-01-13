@@ -1,5 +1,6 @@
 /* 1. api.js에서 request 함수 불러오기 */
 import { request } from "/src/utils/api.js";
+import { showLoginModal } from "/src/components/Modal/Modal.js";
 
 let product = null;
 let quantity = 1;
@@ -17,6 +18,9 @@ const totalPriceEl = document.getElementById("totalPrice");
 
 const plusBtn = document.getElementById("plusBtn");
 const minusBtn = document.getElementById("minusBtn");
+
+const buyBtn = document.querySelector(".buy"); // '바로 구매' 버튼
+const cartBtn = document.querySelector(".cart"); // '장바구니' 버튼
 
 /* URL에서 productId 가져오기 */
 const params = new URLSearchParams(location.search);
@@ -72,6 +76,31 @@ minusBtn.addEventListener("click", () => {
     if (quantity > 1) {
         quantity--;
         updateUI();
+    }
+});
+
+buyBtn.addEventListener("click", () => {
+    // 1. 로그인 상태 확인 (localStorage에 토큰이 있는지 확인)
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+        // 2. 로그인이 안 되어 있으면 모달 띄우기
+        showLoginModal();
+    } else {
+        // 3. 로그인 되어 있으면 구매 로직 실행 (예: 결제 페이지 이동 등)
+        console.log("구매 프로세스 진행");
+        // window.location.href = "/src/pages/order/index.html";
+    }
+});
+
+// (참고) '장바구니' 버튼도 동일한 로직이 필요할 수 있습니다.
+cartBtn.addEventListener("click", () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        showLoginModal();
+    } else {
+        console.log("장바구니 담기 API 호출");
+        // addCart(productId, quantity);
     }
 });
 

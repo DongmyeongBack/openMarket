@@ -1,5 +1,6 @@
 // src/components/Header/Header.js
 import "./Header.css";
+import { showLoginModal } from "../Modal/Modal.js";
 
 export default class Header {
     constructor($target) {
@@ -109,10 +110,7 @@ export default class Header {
                 if (this.token) {
                     window.location.href = "/src/pages/cart/index.html"; // 경로 수정 제안
                 } else {
-                    const confirmLogin = confirm("로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?");
-                    if (confirmLogin) {
-                        window.location.href = "/src/pages/login/index.html";
-                    }
+                    showLoginModal();
                 }
             });
         }

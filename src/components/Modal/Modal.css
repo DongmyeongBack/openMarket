@@ -1,95 +1,100 @@
-/* Modal.css */
+/* src/components/Modal/Modal.css */
 
-/* 모달 배경 (어두운 영역) */
+/* 1. 모달 배경 (어두운 영역) */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* 반투명 검정 */
+    width: 100vw; /* 100% -> 100vw로 변경하여 스크롤바 영역까지 커버 */
+    height: 100vh; /* 100% -> 100vh로 변경 */
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* 최상단 노출 */
+    z-index: 9999;
 }
 
-/* 모달 박스 */
+/* 2. 모달 박스 */
 .modal-box {
     position: relative;
-    width: 360px; /* 적절한 너비 설정 */
-    background-color: #ffffff;
-    border-radius: 10px; /* 둥근 모서리 */
-    padding: 40px 30px 30px; /* 상단 여백 확보 (X버튼 고려) */
-    text-align: center;
+    width: 360px;
+    background-color: var(--text-white); /* #ffffff */
+    border-radius: 12px; /* 이미지가 약간 더 둥글어 보여 10px -> 12px 조정 */
+    padding: 30px; /* 상단 여백을 늘려 텍스트가 시원하게 보이도록 조정 */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.2s ease-out;
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
 }
 
-/* 닫기 (X) 버튼 */
+/* 3. 닫기 (X) 버튼 */
 .modal-close-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 18px;
+    right: 18px;
     background: none;
     border: none;
+    width: 24px;
+    height: 24px;
     font-size: 24px;
-    color: #b0b0b0; /* 연한 회색 */
+    color: var(--border-color); /* #c4c4c4 - 이미지의 X가 연한 회색임 */
     cursor: pointer;
-    line-height: 1;
+    display: flex; /* X 문자 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-/* 텍스트 영역 */
+/* 4. 텍스트 영역 */
 .modal-text {
     font-size: 16px;
-    color: var(--text-dark); /* common.css 변수 */
-    line-height: 1.5;
+    color: var(--text-dark); /* #333333 */
     margin-bottom: 30px;
-    white-space: pre-line; /* 줄바꿈(\n) 적용 */
+    white-space: pre-line; /* \n 줄바꿈 적용 */
+    font-weight: 500; /* 텍스트가 너무 얇아 보이지 않게 조정 */
 }
 
-/* 버튼 컨테이너 */
+/* 5. 버튼 컨테이너 */
 .modal-actions {
     display: flex;
-    gap: 10px; /* 버튼 사이 간격 */
-    justify-content: center;
+    gap: 10px;
 }
 
-/* 공통 버튼 스타일 (상속 제거 및 초기화) */
+/* 6. 공통 버튼 스타일 */
 .modal-btn {
-    flex: 1; /* 1:1 비율 */
+    flex: 1;
     padding: 12px 0;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700; /* 버튼 텍스트 강조 */
     border-radius: 5px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background-color 0.2s;
 }
 
-/* '아니오' 버튼 */
+/* 7. '아니오' 버튼 */
 .btn-no {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color); /* common.css 변수 */
-    color: var(--text-grey);
+    background-color: var(--text-white);
+    border: 1px solid var(--border-color); /* #c4c4c4 */
+    color: var(--text-grey); /* #767676 */
 }
 
 .btn-no:hover {
-    background-color: #f9f9f9;
+    background-color: #f5f5f5; /* 아주 연한 회색 */
+    color: var(--text-dark); /* 호버 시 글자 조금 진하게 */
 }
 
-/* '예' 버튼 */
+/* 8. '예' 버튼 (메인 컬러 적용) */
 .btn-yes {
-    background-color: var(--main-color); /* common.css 변수 */
-    border: 1px solid var(--main-color);
-    color: #ffffff;
-    font-weight: 700;
+    background-color: var(--main-color); /* #21bf48 */
+    border: 1px solid var(--main-color); /* 테두리도 같은 색으로 */
+    color: var(--text-white); /* #ffffff */
 }
 
 .btn-yes:hover {
-    opacity: 0.9;
+    filter: brightness(0.95); /* 약간 어둡게 처리하여 클릭감 제공 */
 }
 
-/* 등장 애니메이션 */
+/* 애니메이션 */
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -1,5 +1,6 @@
 // src/components/Modal/Modal.js
 
+import "./Modal.css";
 /**
  * 로그인 요청 모달을 띄우는 함수
  * @returns {Promise<boolean>} '예' 클릭 시 true, '아니오/닫기' 클릭 시 false 반환 (비동기 처리가 필요할 경우 대비)
@@ -14,8 +15,7 @@ export function showLoginModal() {
             <div class="modal-box">
                 <button class="modal-close-btn" id="modalClose">&times;</button>
                 <p class="modal-text">
-                    로그인이 필요한 서비스입니다.<br>
-                    로그인 하시겠습니까?
+                    로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?
                 </p>
                 <div class="modal-actions">
                     <button class="modal-btn btn-no" id="modalNo">아니오</button>
