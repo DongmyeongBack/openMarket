@@ -106,6 +106,7 @@
 
 /* 빈 장바구니 스타일 */
 .empty-cart {
+    display: none;
   margin: 150px 0;
 }
 .empty-msg {
