@@ -1,5 +1,5 @@
 /* 1. api.js에서 request 함수 불러오기 */
-import { request } from "../../utils/api.js";
+import { request } from "/src/utils/api.js";
 
 let product = null;
 let quantity = 1;
