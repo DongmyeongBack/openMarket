@@ -1,92 +1,101 @@
-// src/pages/cart/cart.js
+// Header 컴포넌트 임포트 (파일 구조에 맞춤)
+// import { Header } from '../../components/Header/Header.js';
 
-import { showLoginModal } from "../../components/Modal/Modal.js";
-
-/**
- * [가정]
- * - 로그인 여부는 localStorage의 "accessToken" 존재 여부로 판단
- *   (프로젝트에서 사용하는 방식에 맞게 수정 가능)
- */
-function isLoggedIn() {
-  return !!localStorage.getItem("accessToken");
-}
-
-/**
- * 장바구니 더미 데이터
- * (실제 구현 시 localStorage 또는 API 데이터로 대체)
- */
+// 가상의 데이터 (이후 API fetch로 대체 가능)
 let cartItems = [
   {
     id: 1,
+    seller: "백엔드글로벌",
     name: "딥러닝 개발자 무릎 담요",
     price: 17500,
+    shipping: 0,
+    image: "../../assets/images/blanket.png",
     quantity: 1,
-    image: "/assets/images/product.png",
+  },
+  {
+    id: 2,
+    seller: "우당탕탕 라이캣의 실험실",
+    name: "Hack Your Life 개발자 노트북 파우치",
+    price: 29000,
+    shipping: 0,
+    image: "../../assets/images/pouch.png",
+    quantity: 1,
   },
 ];
 
-const cartList = document.getElementById("cartList");
-const totalPriceEl = document.getElementById("totalPrice");
-const orderBtn = document.querySelector(".order-btn");
+const cartListEl = document.getElementById("cart-list");
+const emptyCartEl = document.getElementById("empty-cart");
+const cartSummaryEl = document.getElementById("cart-summary");
+const btnOrderAll = document.querySelector(".btn-order-all");
 
-/**
- * 장바구니 렌더링
- */
+// 렌더링 함수
 function renderCart() {
-  cartList.innerHTML = "";
-
-  cartItems.forEach((item) => {
-    const cartItem = document.createElement("div");
-    cartItem.className = "cart-item";
-
-    cartItem.innerHTML = `
-      <div class="cart-item-info">
-        <img src="${item.image}" alt="${item.name}" />
-        <div>
-          <p class="cart-item-name">${item.name}</p>
-          <p class="cart-item-quantity">수량: ${item.quantity}</p>
-        </div>
-      </div>
-      <div class="cart-item-price">
-        ${(item.price * item.quantity).toLocaleString()}원
-      </div>
-    `;
-
-    cartList.appendChild(cartItem);
-  });
-
-  updateTotalPrice();
-}
-
-/**
- * 총 금액 계산
- */
-function updateTotalPrice() {
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  totalPriceEl.textContent = total.toLocaleString();
-}
-
-/**
- * 주문하기 버튼 클릭 이벤트
- */
-orderBtn.addEventListener("click", () => {
-  // 1️⃣ 로그인 여부 확인
-  if (!isLoggedIn()) {
-    // 로그인 안 되어 있으면 → 로그인 요청 모달 표시
-    showLoginModal();
+  if (cartItems.length === 0) {
+    cartListEl.style.display = "none";
+    cartSummaryEl.style.display = "none";
+    btnOrderAll.style.display = "none";
+    emptyCartEl.style.display = "block";
     return;
   }
 
-  // 2️⃣ 로그인 되어 있으면 → 주문 처리 (임시 처리)
-  alert("주문 페이지로 이동합니다.");
-  // 예시:
-  // window.location.href = "/src/pages/order/index.html";
+  cartListEl.innerHTML = cartItems
+    .map(
+      (item) => `
+        <li class="cart-item" data-id="${item.id}">
+            <input type="checkbox" class="checkbox" checked>
+            <img src="${item.image}" alt="${item.name}" class="product-img">
+            <div class="product-info">
+                <p class="seller-name">${item.seller}</p>
+                <p class="product-name">${item.name}</p>
+                <p class="product-price">${item.price.toLocaleString()}원</p>
+                <p class="shipping-info">택배배송 / 무료배송</p>
+            </div>
+            <div class="quantity-ctrl">
+                <button type="button" class="minus">-</button>
+                <span>${item.quantity}</span>
+                <button type="button" class="plus">+</button>
+            </div>
+            <div class="item-total">
+                <p class="item-total-price">${(
+                  item.price * item.quantity
+                ).toLocaleString()}원</p>
+                <button class="btn-order-single">주문하기</button>
+            </div>
+            <button class="btn-delete">×</button>
+        </li>
+    `
+    )
+    .join("");
+
+  updateSummary();
+}
+
+// 합계 계산 함수
+function updateSummary() {
+  const total = cartItems.reduce(
+    (acc, cur) => acc + cur.price * cur.quantity,
+    0
+  );
+  document.getElementById("total-price").textContent = total.toLocaleString();
+  document.getElementById("final-amount").textContent = total.toLocaleString();
+}
+
+// 이벤트 위임 (수량 조절 및 삭제)
+cartListEl.addEventListener("click", (e) => {
+  const id = parseInt(e.target.closest(".cart-item")?.dataset.id);
+  const item = cartItems.find((i) => i.id === id);
+
+  if (e.target.classList.contains("plus")) {
+    item.quantity++;
+    renderCart();
+  } else if (e.target.classList.contains("minus") && item.quantity > 1) {
+    item.quantity--;
+    renderCart();
+  } else if (e.target.classList.contains("btn-delete")) {
+    cartItems = cartItems.filter((i) => i.id !== id);
+    renderCart();
+  }
 });
 
-/**
- * 초기 실행
- */
+// 초기 실행
 renderCart();

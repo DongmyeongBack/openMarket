@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>장바구니</title>
-    <link rel="stylesheet" href="../../styles/reset.css" />
-    <link rel="stylesheet" href="../../styles/common.css" />
-    <link rel="stylesheet" href="./cart.css" />
-    <link rel="stylesheet" href="../../components/Modal/Modal.css" />
-  </head>
-  <body>
-    <main class="cart-container">
-      <h1 class="cart-title">장바구니</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HODU | 장바구니</title>
+    <link rel="stylesheet" href="../../styles/reset.css">
+    <link rel="stylesheet" href="../../styles/common.css">
+    <link rel="stylesheet" href="./cart.css">
+</head>
+<body>
+    <header id="header-container"></header>
 
-      <section class="cart-list" id="cartList">
-        <!-- JS로 아이템 렌더링 -->
-      </section>
-
-      <section class="cart-summary">
-        <div>
-          <span>총 상품금액</span>
-          <strong id="totalPrice">0</strong>원
+    <main class="cart-main">
+        <h1>장바구니</h1>
+        
+        <div class="cart-table-header">
+            <input type="checkbox" id="selectAll" class="checkbox">
+            <span>상품정보</span>
+            <span>수량</span>
+            <span>상품금액</span>
         </div>
-        <button class="order-btn">주문하기</button>
-      </section>
+
+        <ul id="cart-list" class="cart-list"></ul>
+
+        <div id="empty-cart" class="empty-cart" style="display: none;">
+            <p class="empty-msg">장바구니에 담긴 상품이 없습니다.</p>
+            <p class="empty-sub">원하는 상품을 장바구니에 담아보세요!</p>
+        </div>
+
+        <section id="cart-summary" class="cart-summary">
+            <div class="summary-item">
+                <span class="label">총 상품금액</span>
+                <span class="value"><strong id="total-price">0</strong>원</span>
+            </div>
+            <div class="summary-icon minus"></div>
+            <div class="summary-item">
+                <span class="label">상품 할인</span>
+                <span class="value"><strong id="total-discount">0</strong>원</span>
+            </div>
+            <div class="summary-icon plus"></div>
+            <div class="summary-item">
+                <span class="label">배송비</span>
+                <span class="value"><strong id="shipping-fee">0</strong>원</span>
+            </div>
+            <div class="summary-total">
+                <span class="label">결제 예정 금액</span>
+                <span class="value-total"><strong id="final-amount">0</strong>원</span>
+            </div>
+        </section>
+
+        <button type="button" class="btn-order-all">주문하기</button>
     </main>
 
-    <!-- 수량 변경 모달 -->
-    <div id="modal-root"></div>
-
     <script type="module" src="./cart.js"></script>
-  </body>
+</body>
 </html>
