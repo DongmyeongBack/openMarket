@@ -1,146 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko-KR">
+<html lang="ko">
   <head>
-        <link rel="stylesheet" href="/styles" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="./detail.css" />
+    <meta charset="UTF-8" />
+    <title>상품 상세</title>
 
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>상품 상세 페이지</title>
-    </head>
-
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="./detail.css" />
+  </head>
   <body>
-    <div class="product-detail-container">
+    <main class="product-detail-container">
       <section class="product-detail">
-        <h2 class="sr-only">제품상세설명</h2>
-        <section class="product-image">
-          <h3 class="sr-only">상품 이미지</h3>
-          <img
-            src="/public/images/product-detail-img.png"
-            alt="무릎 담요를 어깨에 두른 토끼"
-          />
-        </section>
-        <section class="product-info">
-          <h3 class="sr-only">상품 정보</h3>
-          <section class="product-unity">
-            <h4 class="sr-only">상품과 단가</h4>
-            <p class="seller">벡앤드글로벌</p>
-            <p class="product-name">딥러닝 개발자 무릎 담요</p>
-            <div class="price-row">
-              <p class="unit-price" data-unit-price="17500">17,500</p>
-            <p class="unit">원</p>
-            </div>
-            
-          </section>
-          <section class="total-calc">
-            <h4 class="sr-only">총구매액 계산</h4>
-            <p class="delivery-condition">택배배송/무료배송</p>
-            <section class="quantity-control">
-              <h5 class="sr-only">구매수량 조절</h5>
-              <button class="quantity-btn minus" aria-label="수량 감소">
-                −
-              </button>
+        <!-- 이미지 -->
+        <div class="product-image">
+          <img id="productImage" alt="상품 이미지" />
+        </div>
 
-              <span class="quantity-value" aria-live="polite">1</span>
+        <!-- 상품 정보 -->
+        <div class="product-info">
+          <span class="seller-name" id="sellerName"></span>
+          <h1 id="productName"></h1>
 
-              <button class="quantity-btn plus" aria-label="수량 증가">
-                +
-              </button>
-            </section>
+          <p class="price">
+            <strong id="productPrice"></strong><span>원</span>
+          </p>
+
+          <p class="shipping" id="shippingInfo"></p>
+
+          <div class="quantity-box">
+            <button id="minusBtn">-</button>
+            <span id="quantity">1</span>
+            <button id="plusBtn">+</button>
           </div>
 
-          <section class="price-details" aria-labelledby="price-details-title">
-            <h4 id="price-details-title" class="sr-only">가격 상세</h4>
+          <div class="total-box">
+            <span>총 상품 금액</span>
+            <strong>
+              <span id="totalQuantity">1</span>개 |
+              <span id="totalPrice"></span>원
+            </strong>
+          </div>
 
-            <p class="total-price-label">총 상품금액</p>
-            <section class="total-summary">
-             <p class="total-quantity">
-              총 수량
-              <span id="totalQuantity" class="quantity-count">1</span>개
-              <span class="separator">|</span>
-              </p>
-
-              <p class="final-price">
-              <span id="totalPrice" class="price-amount">17500</span>원
-              </p>
-            </section>            
-          </section>
-
-          <section class="btn-buy">
-            <h4 class="sr-only">구매 옵션</h4>
-            <button class="buy-now">바로 구매</button>
-            <button class="add-to-cart">장바구니에 추가</button>
-          </section>
-        </section>
+          <div class="action-buttons">
+            <button class="buy">바로 구매</button>
+            <button class="cart">장바구니</button>
+          </div>
+        </div>
       </section>
 
-      <section class="btn-product-contents">
-        <h3 class="sr-only">상품 관련 정보</h3>
+      <!-- 하단 탭 버튼 -->
+      <nav class="detail-tab">
+        <button class="tab active">버튼</button>
+        <button class="tab">리뷰</button>
+        <button class="tab">Q&amp;A</button>
+        <button class="tab">반품/교환정보</button>
+      </nav>
+    </main>
 
-        <button class="product-detail-description" aria-expanded="false">
-          상품 상세 설명
-        </button>
-        <section class="detail-content">
-          <h4 class="sr-only">제품상세 설명</h4>
-          <p class="detail-description">
-            가볍고 실용적인 딥러닝 개발자 무릎 담요. 데일리로 활용하기 좋은
-            아이템.
-          </p>
-          <ul class="features">
-            <li>소재: 고급 폴리에스테르</li>
-            <li>사이즈: 140cm x 140cm</li>
-            <li>색상: 블루, 레드, 화이트, 그레이</li>
-          </ul>
-        </section>
-
-        <button class="review">리뷰</button>
-        <section class="review-content">
-          <h4 class="sr-only">리뷰관리</h4>
-          <p class="review-empty">해당 상품의 작성된 리뷰가 없습니다.</p>
-          <button class="review-add-btn" aria-label="리뷰 작성">+</button>
-          <form class="review-form">
-            <textarea placeholder="리뷰를 작성해주세요"></textarea>
-            <button type="submit">등록</button>
-          </form>
-        </section>
-
-        <button class="Q&A">Q&A</button>
-        <section class="qna-content">
-          <h4 class="sr-only">Q&A관리</h4>
-          <p class="qna-empty">등록된 질문이 없습니다.</p>
-          <ul class="qna-list"></ul>
-          <button class="qna-add-btn" aria-label="질문 작성 버튼">+</button>
-          <form class="qna-form">
-            <input
-              type="text"
-              class="qna-question"
-              placeholder="질문을 입력해주세요"
-              required
-            />
-            <textarea
-              class="qna-answer"
-              placeholder="답변을 입력해주세요"
-            ></textarea>
-            <button type="submit">등록</button>
-          </form>
-        </section>
-
-        <button class="return-exchange">반품/교환정보</button>
-        <section class="policy-content">
-          <h4 class="sr-only">반품 / 교환 안내</h4>
-          <p>상품 수령 후 7일 이내에 반품 및 교환이 가능합니다.</p>
-          <p>
-            단, 고객의 부주의로 인한 상품 훼손, 사용 흔적이 있는 경우에는 반품
-            및 교환이 제한될 수 있습니다.
-          </p>
-          <p>
-            반품 및 교환을 원하실 경우 고객센터 또는 Q&A 게시판을 통해 먼저
-            문의해 주시기 바랍니다.
-          </p>
-        </section>
-      </section>
-    </div>
+    <script type="module" src="./detail.js"></script>
   </body>
 </html>
-
