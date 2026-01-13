@@ -66,7 +66,7 @@ loginForm.addEventListener("submit", async (e) => {
             body: JSON.stringify({
                 username: username,
                 password: password,
-                login_type: loginType, // [참고] API 명세에는 없었으나, 보통 구매자/판매자 구분을 위해 필요할 수 있습니다. 필요 없다면 이 줄을 지우세요.
+                // login_type: loginType, // [참고] API 명세에는 없었으나, 보통 구매자/판매자 구분을 위해 필요할 수 있습니다. 필요 없다면 이 줄을 지우세요.
             }),
         });
 
@@ -86,13 +86,13 @@ loginForm.addEventListener("submit", async (e) => {
         } 
         */
 
-        // 1. 토큰 및 유저 정보 저장 (로컬 스토리지)
+        // 1. 토큰 및 유저 정보 저장 (session 스토리지)
         sessionStorage.setItem("token", data.access);
         sessionStorage.setItem("userType", data.user.user_type);
         sessionStorage.setItem("username", data.user.username);
 
         // 2. 알림 및 페이지 이동
-        alert(`${loginType} 회원으로 로그인되었습니다.`);
+        alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);
 
         // 이전 페이지 기록 확인 후 이동
         if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
