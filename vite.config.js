@@ -16,6 +16,10 @@ export default defineConfig({
 
                 // 5. 상품 상세
                 productDetail: resolve(__dirname, "src/pages/product-detail/index.html"),
+
+                cart: resolve(__dirname, "src/pages/cart/index.html"),
+                // 판매자 센터 추가
+                seller: resolve(__dirname, "src/pages/seller/index.html"),
             },
         },
     },

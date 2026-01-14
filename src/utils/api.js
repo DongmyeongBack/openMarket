@@ -2,6 +2,17 @@
 const BASE_URL = "https://api.wenivops.co.kr/services/open-market";
 
 export const request = async (url, options = {}) => {
+    const token = localStorage.getItem("token");
+
+    const defaultHeaders = {
+        "Content-Type": "application/json",
+    };
+
+    // 토큰이 있으면 Authorization 헤더 자동 추가
+    if (token) {
+        defaultHeaders["Authorization"] = `JWT ${token}`;
+    }
+
     try {
         const response = await fetch(`${BASE_URL}${url}`, {
             ...options,
