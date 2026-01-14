@@ -76,7 +76,7 @@ loginForm.addEventListener("submit", async (e) => {
         localStorage.setItem("token", data.access);
         localStorage.setItem("userType", data.user.user_type);
         localStorage.setItem("username", data.user.username);
-
+        localStorage.setItem("name", data.user.name);
         // 2. 알림 및 페이지 이동
         alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);
 
