@@ -2,7 +2,6 @@
 import { request } from "/src/utils/api.js";
 
 // DOM 요소 선택
-const form = document.getElementById("signupForm");
 const inputs = {
     username: document.getElementById("username"),
     checkIdBtn: document.getElementById("checkIdBtn"),
@@ -12,10 +11,12 @@ const inputs = {
     phonePrefix: document.getElementById("phonePrefix"),
     phoneMiddle: document.getElementById("phoneMiddle"),
     phoneLast: document.getElementById("phoneLast"),
+    // 판매자 전용
     businessNo: document.getElementById("businessNo"),
     checkBusinessBtn: document.getElementById("checkBusinessBtn"),
     storeName: document.getElementById("storeName"),
 };
+
 const agreeTerms = document.getElementById("agreeTerms");
 const submitBtn = document.getElementById("submitBtn");
 const sellerFields = document.getElementById("sellerFields");
@@ -23,32 +24,32 @@ const tabBtns = document.querySelectorAll(".tab-btn");
 
 let currentType = "BUYER";
 
-// 유효성 검사 상태 관리 객체
+// 유효성 검사 상태 관리
 const state = {
     username: false,
-    usernameChecked: false, // 중복확인 버튼 클릭 여부
+    usernameChecked: false,
     password: false,
     passwordConfirm: false,
     name: false,
     phone: false,
-    // [추가] 판매자 전용 상태
-    businessNo: false, // 사업자번호 유효성 (숫자만 등)
-    businessChecked: false, // 사업자번호 인증 버튼 클릭 여부
+    // 판매자 전용 상태
+    businessNo: false,
+    businessChecked: false,
     storeName: false,
 };
 
-/* --- [추가] 탭 전환 로직 --- */
+/* --- 탭 전환 로직 --- */
 tabBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-        const type = e.target.dataset.type; // 'buyer' or 'seller'
+        const type = e.target.dataset.type;
         switchTab(type);
     });
 });
 
 function switchTab(type) {
-    currentType = type.toUpperCase(); // "BUYER" or "SELLER"
+    currentType = type.toUpperCase();
 
-    // 1. 탭 버튼 스타일 변경
+    // 1. 탭 스타일 변경
     tabBtns.forEach((btn) => {
         if (btn.dataset.type === type) {
             btn.classList.add("active");
@@ -57,60 +58,52 @@ function switchTab(type) {
         }
     });
 
-    // 2. 판매자 필드 표시/숨김
+    // 2. 판매자 필드 토글
     if (currentType === "SELLER") {
         sellerFields.classList.remove("hidden");
     } else {
         sellerFields.classList.add("hidden");
-        // 구매자로 돌아가면 판매자 필드 에러 초기화
+        // 구매자로 돌아가면 판매자 에러 초기화
         clearError(inputs.businessNo);
         clearError(inputs.storeName);
     }
 
-    // 3. 유효성 재검사 (버튼 활성화를 위해)
+    // 3. 유효성 재검사
     checkAllValid();
 }
 
-// 헬퍼 함수: 에러 메시지 표시
+/* --- 헬퍼 함수들 (에러 표시/숨김) --- */
 function showError(input, message) {
     const parent = input.closest(".input-group") || input.parentElement;
     let errorMsg = parent.querySelector(".error-msg");
-
     if (!errorMsg) {
         errorMsg = document.createElement("p");
         errorMsg.className = "error-msg";
         parent.appendChild(errorMsg);
     }
-
     input.classList.add("error");
     errorMsg.textContent = message;
-    errorMsg.classList.remove("hidden");
+    errorMsg.classList.remove("hidden", "success");
     errorMsg.classList.add("show");
-    errorMsg.classList.remove("success");
 }
 
 function showSuccess(input, message) {
     const parent = input.closest(".input-group") || input.parentElement;
     let errorMsg = parent.querySelector(".error-msg");
-
     if (!errorMsg) {
         errorMsg = document.createElement("p");
-        errorMsg.className = "error-msg error-message";
+        errorMsg.className = "error-msg";
         parent.appendChild(errorMsg);
     }
-
     input.classList.remove("error");
     errorMsg.textContent = message;
     errorMsg.classList.remove("hidden");
-    errorMsg.classList.add("show");
     errorMsg.classList.add("show", "success");
 }
 
-// 헬퍼 함수: 에러 메시지 숨김
 function clearError(input) {
     const parent = input.closest(".input-group") || input.parentElement;
     const errorMsg = parent.querySelector(".error-msg");
-
     input.classList.remove("error");
     if (errorMsg) {
         errorMsg.classList.add("hidden");
@@ -119,29 +112,20 @@ function clearError(input) {
     }
 }
 
-// 헬퍼 함수: 클래스 토글 (CSS 배경이미지 교체용)
 function toggleValidIcon(input, isValid) {
     const wrapper = input.closest(".input-wrapper");
     if (wrapper) {
-        if (isValid) {
-            wrapper.classList.add("valid"); // -> icon-check-on.svg 보임
-        } else {
-            wrapper.classList.remove("valid"); // -> icon-check-off.svg 보임
-        }
+        isValid ? wrapper.classList.add("valid") : wrapper.classList.remove("valid");
     }
 }
 
-// 1. 순차 입력 강제 (Focus 이벤트 리스너)
+/* --- 기본 필드 이벤트 리스너 --- */
+// 1. 순차 입력 유도
 const inputOrder = ["username", "password", "passwordConfirm", "name", "phoneMiddle"];
-
 inputOrder.forEach((key, index) => {
     if (index === 0) return;
-
-    const currentInput = inputs[key];
-    currentInput.addEventListener("focus", () => {
-        const prevKey = inputOrder[index - 1];
-        const prevInput = inputs[prevKey];
-
+    inputs[key].addEventListener("focus", () => {
+        const prevInput = inputs[inputOrder[index - 1]];
         if (!prevInput.value.trim()) {
             showError(prevInput, "필수 정보입니다.");
             prevInput.focus();
@@ -149,21 +133,22 @@ inputOrder.forEach((key, index) => {
     });
 });
 
-// 2. 아이디 유효성 검사 및 중복확인
-inputs.username.addEventListener("blur", () => {
-    validateUsernameFormat();
+// 2. 아이디 검사
+inputs.username.addEventListener("blur", validateUsernameFormat);
+inputs.username.addEventListener("input", () => {
+    state.usernameChecked = false;
+    state.username = false;
+    clearError(inputs.username);
+    checkAllValid();
 });
 
 inputs.checkIdBtn.addEventListener("click", async () => {
-    if (validateUsernameFormat()) {
-        await checkIdDuplicate();
-    }
+    if (validateUsernameFormat()) await checkIdDuplicate();
 });
 
 function validateUsernameFormat() {
     const value = inputs.username.value.trim();
     const regex = /^[A-Za-z0-9]+$/;
-
     if (!value) {
         showError(inputs.username, "필수 정보입니다.");
         state.username = false;
@@ -174,107 +159,75 @@ function validateUsernameFormat() {
         state.username = false;
         return false;
     }
-
     clearError(inputs.username);
     return true;
 }
 
 async function checkIdDuplicate() {
     const username = inputs.username.value.trim();
-
     try {
-        const result = await request("/accounts/validate-username/", {
+        await request("/accounts/validate-username/", {
             method: "POST",
             body: JSON.stringify({ username }),
         });
-
         showSuccess(inputs.username, "멋진 아이디네요 :)");
-
         state.username = true;
         state.usernameChecked = true;
     } catch (error) {
-        console.error("ID Check Error:", error);
-
-        // 1. 서버가 보내준 상세 에러 메시지 추출
-        let errorMessage = "아이디 확인 중 오류가 발생했습니다.";
-
+        let msg = "이미 사용 중인 아이디입니다.";
         if (error.data) {
-            // 서버 응답 구조에 따라 메시지 추출 (FAIL_Message 또는 필드 에러)
-            errorMessage =
-                error.data.FAIL_Message ||
-                (error.data.username && error.data.username[0]) ||
-                "이미 사용 중인 아이디입니다.";
+            msg = error.data.FAIL_Message || (error.data.username && error.data.username[0]) || msg;
         }
-
-        // 2. 화면에 에러 표시
-        showError(inputs.username, errorMessage);
-
+        showError(inputs.username, msg);
         state.username = false;
         state.usernameChecked = false;
-        inputs.username.focus();
     }
-
     checkAllValid();
 }
 
-inputs.username.addEventListener("input", () => {
-    state.usernameChecked = false;
-    state.username = false;
-    clearError(inputs.username);
-    checkAllValid();
-});
-
-// 3. 비밀번호 유효성 검사
+// 3. 비밀번호 검사
 inputs.password.addEventListener("input", validatePassword);
 inputs.password.addEventListener("blur", validatePassword);
 
 function validatePassword() {
     const value = inputs.password.value;
-    const hasLetter = /[a-z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-
     if (!value) {
         showError(inputs.password, "필수 정보입니다.");
         toggleValidIcon(inputs.password, false);
         return;
     }
-
     if (value.length < 8) {
-        toggleValidIcon(inputs.password, false);
         showError(inputs.password, "비밀번호는 8자 이상이어야 합니다.");
-        state.password = false;
-    } else if (!hasLetter) {
         toggleValidIcon(inputs.password, false);
+        state.password = false;
+    } else if (!/[a-z]/.test(value)) {
         showError(inputs.password, "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.");
-        state.password = false;
-    } else if (!hasNumber) {
         toggleValidIcon(inputs.password, false);
+        state.password = false;
+    } else if (!/[0-9]/.test(value)) {
         showError(inputs.password, "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.");
+        toggleValidIcon(inputs.password, false);
         state.password = false;
     } else {
-        toggleValidIcon(inputs.password, true);
         clearError(inputs.password);
+        toggleValidIcon(inputs.password, true);
         state.password = true;
     }
-
     if (inputs.passwordConfirm.value) validatePasswordConfirm();
     checkAllValid();
 }
 
-// 4. 비밀번호 재확인
+// 4. 비밀번호 확인
 inputs.passwordConfirm.addEventListener("input", validatePasswordConfirm);
-
 function validatePasswordConfirm() {
-    const pw = inputs.password.value;
-    const pwConfirm = inputs.passwordConfirm.value;
-
-    if (pw !== pwConfirm) {
+    if (inputs.password.value !== inputs.passwordConfirm.value) {
         showError(inputs.passwordConfirm, "비밀번호가 일치하지 않습니다.");
+        toggleValidIcon(inputs.passwordConfirm, false);
         state.passwordConfirm = false;
     } else {
         clearError(inputs.passwordConfirm);
-        state.passwordConfirm = true;
         toggleValidIcon(inputs.passwordConfirm, true);
+        state.passwordConfirm = true;
     }
     checkAllValid();
 }
@@ -302,13 +255,8 @@ inputs.name.addEventListener("input", () => {
         validatePhone();
     });
 });
-
 function validatePhone() {
-    const p1 = inputs.phonePrefix.value;
-    const p2 = inputs.phoneMiddle.value;
-    const p3 = inputs.phoneLast.value;
-
-    if (p2.length >= 3 && p3.length === 4) {
+    if (inputs.phoneMiddle.value.length >= 3 && inputs.phoneLast.value.length === 4) {
         clearError(inputs.phoneMiddle);
         state.phone = true;
     } else {
@@ -317,44 +265,66 @@ function validatePhone() {
     checkAllValid();
 }
 
-// 7. 약관 동의 체크
+// 7. 약관 동의
 agreeTerms.addEventListener("change", checkAllValid);
 
-// 1. 사업자 등록번호 (숫자만 입력)
+/* --- 판매자 전용 이벤트 (수정됨) --- */
+
+// 8. 사업자 등록번호 (숫자 입력 제한)
 inputs.businessNo.addEventListener("input", (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, ""); // 숫자만
-    state.businessChecked = false; // 수정하면 인증 다시 받아야 함
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    state.businessChecked = false; // 수정 시 재인증 필요
     state.businessNo = false;
+
+    clearError(inputs.businessNo);
     checkAllValid();
 });
 
-// 2. 사업자 번호 인증 버튼 (로직은 아이디 중복확인과 비슷하게 구현)
+// 9. 사업자 번호 인증 버튼 (API 연동 추가)
 inputs.checkBusinessBtn.addEventListener("click", async () => {
     const businessNo = inputs.businessNo.value.trim();
 
-    if (!businessNo || businessNo.length !== 10) {
-        // 보통 사업자번호는 10자리
-        showError(inputs.businessNo, "유효한 사업자 등록번호를 입력해주세요 (10자리).");
+    // 1차 클라이언트 체크 (입력 여부만)
+    if (!businessNo) {
+        showError(inputs.businessNo, "사업자 등록번호를 입력해주세요.");
+        state.businessNo = false;
+        state.businessChecked = false;
+        checkAllValid();
         return;
     }
 
     try {
-        // [API] 실제 사업자 인증 API가 있다면 여기서 호출
-        // const result = await request("/accounts/validate-company-registration-number/", ...);
+        const result = await request("/accounts/seller/validate-registration-number/", {
+            method: "POST",
+            body: JSON.stringify({ company_registration_number: businessNo }),
+        });
 
-        // 데모용 성공 처리
-        showSuccess(inputs.businessNo, "인증되었습니다.");
+        // 성공 (200)
+        showSuccess(inputs.businessNo, result.message || "사용 가능한 사업자등록번호입니다.");
         state.businessNo = true;
         state.businessChecked = true;
     } catch (error) {
-        showError(inputs.businessNo, "이미 가입된 사업자 번호이거나 유효하지 않습니다.");
+        console.error("Business No Check Error:", error);
+
+        // 에러 메시지 추출
+        // API가 { "error": "메시지" } 형태로 반환함
+        let errorMsg = "사업자 번호 확인 중 오류가 발생했습니다.";
+
+        if (error.data && error.data.error) {
+            errorMsg = error.data.error;
+        } else if (error.message) {
+            errorMsg = error.message;
+        }
+
+        showError(inputs.businessNo, errorMsg);
         state.businessNo = false;
         state.businessChecked = false;
     }
+
     checkAllValid();
 });
 
-// 3. 스토어 이름
+// 10. 스토어 이름
 inputs.storeName.addEventListener("blur", () => {
     if (!inputs.storeName.value.trim()) {
         showError(inputs.storeName, "필수 정보입니다.");
@@ -370,7 +340,7 @@ inputs.storeName.addEventListener("input", () => {
     checkAllValid();
 });
 
-// 8. 전체 유효성 검사 및 버튼 활성화
+/* --- 전체 유효성 검사 --- */
 function checkAllValid() {
     let isAllValid =
         state.username &&
@@ -380,9 +350,11 @@ function checkAllValid() {
         state.name &&
         state.phone &&
         agreeTerms.checked;
+
     if (currentType === "SELLER") {
         isAllValid = isAllValid && state.businessChecked && state.storeName;
     }
+
     if (isAllValid) {
         submitBtn.disabled = false;
         submitBtn.classList.add("active");
@@ -392,25 +364,29 @@ function checkAllValid() {
     }
 }
 
-// 9. 회원가입 제출 (Submit) 부분 수정
+/* --- 회원가입 제출 (API 연동) --- */
 submitBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    // 1. 공통 데이터 구성
     const formData = {
         username: inputs.username.value,
         password: inputs.password.value,
         name: inputs.name.value,
         phone_number: `${inputs.phonePrefix.value}${inputs.phoneMiddle.value}${inputs.phoneLast.value}`,
-        user_type: document.querySelector(".tab-btn.active").dataset.type.toUpperCase(),
     };
-    let apiUrl = "/accounts/buyer/signup/"; // 기본 API 주소
 
-    // 판매자일 경우 데이터 및 URL 변경
+    let apiUrl = "/accounts/buyer/signup/";
+
+    // 2. 판매자일 경우 데이터 추가 및 URL 변경
     if (currentType === "SELLER") {
+        apiUrl = "/accounts/seller/signup/";
         formData.company_registration_number = inputs.businessNo.value;
         formData.store_name = inputs.storeName.value;
-        apiUrl = "/accounts/seller/signup/"; // 판매자용 엔드포인트
+    } else {
+        formData.user_type = "BUYER";
     }
+
     try {
         await request(apiUrl, {
             method: "POST",
@@ -422,28 +398,26 @@ submitBtn.addEventListener("click", async (e) => {
     } catch (error) {
         console.error("Signup Error:", error);
 
-        // 서버에서 상세 에러 데이터(error.data)가 넘어온 경우
         if (error.data) {
             const errorData = error.data;
-
-            // 각 필드별로 에러 메시지 표시
             for (const key in errorData) {
-                const message = errorData[key][0]; // 첫 번째 에러 메시지 추출
+                const message = errorData[key][0];
 
                 if (key === "company_registration_number") {
                     showError(inputs.businessNo, message);
+                    state.businessChecked = false;
                 } else if (key === "store_name") {
                     showError(inputs.storeName, message);
-                } else if (inputs[key]) {
-                    showError(inputs[key], message);
                 } else if (key === "phone_number") {
                     showError(inputs.phoneMiddle, message);
+                } else if (inputs[key]) {
+                    showError(inputs[key], message);
                 } else {
                     alert(message);
                 }
             }
+            checkAllValid();
         } else {
-            // 통신 장애 등 일반 에러
             alert(error.message || "회원가입 중 오류가 발생했습니다.");
         }
     }
