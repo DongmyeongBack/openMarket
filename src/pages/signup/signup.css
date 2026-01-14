@@ -76,6 +76,37 @@ select:focus {
     outline: 1px solid var(--main-color); /* 변수 적용 */
 }
 
+/* input을 감싸는 래퍼 (기준점) */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* 1. 기본 상태: 회색 체크 아이콘 (icon-check-off.svg) */
+.input-wrapper input {
+    width: 100%;
+    padding: 15px;
+    padding-right: 45px; /* 아이콘 공간 확보 */
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    /* 배경 이미지 설정 */
+    background-image: url("/src/assets/images/icon-check-off.svg"); /* 경로 확인 필요 */
+    background-repeat: no-repeat;
+    background-position: center right 15px; /* 우측 15px 지점에 배치 */
+    background-size: 24px 24px; /* 아이콘 크기 */
+
+    transition: all 0.2s; /* 부드러운 전환 효과 */
+}
+
+/* 2. 유효성 통과 상태: 초록색 체크 아이콘 (icon-check-on.svg) */
+/* JS에서 .input-wrapper에 'valid' 클래스를 붙여주면 작동합니다 */
+.input-wrapper.valid input {
+    background-image: url("/src/assets/images/icon-check-on.svg"); /* 경로 확인 필요 */
+    border-color: var(--main-color); /* 테두리도 초록색으로 변경 (선택사항) */
+}
+
 /* 아이디 중복확인 버튼 레이아웃 */
 .input-row {
     display: flex;

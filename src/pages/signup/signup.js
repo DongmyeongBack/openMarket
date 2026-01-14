@@ -74,6 +74,18 @@ function clearError(input) {
     }
 }
 
+// 헬퍼 함수: 클래스 토글 (CSS 배경이미지 교체용)
+function toggleValidIcon(input, isValid) {
+    const wrapper = input.closest(".input-wrapper");
+    if (wrapper) {
+        if (isValid) {
+            wrapper.classList.add("valid"); // -> icon-check-on.svg 보임
+        } else {
+            wrapper.classList.remove("valid"); // -> icon-check-off.svg 보임
+        }
+    }
+}
+
 // 1. 순차 입력 강제 (Focus 이벤트 리스너)
 const inputOrder = ["username", "password", "passwordConfirm", "name", "phoneMiddle"];
 
@@ -176,18 +188,26 @@ function validatePassword() {
     const hasLetter = /[a-z]/.test(value);
     const hasNumber = /[0-9]/.test(value);
 
-    if (!value) return;
+    if (!value) {
+        showError(inputs.password, "필수 정보입니다.");
+        toggleValidIcon(inputs.password, false);
+        return;
+    }
 
     if (value.length < 8) {
+        toggleValidIcon(inputs.password, false);
         showError(inputs.password, "비밀번호는 8자 이상이어야 합니다.");
         state.password = false;
     } else if (!hasLetter) {
+        toggleValidIcon(inputs.password, false);
         showError(inputs.password, "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.");
         state.password = false;
     } else if (!hasNumber) {
+        toggleValidIcon(inputs.password, false);
         showError(inputs.password, "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.");
         state.password = false;
     } else {
+        toggleValidIcon(inputs.password, true);
         clearError(inputs.password);
         state.password = true;
     }
@@ -209,6 +229,7 @@ function validatePasswordConfirm() {
     } else {
         clearError(inputs.passwordConfirm);
         state.passwordConfirm = true;
+        toggleValidIcon(inputs.passwordConfirm, true);
     }
     checkAllValid();
 }
