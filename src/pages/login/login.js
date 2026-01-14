@@ -73,9 +73,9 @@ loginForm.addEventListener("submit", async (e) => {
         // api.js에서 에러가 발생하면 throw 하므로, 여기까지 코드가 도달했다면 성공입니다.
 
         // 위 코드를 기존 로직(기존 코드의 data 구조)에 맞춰 복원하면 다음과 같습니다:
-        sessionStorage.setItem("token", data.access);
-        sessionStorage.setItem("userType", data.user.user_type);
-        sessionStorage.setItem("username", data.user.username);
+        localStorage.setItem("token", data.access);
+        localStorage.setItem("userType", data.user.user_type);
+        localStorage.setItem("username", data.user.username);
 
         // 2. 알림 및 페이지 이동
         alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);

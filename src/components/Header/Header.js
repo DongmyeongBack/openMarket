@@ -5,9 +5,9 @@ import { showLoginModal } from "../Modal/Modal.js";
 export default class Header {
     constructor($target) {
         this.$target = $target;
-        // [수정] 생성자에서 sessionStorage를 읽으므로, 로그아웃도 sessionStorage를 사용해야 함
-        this.token = sessionStorage.getItem("token");
-        this.userType = sessionStorage.getItem("user_type"); // 'BUYER' or 'SELLER'
+        // [수정] 생성자에서 localStorage를 읽으므로, 로그아웃도 localStorage를 사용해야 함
+        this.token = localStorage.getItem("token");
+        this.userType = localStorage.getItem("user_type"); // 'BUYER' or 'SELLER'
 
         this.render();
         this.setEvent();
@@ -134,7 +134,7 @@ export default class Header {
         // 3. 로그아웃 로직
         if (logoutBtn) {
             logoutBtn.addEventListener("click", () => {
-                sessionStorage.clear();
+                localStorage.clear();
                 alert("로그아웃 되었습니다.");
                 window.location.href = "/";
             });
