@@ -57,7 +57,7 @@ const fetchSellerProducts = async () => {
         // 2. API 호출
         // API Spec: GET /<str:seller_name>/products/
         const data = await request(`/${accountName}/products/`);
-
+        console.log(data);
         // 3. 데이터 렌더링
         const products = data.results;
         const totalCount = data.count || products.length;
