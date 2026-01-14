@@ -5,9 +5,8 @@ import { showLoginModal } from "../Modal/Modal.js";
 export default class Header {
     constructor($target) {
         this.$target = $target;
-        // [수정] 생성자에서 localStorage를 읽으므로, 로그아웃도 localStorage를 사용해야 함
         this.token = localStorage.getItem("token");
-        this.userType = localStorage.getItem("user_type"); // 'BUYER' or 'SELLER'
+        this.userType = localStorage.getItem("userType"); // 'BUYER' or 'SELLER'
 
         this.render();
         this.setEvent();
@@ -50,35 +49,41 @@ export default class Header {
                 </a>
             `;
         } else if (this.userType === "SELLER") {
-            // [판매자 로그인 상태]
+            // [📌 판매자 로그인 상태 수정]
+            // button과 dropdown을 .my-page-wrapper로 감싸서 위치 기준을 잡아줍니다.
             navItemsHtml = `
-                <button id="my-page-btn" class="nav-btn">
-                    <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
-                    <span>마이페이지</span>
-                </button>
+                <div class="my-page-wrapper">
+                    <button id="my-page-btn" class="nav-btn">
+                        <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
+                        <span>마이페이지</span>
+                    </button>
+                    <div class="my-page-dropdown" id="dropdown-menu">
+                        <button class="dropdown-item">마이페이지</button>
+                        <button class="dropdown-item" id="logout-btn">로그아웃</button>
+                    </div>
+                </div>
                 <a href="/src/pages/seller-center/index.html" class="btn-seller-center">
                     <img src="/src/assets/images/icon-shopping-bag.svg" alt="쇼핑백">
                     판매자 센터
                 </a>
-                <div class="my-page-dropdown" id="dropdown-menu">
-                    <button class="dropdown-item">마이페이지</button>
-                    <button class="dropdown-item" id="logout-btn">로그아웃</button>
-                </div>
             `;
         } else {
-            // [구매자 로그인 상태]
+            // [📌 구매자 로그인 상태 수정]
+            // 구매자도 동일하게 감싸주어야 구조가 통일됩니다.
             navItemsHtml = `
                 <button id="cart-btn" class="nav-btn">
                     <img src="/src/assets/images/icon-shopping-cart.svg" alt="장바구니">
                     <span>장바구니</span>
                 </button>
-                <button id="my-page-btn" class="nav-btn">
-                    <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
-                    <span>마이페이지</span>
-                </button>
-                <div class="my-page-dropdown" id="dropdown-menu">
-                    <button class="dropdown-item">마이페이지</button>
-                    <button class="dropdown-item" id="logout-btn">로그아웃</button>
+                <div class="my-page-wrapper">
+                    <button id="my-page-btn" class="nav-btn">
+                        <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
+                        <span>마이페이지</span>
+                    </button>
+                    <div class="my-page-dropdown" id="dropdown-menu">
+                        <button class="dropdown-item">마이페이지</button>
+                        <button class="dropdown-item" id="logout-btn">로그아웃</button>
+                    </div>
                 </div>
             `;
         }
@@ -108,15 +113,15 @@ export default class Header {
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
                 if (this.token) {
-                    window.location.href = "/src/pages/cart/index.html"; // 경로 수정 제안
+                    window.location.href = "/src/pages/cart/index.html";
                 } else {
                     showLoginModal();
                 }
             });
         }
 
-        // 2. 마이페이지 버튼 (드롭다운 토글)
-        if (myPageBtn) {
+        // 2. 마이페이지 버튼 (드롭다운 토글) - 판매자일 때는 버튼이 없으므로 실행되지 않음
+        if (myPageBtn && dropdown) {
             myPageBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 dropdown.classList.toggle("active");
@@ -131,7 +136,7 @@ export default class Header {
             });
         }
 
-        // 3. 로그아웃 로직
+        // 3. 로그아웃 로직 (판매자, 구매자 공통 사용)
         if (logoutBtn) {
             logoutBtn.addEventListener("click", () => {
                 localStorage.clear();

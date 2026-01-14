@@ -111,16 +111,29 @@ header {
 }
 
 /* --- Dropdown (My Page) --- */
+.my-page-wrapper {
+    position: relative; /* 자식 요소(드롭다운)의 위치 기준점 */
+    display: flex;
+    align-items: center;
+}
+
+/* [📌 수정] 드롭다운 스타일 */
 .my-page-dropdown {
     position: absolute;
-    top: 65px; /* 버튼 아래 */
-    right: 0;
+    /* top을 버튼 높이만큼 내려줍니다 (약 60px~70px) */
+    top: 70px;
+
+    /* 가로 중앙 정렬 */
+    left: 50%;
+    transform: translateX(-50%);
+    /* 기존 right: 0 제거 */
+
     width: 130px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
     padding: 10px;
-    display: none; /* 기본 숨김 */
+    display: none;
     flex-direction: column;
     gap: 8px;
     z-index: 101;
@@ -130,19 +143,22 @@ header {
     display: flex;
 }
 
-/* 말풍선 꼬리 (삼각형) */
+/* [📌 수정] 말풍선 꼬리 (삼각형) 위치 조정 */
 .my-page-dropdown::before {
     content: "";
     position: absolute;
     top: -8px;
-    right: 20px; /* 마이페이지 아이콘 위치에 맞춰 조정 */
+
+    /* 꼬리도 중앙으로 이동 */
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    /* 기존 right 값 제거 */
+
     width: 16px;
     height: 16px;
     background: #fff;
-    transform: rotate(45deg);
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* 그림자 효과 미세 조정 필요 */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-item {
