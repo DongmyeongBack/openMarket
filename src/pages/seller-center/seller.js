@@ -120,8 +120,7 @@ const attachEventListeners = () => {
 // 업로드 버튼 이벤트
 uploadBtn.addEventListener("click", () => {
     // 상품 등록 페이지로 이동 (예: 모달 띄우기 or 페이지 이동)
-    // window.location.href = "../product-upload/index.html";
-    alert("상품 업로드 기능을 구현하세요!");
+    window.location.href = "./product-upload/index.html";
 });
 
 // 초기화

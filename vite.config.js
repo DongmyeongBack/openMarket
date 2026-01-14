@@ -1,25 +1,31 @@
 import { defineConfig } from "vite";
-import { resolve } from "path"; // path 모듈 불러오기
+import { resolve } from "path";
 
 export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                // 1. 메인 페이지 (프로젝트 루트의 index.html)
+                // 1. 메인 페이지
                 main: resolve(__dirname, "index.html"),
 
                 // 2. 로그인 페이지
                 login: resolve(__dirname, "src/pages/login/index.html"),
 
-                // 3. 회원가입 페이지 (여기가 중요!)
+                // 3. 회원가입 페이지
                 signup: resolve(__dirname, "src/pages/signup/index.html"),
 
-                // 5. 상품 상세
+                // 4. 상품 상세
                 productDetail: resolve(__dirname, "src/pages/product-detail/index.html"),
 
+                // 5. 장바구니
                 cart: resolve(__dirname, "src/pages/cart/index.html"),
-                // 판매자 센터 추가
-                seller: resolve(__dirname, "src/pages/seller/index.html"),
+
+                // 6. 판매자 센터 (폴더명이 seller-center인 경우)
+                // *주의: 만약 폴더명이 'seller'라면 "src/pages/seller/index.html"로 유지하세요.
+                sellerCenter: resolve(__dirname, "src/pages/seller-center/index.html"),
+
+                // 7. [추가됨] 상품 등록 페이지
+                productUpload: resolve(__dirname, "src/pages/seller-center/product-upload/index.html"),
             },
         },
     },
