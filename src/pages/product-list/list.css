@@ -15,37 +15,72 @@
     margin-bottom: 80px;
     position: relative;
 }
+/* ... 기존 스타일 유지 ... */
 
 .banner-container {
     width: 100%;
     height: 100%;
     position: relative;
-    max-width: 1920px;
+    max-width: 1280px;
     margin: 0 auto;
+    overflow: hidden; /* [중요] 슬라이드 영역 밖의 이미지는 숨김 */
 }
 
+/* 슬라이드 트랙 (이미지들이 가로로 나열됨) */
+.banner-slide {
+    display: flex; /* 가로 배치 */
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out; /* 부드러운 슬라이드 애니메이션 */
+}
+
+/* 배너 이미지 개별 스타일 */
+.banner-img {
+    width: 100%; /* 컨테이너 너비에 꽉 차게 */
+    object-fit: cover; /* 비율 유지하며 꽉 채우기 */
+    flex-shrink: 0; /* 공간이 부족해도 줄어들지 않음 */
+}
 /* 화살표 버튼 공통 스타일 */
 .banner-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+
+    /* [수정] 배경색을 흰색으로 변경 (약간 투명하게 하려면 rgba(255,255,255,0.9) 사용) */
+    background-color: #ffffff;
+    /* [추가] 동그란 원형으로 만들기 */
+    border-radius: 50%;
+    /* [추가] 원형을 만들기 위한 고정 너비/높이 설정 */
+    width: 60px;
+    height: 60px;
+    /* [추가] 흰색 원이 더 잘 보이도록 그림자 추가 (선택사항) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     border: none;
     cursor: pointer;
-    padding: 0; /* 이미지 자체 크기를 사용할 것이므로 패딩 제거 */
+    padding: 0;
     z-index: 10;
 
-    /* 버튼 내 이미지 중앙 정렬 */
+    /* 버튼 내 이미지 중앙 정렬 (기존 유지) */
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* 클릭 시 부드러운 색상 변경 효과 (선택사항) */
+    transition: background-color 0.3s;
 }
 
-/* [추가] 화살표 이미지 크기 설정 */
-/* 피그마 디자인상의 아이콘 크기에 맞춰 width/height를 조절하세요 */
+/* 마우스 올렸을 때 약간 어둡게 (선택사항) */
+.banner-btn:hover {
+    background-color: #f2f2f2;
+}
+
+/* [수정] 화살표 이미지 크기 설정 */
 .banner-btn img {
-    width: 60px; /* 예시 크기 */
-    height: auto; /* 비율 유지 */
+    /* 흰색 원 안에 들어가도록 크기를 줄임 (원의 크기에 맞춰 조절하세요) */
+    width: 100%;
+    height: 100%; /* 비율 유지 */
+    object-fit: cover;
 }
 
 .prev-btn {

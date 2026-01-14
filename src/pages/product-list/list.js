@@ -2,6 +2,11 @@
 const API_URL = "https://api.wenivops.co.kr/services/open-market"; // 예시 URL
 
 const productGrid = document.getElementById("product-grid");
+const bannerSlide = document.querySelector(".banner-slide");
+
+// 슬라이드 관련 변수
+let currentSlide = 0;
+const SLIDE_COUNT = 5; // 배너에 띄울 상품 개수 (인디케이터 개수와 맞춤)
 
 // 1. 상품 목록 가져오기 함수
 async function fetchProducts() {
@@ -25,6 +30,7 @@ async function fetchProducts() {
 
         // API 명세에 따르면 data.results 배열에 상품 정보가 들어있음
         renderProducts(data.results);
+        setupBanner(data.results);
     } catch (error) {
         console.error("Error:", error);
         productGrid.innerHTML = `<p class="error-message show">상품을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</p>`;
@@ -66,6 +72,65 @@ function renderProducts(products) {
 
     // DOM에 주입
     productGrid.innerHTML = productItems;
+}
+
+function setupBanner(products) {
+    if (!products || products.length === 0) return;
+
+    // 앞에서부터 5개만 자르기 (인디케이터가 5개이므로)
+    const bannerProducts = products.slice(0, SLIDE_COUNT);
+
+    // 3-1. 배너 이미지 HTML 생성 및 주입
+    const bannerHTML = bannerProducts
+        .map((product) => {
+            return `<img src="${product.image}" alt="${product.name}" class="banner-img" />`;
+        })
+        .join("");
+
+    bannerSlide.innerHTML = bannerHTML;
+
+    // 3-2. 슬라이드 이벤트 연결
+    initBannerEvents();
+}
+
+// [추가] 4. 배너 슬라이드 동작 함수
+function initBannerEvents() {
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const dots = document.querySelectorAll(".dot");
+
+    // 슬라이드 이동 함수
+    function moveSlide(index) {
+        // 인덱스 범위 체크 (순환)
+        if (index < 0) {
+            currentSlide = SLIDE_COUNT - 1;
+        } else if (index >= SLIDE_COUNT) {
+            currentSlide = 0;
+        } else {
+            currentSlide = index;
+        }
+
+        // 1. 이미지 이동 (translateX 사용)
+        bannerSlide.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        // 2. 인디케이터(점) 업데이트
+        dots.forEach((dot) => dot.classList.remove("active"));
+        dots[currentSlide].classList.add("active");
+    }
+
+    // 버튼 클릭 이벤트
+    prevBtn.addEventListener("click", () => moveSlide(currentSlide - 1));
+    nextBtn.addEventListener("click", () => moveSlide(currentSlide + 1));
+
+    // 인디케이터 클릭 이벤트
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => moveSlide(index));
+    });
+
+    // (선택 사항) 3초마다 자동 슬라이드
+    setInterval(() => {
+        moveSlide(currentSlide + 1);
+    }, 5000);
 }
 
 // 3. 페이지 로드 시 실행
