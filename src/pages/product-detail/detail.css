@@ -186,3 +186,52 @@
   color: var(--main-color);
   border-bottom-color: var(--main-color);
 }
+
+/* 탭 콘텐츠 영역 */
+.tab-content-area {
+    padding: 60px 20px;
+    min-height: 300px;
+    line-height: 1.6;
+}
+
+.no-content {
+    text-align: center;
+    color: var(--text-grey);
+    font-size: 18px;
+    margin-top: 40px;
+}
+
+/* 반품/교환정보 테이블 스타일 */
+.info-content h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--main-color);
+    padding-left: 10px;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.info-table th, .info-table td {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    text-align: left;
+}
+
+.info-table th {
+    background-color: #f9f9f9;
+    width: 200px;
+    font-weight: 600;
+}
+
+.info-table ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.info-table li {
+    margin-bottom: 5px;
+}
