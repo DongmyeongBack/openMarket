@@ -70,6 +70,7 @@ async function fetchProductDetail(id) {
 
 // 3. 화면 렌더링
 function renderProduct(data) {
+    console.log(data);
     const { image, name, price, seller, shipping_method, shipping_fee, stock } = data;
 
     // 이미지 및 기본 정보
@@ -126,7 +127,7 @@ function initEventListeners() {
                 totalAmount
             )}원`
         );
-        // TODO: 결제 페이지로 이동 (window.location.href = "/src/pages/payment/index.html")
+        window.location.href = "/src/pages/payment/index.html";
     });
 
     // [장바구니 버튼]
