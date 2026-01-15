@@ -115,18 +115,30 @@ function initEventListeners() {
         }
     });
 
-    // [구매 버튼]
+    // [구매 버튼] (⭐⭐⭐ 여기가 수정된 핵심 부분입니다!)
     buyBtn.addEventListener("click", () => {
         // 1. 로그인 체크
         if (!checkLogin()) return;
 
-        // 2. 구매 로직 진행
-        const totalAmount = productData.price * currentQuantity;
-        alert(
-            `[주문 요청]\n상품명: ${productData.name}\n수량: ${currentQuantity}개\n총 금액: ${formatPrice(
-                totalAmount
-            )}원`
-        );
+        // 2. payment.js가 알아들을 수 있는 형태로 데이터 포장
+        const orderData = {
+            type: "direct_order", // 바로 구매임을 표시
+            items: [{
+                // productData 안에 있는 실제 데이터 이름으로 매핑
+                product_id: productData.id, 
+                product_name: productData.name, 
+                quantity: currentQuantity,
+                price: productData.price,
+                shipping_fee: productData.shipping_fee,
+                image: productData.image,
+                store_name: productData.seller.store_name
+            }]
+        };
+
+        // 3. 우편함(localStorage)에 데이터 넣기
+        localStorage.setItem("order_data", JSON.stringify(orderData));
+
+        // 4. 결제 페이지로 이동
         window.location.href = "/src/pages/payment/index.html";
     });
 
