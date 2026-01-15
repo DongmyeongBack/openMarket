@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문/결제하기 - HODU</title>
+    <link rel="stylesheet" href="../../styles/reset.css"> <link rel="stylesheet" href="./payment.css">
+    <script type="module" src="./payment.js" defer></script>
+</head>
+<body>
+    <header id="header-container"></header>
+
+    <main class="payment-wrapper">
+        <h1 class="page-title">주문/결제하기</h1>
+
+        <section class="cart-info">
+            <div class="table-header">
+                <span class="col-info">상품정보</span>
+                <span class="col-discount">할인</span>
+                <span class="col-shipping">배송비</span>
+                <span class="col-price">주문금액</span>
+            </div>
+            <div id="product-list" class="product-list">
+                </div>
+            <div class="total-order-price">
+                총 주문금액 <span id="total-price-display">0</span>원
+            </div>
+        </section>
+
+        <form id="payment-form">
+            <section class="info-section">
+                <h2 class="section-title">주문자 정보</h2>
+                <div class="form-row">
+                    <label>이름</label>
+                    <input type="text" id="orderer-name" required>
+                </div>
+                <div class="form-row">
+                    <label>휴대폰</label>
+                    <div class="phone-inputs">
+                        <input type="text" id="phone1" maxlength="3" value="010"> -
+                        <input type="text" id="phone2" maxlength="4"> -
+                        <input type="text" id="phone3" maxlength="4">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>이메일</label>
+                    <input type="email" id="orderer-email">
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2 class="section-title">배송지 정보</h2>
+                <div class="form-row">
+                    <label>수령인</label>
+                    <input type="text" id="receiver-name" required>
+                </div>
+                <div class="form-row">
+                    <label>휴대폰</label>
+                    <div class="phone-inputs">
+                        <input type="text" id="receiver-phone1" maxlength="3" value="010"> -
+                        <input type="text" id="receiver-phone2" maxlength="4"> -
+                        <input type="text" id="receiver-phone3" maxlength="4">
+                    </div>
+                </div>
+                <div class="form-row address-row">
+                    <label>배송주소</label>
+                    <div class="address-inputs">
+                        <div class="zip-box">
+                            <input type="text" id="zipcode" placeholder="우편번호">
+                            <button type="button" class="btn-zipcode">우편번호 조회</button>
+                        </div>
+                        <input type="text" id="address-main" placeholder="기본 주소" required>
+                        <input type="text" id="address-detail" placeholder="상세 주소 입력">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>배송 메시지</label>
+                    <input type="text" id="delivery-msg" placeholder="배송 메시지">
+                </div>
+            </section>
+
+            <div class="payment-bottom-layout">
+                <section class="payment-method-section">
+                    <h2 class="section-title">결제수단</h2>
+                    <div class="method-options">
+                        <label><input type="radio" name="payment_method" value="CARD" checked> 신용/체크카드</label>
+                        <label><input type="radio" name="payment_method" value="DEPOSIT"> 무통장 입금</label>
+                        <label><input type="radio" name="payment_method" value="PHONE_PAYMENT"> 휴대폰 결제</label>
+                        <label><input type="radio" name="payment_method" value="NAVERPAY"> 네이버페이</label>
+                        <label><input type="radio" name="payment_method" value="KAKAOPAY"> 카카오페이</label>
+                    </div>
+                </section>
+
+                <aside class="final-payment-card">
+                    <h2 class="card-title">최종결제 정보</h2>
+                    <div class="price-row">
+                        <span>- 상품금액</span>
+                        <span class="price-val"><strong id="final-product-price">0</strong> 원</span>
+                    </div>
+                    <div class="price-row">
+                        <span>- 할인금액</span>
+                        <span class="price-val">0 원</span>
+                    </div>
+                    <div class="price-row">
+                        <span>- 배송비</span>
+                        <span class="price-val"><strong id="final-shipping-fee">0</strong> 원</span>
+                    </div>
+                    <hr>
+                    <div class="price-row total-row">
+                        <span>- 결제금액</span>
+                        <span class="total-val"><strong id="final-total-price">0</strong>원</span>
+                    </div>
+                    
+                    <div class="agreement-box">
+                        <label>
+                            <input type="checkbox" id="check-agreement" required>
+                            주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+                        </label>
+                    </div>
+                    
+                    <button type="submit" id="btn-pay" class="btn-pay">결제하기</button>
+                </aside>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
