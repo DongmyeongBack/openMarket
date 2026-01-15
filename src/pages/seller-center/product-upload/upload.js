@@ -1,4 +1,5 @@
 import { request } from "/src/utils/api.js";
+import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
 
 // 1. DOM 요소 선택
 const productForm = document.getElementById("product-form");
@@ -6,6 +7,10 @@ const imgInput = document.getElementById("img-input");
 const previewImg = document.getElementById("preview-img");
 const uploadIcon = document.getElementById("upload-icon");
 const shippingBtns = document.querySelectorAll(".shipping-btn");
+
+// Footer 초기화
+const footerTarget = document.getElementById("footer");
+new Footer(footerTarget);
 
 // 2. 상태 관리 (기본값: 택배)
 let selectedShippingMethod = "PARCEL";
@@ -20,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (productId) {
         isEditMode = true;
         document.title = "상품 수정 | HODU Seller";
-        document.querySelector(".upload-title").textContent = "상품 수정";
+        document.querySelector(".page-title").textContent = "상품 수정"; // .upload-title -> .page-title 변경
         document.querySelector(".save-btn").textContent = "수정하기";
 
         await fetchProductDetail(productId);

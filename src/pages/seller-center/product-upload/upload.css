@@ -4,12 +4,13 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 40px 20px;
+    display: block;
+    /* seller.css의 flex 속성 덮어쓰기 */
 }
 
 h1 {
     font-size: 36px;
     font-weight: 700;
-    margin-bottom: 40px;
 }
 
 .upload-layout {
@@ -25,7 +26,8 @@ h1 {
 
 .caution-box h3 {
     font-size: 16px;
-    color: #eb5757; /* 붉은색 텍스트 */
+    color: #eb5757;
+    /* 붉은색 텍스트 */
     margin-bottom: 10px;
 }
 
@@ -74,7 +76,8 @@ h1 {
 .icon-box {
     width: 50px;
     height: 50px;
-    background: #767676; /* 회색 아이콘 배경 */
+    background: #767676;
+    /* 회색 아이콘 배경 */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -150,7 +153,8 @@ h1 {
 }
 
 .shipping-btn.active {
-    background-color: #21bf48; /* HODU 초록색 */
+    background-color: #21bf48;
+    /* HODU 초록색 */
     color: #fff;
     border-color: #21bf48;
 }

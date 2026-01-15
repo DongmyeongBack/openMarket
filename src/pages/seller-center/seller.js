@@ -1,11 +1,16 @@
-// src/pages/seller/seller.js
 import { request } from "../../utils/api.js";
 import { showDeleteModal } from "/src/components/Modal/Modal.js";
+import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
+
 const productListEl = document.getElementById("product-list");
 const sellerNameTitle = document.getElementById("seller-name-title");
 const productCountBadge = document.getElementById("product-count-badge");
 const productCountTab = document.getElementById("product-count-tab");
 const uploadBtn = document.getElementById("upload-btn");
+
+// Footer 초기화
+const footerTarget = document.getElementById("footer");
+new Footer(footerTarget);
 
 // 숫자에 콤마 찍기 유틸
 const formatPrice = (price) => {

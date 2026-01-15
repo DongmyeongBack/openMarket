@@ -7,16 +7,23 @@
     <title>상품 등록 - HODU</title>
     <link rel="stylesheet" href="/src/styles/reset.css" />
     <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="../seller.css" />
     <link rel="stylesheet" href="./upload.css" />
     <script type="module" src="./upload.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1 class="upload-title">상품 등록</h1>
-        </header>
+    <header class="seller-header">
+        <div class="logo">
+            <a href="/">
+                <img src="/src/assets/images/Logo-hodu.png" alt="HODU 판매자 센터"
+                    onerror="this.src='https://via.placeholder.com/150x50?text=HODU+Center'" />
+            </a>
+        </div>
+        <h1 class="page-title">상품 등록</h1>
+    </header>
 
+    <div class="container">
         <main class="upload-layout">
             <aside class="caution-box">
                 <h3>*상품 등록 주의사항</h3>
@@ -106,6 +113,8 @@
             </form>
         </main>
     </div>
+
+    <footer id="footer"></footer>
 </body>
 
 </html>
