@@ -57,7 +57,7 @@ async function fetchProductDetail(id) {
         const data = await request(`/products/${id}/`, {
             method: "GET",
         });
-
+        console.log("get products/id", data);
         productData = data;
         renderProduct(data);
         initEventListeners();
@@ -236,6 +236,23 @@ async function handleCartAction() {
     if (!checkLogin()) return;
 
     try {
+        // 1. 장바구니 목록을 먼저 조회합니다.
+        const cartData = await request("/cart/", { method: "GET" });
+
+        // 2. 현재 담으려는 상품(productData.id)이 장바구니 목록에 있는지 확인합니다.
+        // API 명세상 results 배열 안에 아이템들이 들어있습니다.
+        // item.product_id 혹은 item.product.product_id 와 비교합니다.
+        console.log(cartData.results[0]);
+        console.log(productData.id);
+        const isAlreadyInCart = cartData.results.some((item) => item.product.id === productData.id);
+
+        // 3. 이미 장바구니에 있다면 모달을 띄우고 함수를 종료합니다.
+        if (isAlreadyInCart) {
+            showCartMoveModal();
+            return;
+        }
+
+        // 4. 장바구니에 없다면 추가(POST) 요청을 보냅니다.
         await request("/cart/", {
             method: "POST",
             body: JSON.stringify({
@@ -245,19 +262,15 @@ async function handleCartAction() {
             }),
         });
 
-        // 성공 시 (새로 추가된 경우) 기존 confirm 창 유지
+        // 5. 성공 시 (새로 추가된 경우) 컨펌 창 띄우기
         const moveToCart = confirm("장바구니에 상품을 담았습니다.\n장바구니 페이지로 이동하시겠습니까?");
         if (moveToCart) {
             window.location.href = "/src/pages/cart/index.html";
         }
     } catch (error) {
-        // 실패 시 (이미 장바구니에 있는 경우 등)
-        console.error("장바구니 추가 실패:", error);
-
-        // [수정됨] 단순 alert 대신 모달 호출
-        // API 에러 메시지가 명확하다면 if (error.message.includes("exist")) 등으로 분기 처리를 권장합니다.
-        // 현재는 에러 발생 시(중복) 모달을 띄우도록 처리했습니다.
-        showCartMoveModal();
+        console.error("장바구니 처리 중 오류:", error);
+        // 네트워크 에러 등 예외 상황 처리
+        alert("문제가 발생했습니다. 다시 시도해 주세요.");
     }
 }
 

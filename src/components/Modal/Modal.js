@@ -4,8 +4,8 @@ import "./Modal.css";
  * 로그인 요청 모달 (단순 알림 및 이동용)
  */
 export function showLoginModal() {
-  // 1. 모달 HTML 구조 생성
-  const modalHTML = `
+    // 1. 모달 HTML 구조 생성
+    const modalHTML = `
         <div class="modal-overlay" id="loginModal">
             <div class="modal-box">
                 <button class="modal-close-btn" id="modalClose">&times;</button>
@@ -20,31 +20,31 @@ export function showLoginModal() {
         </div>
     `;
 
-  // 2. DOM에 추가
-  document.body.insertAdjacentHTML("beforeend", modalHTML);
+    // 2. DOM에 추가
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-  // 3. 요소 선택
-  const modal = document.getElementById("loginModal");
+    // 3. 요소 선택
+    const modal = document.getElementById("loginModal");
 
-  // 4. 닫기 함수
-  const closeModal = () => {
-    if (modal) modal.remove();
-  };
+    // 4. 닫기 함수
+    const closeModal = () => {
+        if (modal) modal.remove();
+    };
 
-  // 5. 이벤트 연결
-  document.getElementById("modalClose").addEventListener("click", closeModal);
-  document.getElementById("modalNo").addEventListener("click", closeModal);
+    // 5. 이벤트 연결
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.getElementById("modalNo").addEventListener("click", closeModal);
 
-  // 배경 클릭 시 닫기
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
+    // 배경 클릭 시 닫기
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+    });
 
-  // [예] 버튼 클릭 시 이동
-  document.getElementById("modalYes").addEventListener("click", () => {
-    closeModal();
-    window.location.href = "/src/pages/login/index.html";
-  });
+    // [예] 버튼 클릭 시 이동
+    document.getElementById("modalYes").addEventListener("click", () => {
+        closeModal();
+        window.location.href = "/src/pages/login/index.html";
+    });
 }
 
 /**
@@ -52,9 +52,9 @@ export function showLoginModal() {
  * @returns {Promise<boolean>} 확인 버튼 클릭 시 true, 취소/닫기 시 false 반환
  */
 export function showDeleteModal() {
-  return new Promise((resolve) => {
-    // 1. 모달 HTML 구조 생성 (ID가 delete... 로 시작함에 유의)
-    const modalHTML = `
+    return new Promise((resolve) => {
+        // 1. 모달 HTML 구조 생성 (ID가 delete... 로 시작함에 유의)
+        const modalHTML = `
             <div class="modal-overlay" id="deleteModal">
                 <div class="modal-box delete-modal-box">
                     <button class="modal-close-btn" id="deleteModalClose">&times;</button>
@@ -69,39 +69,39 @@ export function showDeleteModal() {
             </div>
         `;
 
-    // 2. DOM에 추가
-    document.body.insertAdjacentHTML("beforeend", modalHTML);
+        // 2. DOM에 추가
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // 3. 요소 선택
-    const modal = document.getElementById("deleteModal");
-    const closeBtn = document.getElementById("deleteModalClose");
-    const cancelBtn = document.getElementById("deleteCancel");
-    const confirmBtn = document.getElementById("deleteConfirm");
+        // 3. 요소 선택
+        const modal = document.getElementById("deleteModal");
+        const closeBtn = document.getElementById("deleteModalClose");
+        const cancelBtn = document.getElementById("deleteCancel");
+        const confirmBtn = document.getElementById("deleteConfirm");
 
-    // 4. 닫기 및 결과 반환 함수
-    const handleClose = (result) => {
-      if (modal) modal.remove();
-      resolve(result); // Promise 해결 (true 또는 false)
-    };
+        // 4. 닫기 및 결과 반환 함수
+        const handleClose = (result) => {
+            if (modal) modal.remove();
+            resolve(result); // Promise 해결 (true 또는 false)
+        };
 
-    // 5. 이벤트 연결
+        // 5. 이벤트 연결
 
-    // 닫기/취소 (false 반환)
-    closeBtn.addEventListener("click", () => handleClose(false));
-    cancelBtn.addEventListener("click", () => handleClose(false));
+        // 닫기/취소 (false 반환)
+        closeBtn.addEventListener("click", () => handleClose(false));
+        cancelBtn.addEventListener("click", () => handleClose(false));
 
-    // 배경 클릭 시 닫기
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) handleClose(false);
+        // 배경 클릭 시 닫기
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) handleClose(false);
+        });
+
+        // 확인 (true 반환) -> 실제 삭제 로직은 cart.js에서 수행
+        confirmBtn.addEventListener("click", () => handleClose(true));
     });
-
-    // 확인 (true 반환) -> 실제 삭제 로직은 cart.js에서 수행
-    confirmBtn.addEventListener("click", () => handleClose(true));
-  });
 }
 
 export function showStockLimitModal() {
-  const modalHTML = `
+    const modalHTML = `
         <div class="modal-overlay" id="stockLimitModal">
             <div class="modal-box">
                 <button class="modal-close-btn" id="stockModalClose">&times;</button>
@@ -118,22 +118,22 @@ export function showStockLimitModal() {
         </div>
     `;
 
-  document.body.insertAdjacentHTML("beforeend", modalHTML);
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-  // 닫기 처리
-  document.getElementById("stockModalClose").onclick = closeStockModal;
-  document.getElementById("stockModalNo").onclick = closeStockModal;
+    // 닫기 처리
+    document.getElementById("stockModalClose").onclick = closeStockModal;
+    document.getElementById("stockModalNo").onclick = closeStockModal;
 
-  document.getElementById("stockModalYes").onclick = () => {
-    // 예 버튼 클릭 시 처리 로직
-    console.log("재고 초과 상태에서 계속 진행");
-    closeStockModal();
-  };
+    document.getElementById("stockModalYes").onclick = () => {
+        // 예 버튼 클릭 시 처리 로직
+        console.log("재고 초과 상태에서 계속 진행");
+        closeStockModal();
+    };
 }
 
 function closeStockModal() {
-  const modal = document.getElementById("stockLimitModal");
-  if (modal) modal.remove();
+    const modal = document.getElementById("stockLimitModal");
+    if (modal) modal.remove();
 }
 
 export function showCartMoveModal() {
@@ -143,8 +143,7 @@ export function showCartMoveModal() {
                 <button class="modal-close-btn" id="cartModalClose">&times;</button>
 
                 <p class="modal-text">
-                    이미 장바구니에 있는 상품입니다.<br>
-                    장바구니로 이동하시겠습니까?
+                    이미 장바구니에 있는 상품입니다.<br> 장바구니로 이동하시겠습니까?
                 </p>
 
                 <div class="modal-actions">
@@ -155,21 +154,21 @@ export function showCartMoveModal() {
         </div>
     `;
 
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
 
     // 닫기 이벤트
-    document.getElementById('cartModalClose').onclick = closeCartModal;
-    document.getElementById('cartModalNo').onclick = closeCartModal;
+    document.getElementById("cartModalClose").onclick = closeCartModal;
+    document.getElementById("cartModalNo").onclick = closeCartModal;
 
-    document.getElementById('cartModalYes').onclick = () => {
+    document.getElementById("cartModalYes").onclick = () => {
         // 장바구니 이동 로직
-        console.log('장바구니로 이동');
+        console.log("장바구니로 이동");
         closeCartModal();
         // location.href = '/cart'; // 실제 사용 시
     };
 }
 
 function closeCartModal() {
-    const modal = document.getElementById('cartMoveModal');
+    const modal = document.getElementById("cartMoveModal");
     if (modal) modal.remove();
 }
