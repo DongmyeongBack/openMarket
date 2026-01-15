@@ -59,7 +59,6 @@ function renderProducts(products) {
             src="${product.image}" 
             alt="${product.name}" 
             class="product-img"
-            onerror="this.src='../../assets/images/default-image.png'" 
           />
           <span class="seller-name">${product.seller.store_name || product.seller.username}</span>
           <h3 class="product-name">${product.name}</h3>
