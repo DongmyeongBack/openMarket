@@ -200,7 +200,7 @@ cartListEl.addEventListener("click", async (e) => {
     } else if (e.target.classList.contains("btn-delete")) {
         // 1. 삭제 모달 띄우기 (결과를 기다림)
         const isConfirmed = await showDeleteModal();
-
+        console.log('delete')
         if (isConfirmed) {
             try {
                 // 2. API 삭제 요청 (DELETE 메서드 사용)

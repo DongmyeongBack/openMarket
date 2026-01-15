@@ -1,6 +1,6 @@
 // src/pages/seller/seller.js
 import { request } from "../../utils/api.js";
-
+import { showDeleteModal } from "/src/components/Modal/Modal.js";
 const productListEl = document.getElementById("product-list");
 const sellerNameTitle = document.getElementById("seller-name-title");
 const productCountBadge = document.getElementById("product-count-badge");
@@ -16,9 +16,9 @@ const formatPrice = (price) => {
 const createProductItem = (product) => {
     // 이미지가 없으면 기본 이미지 처리
     const imgSrc = product.image ? product.image : "../../assets/images/default-image.png";
-
+    console.log("product", product)
     return `
-        <li class="product-item" data-id="${product.product_id}">
+        <li class="product-item" data-id="${product.id}">
             <div class="item-info">
                 <img src="${imgSrc}" alt="${product.product_name}" class="item-img">
                 <div class="item-details">
@@ -93,14 +93,36 @@ const attachEventListeners = () => {
     // 삭제 버튼들
     const deleteBtns = document.querySelectorAll(".btn-delete");
     deleteBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
             const productItem = e.target.closest(".product-item");
             const productId = productItem.dataset.id;
 
-            if (confirm("정말 이 상품을 삭제하시겠습니까?")) {
-                // TODO: 삭제 API 호출 로직 추가 (DELETE /products/{product_id})
-                alert(`상품 ID ${productId} 삭제 API를 호출해야 합니다.`);
-                // 성공 시 UI 제거: productItem.remove();
+            const isConfirmed = await showDeleteModal();
+
+            if (isConfirmed) {
+                try {
+                    await request(`/products/${productId}/`, {
+                        method: "DELETE",
+                    });
+                    alert("상품이 삭제되었습니다.");
+                    productItem.remove();
+
+                    // 카운트 업데이트
+                    const currentCount = parseInt(productCountBadge.textContent);
+                    if (!isNaN(currentCount)) {
+                        const newCount = currentCount - 1;
+                        productCountBadge.textContent = newCount;
+                        productCountTab.textContent = newCount;
+
+                        if (newCount === 0) {
+                            productListEl.innerHTML = '<li class="no-data">등록된 상품이 없습니다.</li>';
+                        }
+                    }
+
+                } catch (error) {
+                    console.error("삭제 실패", error);
+                    alert(error.detail || "상품 삭제에 실패했습니다.");
+                }
             }
         });
     });
@@ -110,9 +132,10 @@ const attachEventListeners = () => {
     updateBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const productItem = e.target.closest(".product-item");
+            console.log(productItem)
             const productId = productItem.dataset.id;
-            // 수정 페이지로 이동
-            alert(`상품 ID ${productId} 수정 페이지로 이동합니다.`);
+            // 수정 페이지로 이동 (ID 파라미터 전달)
+            window.location.href = `./product-upload/index.html?id=${productId}`;
         });
     });
 };

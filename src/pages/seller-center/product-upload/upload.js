@@ -9,6 +9,60 @@ const shippingBtns = document.querySelectorAll(".shipping-btn");
 
 // 2. 상태 관리 (기본값: 택배)
 let selectedShippingMethod = "PARCEL";
+let isEditMode = false;
+let productId = null;
+
+// [추가] 2.1 URL 파라미터 확인 및 수정 모드 설정
+document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    productId = urlParams.get("id");
+
+    if (productId) {
+        isEditMode = true;
+        document.title = "상품 수정 | HODU Seller";
+        document.querySelector(".upload-title").textContent = "상품 수정";
+        document.querySelector(".save-btn").textContent = "수정하기";
+
+        await fetchProductDetail(productId);
+    }
+});
+
+async function fetchProductDetail(id) {
+    try {
+        const data = await request(`/products/${id}/`);
+        // 폼 채우기
+        const productName = data.product_name || data.name;
+        const productInfo = data.product_info || data.products_info || data.info; // API 필드명 호환성 고려
+
+        document.getElementById("product-name").value = productName;
+        document.getElementById("price").value = data.price;
+        document.getElementById("shipping-fee").value = data.shipping_fee;
+        document.getElementById("stock").value = data.stock;
+        document.getElementById("product-info").value = productInfo;
+
+        // 배송 방법 설정 (shipping_method가 'PARCEL' 또는 'DELIVERY')
+        selectedShippingMethod = data.shipping_method;
+        shippingBtns.forEach(btn => {
+            if (btn.dataset.method === selectedShippingMethod) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+
+        // 이미지 미리보기
+        if (data.image) {
+            previewImg.src = data.image;
+            previewImg.style.display = "block";
+            uploadIcon.style.display = "none";
+            document.querySelector(".img-placeholder").style.backgroundColor = "transparent";
+        }
+    } catch (error) {
+        console.error("상품 정보 로드 실패", error);
+        alert("상품 정보를 불러오는 데 실패했습니다.");
+        window.history.back();
+    }
+}
 
 // 3. 이미지 미리보기 기능
 imgInput.addEventListener("change", (e) => {
@@ -54,7 +108,7 @@ productForm.addEventListener("submit", async (e) => {
     const imageFile = imgInput.files[0];
 
     // 간단한 유효성 검사
-    if (!imageFile) {
+    if (!isEditMode && !imageFile) {
         return alert("상품 이미지를 등록해주세요!");
     }
     if (!name || !price || !shippingFee || !stock || !info) {
@@ -64,32 +118,42 @@ productForm.addEventListener("submit", async (e) => {
     // FormData 생성 (이미지 업로드를 위해 필수)
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("price", parseInt(price)); // API 요구사항: Int
+    formData.append("price", parseInt(price));
     formData.append("shipping_method", selectedShippingMethod);
-    formData.append("shipping_fee", parseInt(shippingFee)); // API 요구사항: Int
-    formData.append("stock", parseInt(stock)); // API 요구사항: Int
+    formData.append("shipping_fee", parseInt(shippingFee));
+    formData.append("stock", parseInt(stock));
     formData.append("info", info);
-    formData.append("image", imageFile);
+
+    // 수정 모드일 때 이미지를 새로 선택하지 않으면 append 하지 않음 (기존 유지)
+    if (imageFile) {
+        formData.append("image", imageFile);
+    }
 
     try {
-        const res = await request("/products/", {
-            method: "POST",
-            body: formData, // JSON.stringify 하지 않음!
-        });
+        let res;
+        if (isEditMode) {
+            // PUT 요청
+            res = await request(`/products/${productId}/`, {
+                method: "PUT",
+                body: formData,
+            });
+            alert("상품이 성공적으로 수정되었습니다.");
+        }
 
-        console.log("등록 성공:", res);
-        alert("상품이 성공적으로 등록되었습니다.");
+        console.log("처리 성공:", res);
 
-        // 성공 후 페이지 이동 (예: 상품 목록 페이지)
-        window.location.href = "/";
+        // 성공 후 페이지 이동
+        window.location.href = "../index.html";
     } catch (error) {
         // api.js에서 throw한 error.data 처리
+        console.error(error);
         if (error.data) {
-            // 예: error.data = { price: ["유효한 정수를 넣어주세요"], ... }
             const errorMessages = Object.entries(error.data)
                 .map(([field, msg]) => `[${field}] ${msg}`)
                 .join("\n");
-            alert(`등록 실패:\n${errorMessages}`);
+            alert(`처리 실패:\n${errorMessages}`);
+        } else if (error.detail) {
+            alert(error.detail);
         } else {
             alert("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.");
         }
