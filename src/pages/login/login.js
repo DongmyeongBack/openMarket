@@ -74,6 +74,7 @@ loginForm.addEventListener("submit", async (e) => {
 
         // 위 코드를 기존 로직(기존 코드의 data 구조)에 맞춰 복원하면 다음과 같습니다:
         localStorage.setItem("token", data.access);
+        localStorage.setItem("refreshToken", data.refresh); // refresh token 저장
         localStorage.setItem("userType", data.user.user_type);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("name", data.user.name);

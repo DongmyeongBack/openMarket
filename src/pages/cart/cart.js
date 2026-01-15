@@ -197,10 +197,9 @@ cartListEl.addEventListener("click", async (e) => {
         } else {
             alert("최소 수량은 1개입니다.");
         }
-    } else if (e.target.classList.contains("btn-delete")) {
+    } else if (e.target.closest(".btn-delete")) {
         // 1. 삭제 모달 띄우기 (결과를 기다림)
         const isConfirmed = await showDeleteModal();
-        console.log('delete')
         if (isConfirmed) {
             try {
                 // 2. API 삭제 요청 (DELETE 메서드 사용)
