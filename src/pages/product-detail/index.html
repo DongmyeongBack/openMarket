@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8" />
+        <title>상품 상세</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script type="module" crossorigin src="/openMarket/assets/productDetail-BaoeQt1w.js"></script>
+      <link rel="modulepreload" crossorigin href="/openMarket/assets/common-D2-4OkSc.js">
+      <link rel="modulepreload" crossorigin href="/openMarket/assets/api-DvCEykNh.js">
+      <link rel="modulepreload" crossorigin href="/openMarket/assets/Footer-DoNwG6sW.js">
+      <link rel="stylesheet" crossorigin href="/openMarket/assets/common-BsMxBpwq.css">
+      <link rel="stylesheet" crossorigin href="/openMarket/assets/Footer-VjyuBuxW.css">
+      <link rel="stylesheet" crossorigin href="/openMarket/assets/productDetail-DqEIroC2.css">
+    </head>
+    <body>
+        <header id="header"></header>
+        <main class="product-detail-container">
+            <section class="product-detail">
+                <!-- 이미지 -->
+                <div class="product-image">
+                    <img id="productImage" alt="상품 이미지" />
+                </div>
+
+                <!-- 상품 정보 -->
+                <div class="product-info">
+                    <div>
+                        <span class="seller-name" id="sellerName"></span>
+                        <h1 id="productName"></h1>
+
+                        <p class="price"><strong id="productPrice"></strong>원</p>
+                    </div>
+                    <div>
+                        <p class="shipping" id="shippingInfo"></p>
+
+                        <div class="quantity-box">
+                            <button id="minusBtn">-</button>
+                            <div id="quantity">1</div>
+                            <button id="plusBtn">+</button>
+                        </div>
+
+                        <div class="total-box">
+                            <p class="total">총 상품 금액</p>
+                            <div class="total-summary">
+                                <p class="total-quantity">
+                                    총 수량 <strong><span id="totalQuantity">1</span> </strong>개 |
+                                    <strong><span id="totalPrice"></span>원 </strong>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="buy">바로 구매</button>
+                            <button class="cart">장바구니</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 하단 탭 버튼 -->
+            <nav class="detail-tab">
+                <button class="tab active">버튼</button>
+                <button class="tab">리뷰</button>
+                <button class="tab">Q&amp;A</button>
+                <button class="tab">반품/교환정보</button>
+            </nav>
+        </main>
+        <div id="footer"></div>
+    </body>
+</html>
