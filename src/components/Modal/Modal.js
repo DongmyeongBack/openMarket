@@ -24,7 +24,9 @@ export function showLoginModal() {
             </div>
         </div>
     `;
-    export function showDeleteModal() {
+}
+
+export function showDeleteModal() {
     const modalHTML = `
         <div class="modal-overlay" id="deleteModal">
             <div class="modal-box delete-modal-box">
@@ -42,23 +44,22 @@ export function showLoginModal() {
         </div>
     `;
 
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
 
     // 닫기 이벤트
-    document.getElementById('deleteModalClose').onclick = closeDeleteModal;
-    document.getElementById('deleteCancel').onclick = closeDeleteModal;
+    document.getElementById("deleteModalClose").onclick = closeDeleteModal;
+    document.getElementById("deleteCancel").onclick = closeDeleteModal;
 
-    document.getElementById('deleteConfirm').onclick = () => {
+    document.getElementById("deleteConfirm").onclick = () => {
         // 실제 삭제 로직은 여기서 처리
-        console.log('상품 삭제 진행');
+        console.log("상품 삭제 진행");
         closeDeleteModal();
     };
-}
 
-function closeDeleteModal() {
-    const modal = document.getElementById('deleteModal');
-    if (modal) modal.remove();
-}
+    function closeDeleteModal() {
+        const modal = document.getElementById("deleteModal");
+        if (modal) modal.remove();
+    }
 
     // 3. Body에 추가
     document.body.insertAdjacentHTML("beforeend", modalHTML);
