@@ -19,7 +19,6 @@
     position: relative;
     width: 360px;
     background-color: var(--text-white); /* #ffffff */
-    border-radius: 12px; /* 이미지가 약간 더 둥글어 보여 10px -> 12px 조정 */
     padding: 30px; /* 상단 여백을 늘려 텍스트가 시원하게 보이도록 조정 */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
