@@ -24,7 +24,10 @@ export default class Header {
             </div>
         `;
 
-        const searchHtml = this.userType === "SELLER" ? "" : `
+        const searchHtml =
+            this.userType === "SELLER"
+                ? ""
+                : `
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="상품을 검색해보세요!">
                 <button class="search-btn"></button>
@@ -98,14 +101,14 @@ export default class Header {
 
     async fetchProducts(keyword) {
         try {
-            const url = new URL("https://api.wenivops.co.kr/services/open-market/products/"); 
+            const url = new URL("https://api.wenivops.co.kr/services/open-market/products/");
             url.searchParams.append("search", keyword);
 
             console.log(`📡 요청 URL: ${url.toString()}`);
 
             // 헤더 설정 (기본적으로 JSON 타입만 설정)
             const headers = {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             };
 
             // [핵심] 토큰이 있을 때만 Authorization 헤더 추가
@@ -116,7 +119,7 @@ export default class Header {
 
             const response = await fetch(url, {
                 method: "GET",
-                headers: headers
+                headers: headers,
             });
 
             if (!response.ok) {
@@ -126,7 +129,6 @@ export default class Header {
 
             const data = await response.json();
             return data.results || [];
-
         } catch (error) {
             console.error("❌ 네트워크 에러:", error);
             return [];
@@ -154,7 +156,7 @@ export default class Header {
             // 입력 이벤트
             searchInput.addEventListener("input", async (e) => {
                 const keyword = e.target.value.trim();
-                
+
                 if (keyword === "") {
                     searchResults.style.display = "none";
                     return;
@@ -163,13 +165,18 @@ export default class Header {
                 // [수정] 비회원 차단 코드 삭제함 -> 누구나 검색 가능
 
                 const products = await this.fetchProducts(keyword);
-                
+
                 if (products.length > 0) {
-                    searchResults.innerHTML = products.slice(0, 10).map(product => `
+                    searchResults.innerHTML = products
+                        .slice(0, 10)
+                        .map(
+                            (product) => `
                         <li class="search-item" data-id="${product.id}">
                             ${product.name}
                         </li>
-                    `).join("");
+                    `
+                        )
+                        .join("");
                     searchResults.style.display = "block";
                 } else {
                     searchResults.style.display = "none";
@@ -206,7 +213,7 @@ export default class Header {
 
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
-                this.token ? window.location.href = "/src/pages/cart/index.html" : showLoginModal();
+                this.token ? (window.location.href = "/src/pages/cart/index.html") : showLoginModal();
             });
         }
         if (myPageBtn && dropdown) {
