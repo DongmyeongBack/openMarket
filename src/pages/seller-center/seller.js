@@ -1,4 +1,4 @@
-import { request } from "../../utils/api.js";
+import { getSellerProducts, deleteProduct } from "../../utils/api.js";
 import { showDeleteModal } from "/src/components/Modal/Modal.js";
 import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
 
@@ -61,7 +61,7 @@ const fetchSellerProducts = async () => {
     try {
         // 2. API 호출
         // API Spec: GET /<str:seller_name>/products/
-        const data = await request(`/${accountName}/products/`);
+        const data = await getSellerProducts(accountName);
         console.log(data);
         // 3. 데이터 렌더링
         const products = data.results;
@@ -106,9 +106,7 @@ const attachEventListeners = () => {
 
             if (isConfirmed) {
                 try {
-                    await request(`/products/${productId}/`, {
-                        method: "DELETE",
-                    });
+                    await deleteProduct(productId);
                     alert("상품이 삭제되었습니다.");
                     productItem.remove();
 

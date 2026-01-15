@@ -1,6 +1,7 @@
 // src/components/Header/Header.js
 import "./Header.css";
 import { showLoginModal } from "../Modal/Modal.js";
+import { searchProducts } from "/src/utils/api.js";
 
 export default class Header {
     constructor($target) {
@@ -101,33 +102,8 @@ export default class Header {
 
     async fetchProducts(keyword) {
         try {
-            const url = new URL("https://api.wenivops.co.kr/services/open-market/products/");
-            url.searchParams.append("search", keyword);
-
-            console.log(`📡 요청 URL: ${url.toString()}`);
-
-            // 헤더 설정 (기본적으로 JSON 타입만 설정)
-            const headers = {
-                "Content-Type": "application/json",
-            };
-
-            // [핵심] 토큰이 있을 때만 Authorization 헤더 추가
-            // 토큰이 없으면 헤더 없이 요청 (비회원 검색)
-            if (this.token) {
-                headers["Authorization"] = `Bearer ${this.token}`;
-            }
-
-            const response = await fetch(url, {
-                method: "GET",
-                headers: headers,
-            });
-
-            if (!response.ok) {
-                console.error(`❌ API 오류: ${response.status}`);
-                return [];
-            }
-
-            const data = await response.json();
+            console.log(`📡 검색어: ${keyword}`);
+            const data = await searchProducts(keyword);
             return data.results || [];
         } catch (error) {
             console.error("❌ 네트워크 에러:", error);
@@ -153,38 +129,70 @@ export default class Header {
                 searchInput.parentElement.appendChild(searchResults);
             }
 
-            // 입력 이벤트
-            searchInput.addEventListener("input", async (e) => {
+            // 디바운스 타이머 변수
+            let debounceTimer;
+            // 마지막 요청 키워드 추적 (Race Condition 방지)
+            let lastKeyword = "";
+            // [추가] 실제 API 호출된 마지막 키워드 (중복 호출 방지)
+            let lastFetchedKeyword = "";
+            // [추가] 선택 중인지 확인하는 플래그 (네비게이션 중 추가 검색 차단)
+            let isSelecting = false;
+
+            // 입력 이벤트 (Debounce 적용)
+            searchInput.addEventListener("input", (e) => {
+                // 선택 중이라면 입력 이벤트 무시
+                if (isSelecting) return;
+
                 const keyword = e.target.value.trim();
+                lastKeyword = keyword;
+
+                // 기존 타이머 취소
+                clearTimeout(debounceTimer);
 
                 if (keyword === "") {
                     searchResults.style.display = "none";
+                    lastFetchedKeyword = "";
                     return;
                 }
 
-                // [수정] 비회원 차단 코드 삭제함 -> 누구나 검색 가능
+                // 300ms 딜레이 후 API 요청
+                debounceTimer = setTimeout(async () => {
+                    // 요청 시점의 키워드가 현재 키워드와 다르면 무시
+                    if (keyword !== lastKeyword) return;
+                    // [추가] 이미 조회한 키워드와 같으면 요청 생략 (IME 중복 방지)
+                    if (keyword === lastFetchedKeyword) return;
 
-                const products = await this.fetchProducts(keyword);
+                    lastFetchedKeyword = keyword; // [변경] 요청 시작 전 즉시 업데이트하여 중복 차단
 
-                if (products.length > 0) {
-                    searchResults.innerHTML = products
-                        .slice(0, 10)
-                        .map(
-                            (product) => `
+                    const products = await this.fetchProducts(keyword);
+
+                    // 응답 시점에도 키워드가 최신인지 다시 확인
+                    if (keyword !== lastKeyword) return;
+
+                    if (products.length > 0) {
+                        searchResults.innerHTML = products
+                            .slice(0, 10)
+                            .map(
+                                (product) => `
                         <li class="search-item" data-id="${product.id}">
                             ${product.name}
                         </li>
                     `
-                        )
-                        .join("");
-                    searchResults.style.display = "block";
-                } else {
-                    searchResults.style.display = "none";
-                }
+                            )
+                            .join("");
+                        searchResults.style.display = "block";
+                    } else {
+                        searchResults.style.display = "none";
+                    }
+                }, 300);
             });
 
             // 클릭 이벤트 (mousedown으로 변경하여 blur 이벤트보다 먼저 실행되도록 함)
             searchResults.addEventListener("mousedown", (e) => {
+                e.preventDefault(); // [중요] input 포커스 유지 (블러 방지)
+                clearTimeout(debounceTimer); // [추가] 선택 시 진행 중인 검색 요청 취소
+                isSelecting = true; // [추가] 선택 상태 잠금
+
                 const item = e.target.closest(".search-item");
                 if (item) {
                     window.location.href = `/src/pages/product-detail/index.html?productId=${item.dataset.id}`;

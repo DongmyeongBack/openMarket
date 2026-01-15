@@ -1,6 +1,6 @@
 import Header from "/src/components/Header/Header.js";
 import Footer from "/src/components/Footer/Footer.js";
-import { request } from "/src/utils/api.js"; // api.js 경로 확인 필요
+import { getCart, updateCartItem, deleteCartItem } from "/src/utils/api.js";
 import { showLoginModal, showDeleteModal } from "/src/components/Modal/Modal.js";
 
 /* [공통 컴포넌트 초기화] */
@@ -36,7 +36,7 @@ async function getCartData() {
 
     try {
         // 2. API 요청
-        const data = await request("/cart/");
+        const data = await getCart();
 
         // 3. 데이터가 비어있는 경우 처리
         console.log("data: ", data);
@@ -143,12 +143,8 @@ function updateSummary() {
 async function updateCartQuantity(cartId, newQuantity) {
     try {
         // API 명세: PUT /cart/<cart_item_id>/, body: { quantity: Int }
-        const result = await request(`/cart/${cartId}/`, {
-            method: "PUT",
-            body: JSON.stringify({
-                quantity: newQuantity,
-            }),
-        });
+        // API 명세: PUT /cart/<cart_item_id>/, body: { quantity: Int }
+        const result = await updateCartItem(cartId, newQuantity);
         return result; // 수정된 장바구니 아이템 객체 반환
     } catch (error) {
         alert("수량 변경에 실패했습니다.");
@@ -204,9 +200,8 @@ cartListEl.addEventListener("click", async (e) => {
             try {
                 // 2. API 삭제 요청 (DELETE 메서드 사용)
                 // 명세: DELETE /cart/<int:cart_item_id>/
-                await request(`/cart/${cartId}/`, {
-                    method: "DELETE",
-                });
+                // 2. API 삭제 요청 (DELETE 메서드 사용)
+                await deleteCartItem(cartId);
 
                 // 3. 성공 시: 로컬 데이터 배열(cartItems)에서 삭제된 아이템 제거
                 cartItems = cartItems.filter((i) => i.cart_id !== cartId);

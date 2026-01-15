@@ -1,11 +1,10 @@
 import Header from "../../components/Header/Header.js";
-import { request } from "../../utils/api.js";
+import { getProductDetail, order, getCart } from "../../utils/api.js";
 
 new Header(document.querySelector("#header"));
 
 // 데이터 로드 확인
 const orderData = JSON.parse(localStorage.getItem("order_data"));
-
 if (!orderData) {
     alert("잘못된 접근입니다. 주문할 상품이 없습니다.");
     history.back();
@@ -71,7 +70,7 @@ const loadProducts = async () => {
 
             // 안전한 구현: Cart 목록을 가져와서 필터링
             if (orderData.product_ids) {
-                const cartData = await request("/cart/", { method: "GET" });
+                const cartData = await getCart();
                 // cartData.results (Array of CartItem)
                 // Filter items that are in orderData.product_ids
                 // 주의: CartItem에는 product_id가 있음.
@@ -96,7 +95,7 @@ const loadProducts = async () => {
         // 상품 상세 정보 Fetch
         const fetchedItems = await Promise.all(
             productsToFetch.map(async (item) => {
-                const productDetail = await request(`/products/${item.id}/`, { method: "GET" });
+                const productDetail = await getProductDetail(item.id);
                 return {
                     ...productDetail,
                     quantity: item.quantity,
@@ -270,7 +269,8 @@ const handlePayment = async () => {
 
     if (state.orderType === "direct_order") {
         payload.order_kind = "direct_order";
-        payload.product = state.items[0].id;
+        payload.order_type = "direct_order";
+        payload.product = state.items[0].id; // [수정] API 요구사항: product (not product_id)
         payload.quantity = state.items[0].quantity;
     } else {
         payload.order_kind = "cart_order"; // 명세엔 order_type: "cart_order"로 되어있으나 req body 예시엔 order_kind 없이 order_type만 있거나 혼용됨.
@@ -330,10 +330,7 @@ const handlePayment = async () => {
     }
 
     try {
-        await request("/order/", {
-            method: "POST",
-            body: JSON.stringify(payload)
-        });
+        await order(payload);
 
         alert("주문이 완료되었습니다."); // Success
         location.href = "/"; // 메인으로 이동 (또는 주문 완료 페이지)

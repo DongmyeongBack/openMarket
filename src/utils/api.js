@@ -1,7 +1,7 @@
 // src/utils/api.js
 const BASE_URL = "https://api.wenivops.co.kr/services/open-market";
 
-export const request = async (url, options = {}) => {
+export async function request(url, options = {}) {
     const token = localStorage.getItem("token");
 
     // 수정된 부분: body가 FormData라면 Content-Type 헤더를 설정하지 않음 (브라우저가 자동 설정)
@@ -65,7 +65,7 @@ export const request = async (url, options = {}) => {
                 }
             } else {
                 // 리프레시 토큰이 없거나 리프레시 요청 자체가 실패한 경우
-                if (!url.includes("/accounts/token/refresh/")) {
+                if (!url.includes("/accounts/token/refresh/") && !url.includes("/accounts/login/") && !url.includes("/accounts/validate-username/")) {
                     console.warn("❌ 인증 실패 (토큰 없음). 로그아웃 처리.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("refreshToken");
@@ -89,4 +89,104 @@ export const request = async (url, options = {}) => {
         console.error("API Fetch Error:", error);
         throw error;
     }
+};
+
+// Auth
+export const login = (username, password) => {
+    return request("/accounts/login/", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+    });
+};
+
+export const checkId = (username) => {
+    return request("/accounts/validate-username/", {
+        method: "POST",
+        body: JSON.stringify({ username }),
+    });
+};
+
+export const checkBusinessNumber = (businessNumber) => {
+    return request("/accounts/seller/validate-registration-number/", {
+        method: "POST",
+        body: JSON.stringify({ company_registration_number: businessNumber }),
+    });
+};
+
+export const join = (userData) => {
+    return request("/accounts/signup/", {
+        method: "POST",
+        body: JSON.stringify(userData),
+    });
+};
+
+// Products
+export const getProducts = (params = "") => {
+    return request(`/products/${params}`);
+};
+
+export const getProductDetail = (id) => {
+    return request(`/products/${id}/`);
+};
+
+export const searchProducts = (keyword) => {
+    return request(`/products/?search=${encodeURIComponent(keyword)}`);
+};
+
+// Cart
+export const getCart = () => {
+    return request("/cart/");
+};
+
+export const addToCart = (data) => {
+    return request("/cart/", {
+        method: "POST",
+        body: JSON.stringify(data),
+    });
+};
+
+export const updateCartItem = (cartId, quantity) => {
+    return request(`/cart/${cartId}/`, {
+        method: "PUT",
+        body: JSON.stringify({ quantity }),
+    });
+};
+
+export const deleteCartItem = (cartId) => {
+    return request(`/cart/${cartId}/`, {
+        method: "DELETE",
+    });
+};
+
+// Order
+export const order = (data) => {
+    return request("/order/", {
+        method: "POST",
+        body: JSON.stringify(data),
+    });
+};
+
+// Seller
+export const getSellerProducts = (accountName) => {
+    return request(`/${accountName}/products/`);
+};
+
+export const createProduct = (formData) => {
+    return request("/products/", {
+        method: "POST",
+        body: formData,
+    });
+};
+
+export const updateProduct = (id, formData) => {
+    return request(`/products/${id}/`, {
+        method: "PUT",
+        body: formData,
+    });
+};
+
+export const deleteProduct = (id) => {
+    return request(`/products/${id}/`, {
+        method: "DELETE",
+    });
 };

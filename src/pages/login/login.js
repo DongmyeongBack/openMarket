@@ -1,5 +1,5 @@
 // [변경] 공용 API 함수 임포트
-import { request } from "/src/utils/api.js";
+import { login } from "/src/utils/api.js";
 
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
@@ -59,15 +59,8 @@ loginForm.addEventListener("submit", async (e) => {
 
     // 3. 실제 API 호출 로직 (request 함수 사용)
     try {
-        // [변경] fetch -> request 사용
-        // request 함수 내부에서 BASE_URL과 Headers(Content-Type)를 처리해줍니다.
-        const data = await request("/accounts/login/", {
-            method: "POST",
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            }),
-        });
+        // [변경] request -> login 함수 사용
+        const data = await login(username, password);
 
         // [성공 처리]
         // api.js에서 에러가 발생하면 throw 하므로, 여기까지 코드가 도달했다면 성공입니다.

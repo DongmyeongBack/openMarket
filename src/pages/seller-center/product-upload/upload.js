@@ -1,4 +1,4 @@
-import { request } from "/src/utils/api.js";
+import { getProductDetail, createProduct, updateProduct } from "/src/utils/api.js";
 import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
 
 // 1. DOM 요소 선택
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchProductDetail(id) {
     try {
-        const data = await request(`/products/${id}/`);
+        const data = await getProductDetail(id);
         // 폼 채우기
         const productName = data.product_name || data.name;
         const productInfo = data.product_info || data.products_info || data.info; // API 필드명 호환성 고려
@@ -138,11 +138,12 @@ productForm.addEventListener("submit", async (e) => {
         let res;
         if (isEditMode) {
             // PUT 요청
-            res = await request(`/products/${productId}/`, {
-                method: "PUT",
-                body: formData,
-            });
+            res = await updateProduct(productId, formData);
             alert("상품이 성공적으로 수정되었습니다.");
+        } else {
+            // POST 요청
+            res = await createProduct(formData);
+            alert("상품이 성공적으로 등록되었습니다.");
         }
 
         console.log("처리 성공:", res);

@@ -1,5 +1,5 @@
 // src/pages/signup/signup.js
-import { request } from "/src/utils/api.js";
+import { checkId, join, checkBusinessNumber } from "/src/utils/api.js";
 
 // DOM 요소 선택
 const inputs = {
@@ -166,10 +166,7 @@ function validateUsernameFormat() {
 async function checkIdDuplicate() {
     const username = inputs.username.value.trim();
     try {
-        await request("/accounts/validate-username/", {
-            method: "POST",
-            body: JSON.stringify({ username }),
-        });
+        await checkId(username);
         showSuccess(inputs.username, "멋진 아이디네요 :)");
         state.username = true;
         state.usernameChecked = true;
@@ -294,10 +291,7 @@ inputs.checkBusinessBtn.addEventListener("click", async () => {
     }
 
     try {
-        const result = await request("/accounts/seller/validate-registration-number/", {
-            method: "POST",
-            body: JSON.stringify({ company_registration_number: businessNo }),
-        });
+        const result = await checkBusinessNumber(businessNo);
 
         // 성공 (200)
         showSuccess(inputs.businessNo, result.message || "사용 가능한 사업자등록번호입니다.");
@@ -388,10 +382,7 @@ submitBtn.addEventListener("click", async (e) => {
     }
 
     try {
-        await request(apiUrl, {
-            method: "POST",
-            body: JSON.stringify(formData),
-        });
+        await join(formData);
 
         alert("회원가입이 완료되었습니다!");
         window.location.href = "/login.html";

@@ -1,4 +1,4 @@
-import { request } from "/src/utils/api.js";
+import { getProductDetail, getCart, addToCart } from "/src/utils/api.js";
 import { showLoginModal, showCartMoveModal } from "/src/components/Modal/Modal.js";
 
 import Header from "/src/components/Header/Header.js";
@@ -54,9 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // 2. 상품 상세 정보 가져오기
 async function fetchProductDetail(id) {
     try {
-        const data = await request(`/products/${id}/`, {
-            method: "GET",
-        });
+        const data = await getProductDetail(id);
         console.log("get products/id", data);
         productData = data;
         renderProduct(data);
@@ -228,7 +226,7 @@ async function handleCartAction() {
 
     try {
         // 1. 장바구니 목록을 먼저 조회합니다.
-        const cartData = await request("/cart/", { method: "GET" });
+        const cartData = await getCart();
 
         // 2. 현재 담으려는 상품(productData.id)이 장바구니 목록에 있는지 확인합니다.
         // API 명세상 results 배열 안에 아이템들이 들어있습니다.
@@ -244,13 +242,11 @@ async function handleCartAction() {
         }
 
         // 4. 장바구니에 없다면 추가(POST) 요청을 보냅니다.
-        await request("/cart/", {
-            method: "POST",
-            body: JSON.stringify({
-                product_id: productData.id,
-                quantity: currentQuantity,
-                check: true,
-            }),
+        // 4. 장바구니에 없다면 추가(POST) 요청을 보냅니다.
+        await addToCart({
+            product_id: productData.id,
+            quantity: currentQuantity,
+            check: true,
         });
 
         // 5. 성공 시 (새로 추가된 경우) 컨펌 창 띄우기
