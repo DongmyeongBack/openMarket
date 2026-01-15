@@ -183,8 +183,8 @@ export default class Header {
                 }
             });
 
-            // 클릭 이벤트
-            searchResults.addEventListener("click", (e) => {
+            // 클릭 이벤트 (mousedown으로 변경하여 blur 이벤트보다 먼저 실행되도록 함)
+            searchResults.addEventListener("mousedown", (e) => {
                 const item = e.target.closest(".search-item");
                 if (item) {
                     window.location.href = `/src/pages/product-detail/index.html?productId=${item.dataset.id}`;

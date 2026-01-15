@@ -51,13 +51,16 @@
     font-size: 14px;
     color: #767676;
 }
+
 .product-name {
     font-size: 18px;
     margin: 10px 0;
 }
+
 .product-price {
     font-weight: 700;
 }
+
 .shipping-info {
     font-size: 14px;
     color: #767676;
@@ -73,6 +76,7 @@
     overflow: hidden;
     margin: 0 auto;
 }
+
 .quantity-ctrl button {
     width: 40px;
     height: 40px;
@@ -80,6 +84,7 @@
     border: none;
     cursor: pointer;
 }
+
 .quantity-ctrl span {
     width: 40px;
     line-height: 40px;
@@ -108,10 +113,12 @@
     display: none;
     margin: 150px 0;
 }
+
 .empty-msg {
     font-size: 18px;
     font-weight: 700;
 }
+
 .empty-sub {
     color: #767676;
     margin-top: 10px;
@@ -125,7 +132,8 @@
     margin-top: 80px;
     padding: 40px;
     display: flex;
-    justify-content: space-between; /* 요소들 사이 간격을 균등하게 배치 */
+    justify-content: space-between;
+    /* 요소들 사이 간격을 균등하게 배치 */
     align-items: center;
 }
 
@@ -139,6 +147,7 @@
     display: flex;
     flex-direction: column;
 }
+
 /* 하단 요약 바 연산 기호 공통 스타일 */
 .difference,
 .sum,
@@ -149,16 +158,21 @@
     border-radius: 50%;
     font-size: 36px;
     background-color: white;
-    color: #767676; /* 기호 색상 (필요시 변경) */
+    color: #767676;
+    /* 기호 색상 (필요시 변경) */
 
     /* [추가] Flexbox를 이용한 중앙 정렬 */
     display: flex;
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    align-items: center;
+    /* 수직 중앙 정렬 */
 
     /* [선택 사항] 폰트에 따라 약간의 높이 오차가 있을 경우 조절 */
-    line-height: 1; /* 줄 높이를 글자 크기에 맞춤 */
-    padding-bottom: 4px; /* 미세 조정: 기호가 약간 위로 올라가 보이게 */
+    line-height: 1;
+    /* 줄 높이를 글자 크기에 맞춤 */
+    padding-bottom: 4px;
+    /* 미세 조정: 기호가 약간 위로 올라가 보이게 */
 }
 
 .summary-total {
@@ -175,14 +189,16 @@
 }
 
 .btn-order-all {
+    display: block;
+    width: 220px;
+    margin: 40px auto;
     background: #21bf48;
     color: white;
     border: none;
-    padding: 15px 100px;
+    padding: 15px 0;
     font-size: 24px;
     font-weight: 700;
     border-radius: 5px;
-    margin-top: 40px;
     cursor: pointer;
 }
 
@@ -193,6 +209,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 20px;
-    color: #c4c4c4;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+}
+
+.btn-delete img {
+    width: 100%;
+    height: 100%;
+    display: block;
 }

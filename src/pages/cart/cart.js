@@ -19,6 +19,7 @@ const emptyCartEl = document.getElementById("empty-cart");
 const cartSummaryEl = document.getElementById("cart-summary");
 const btnOrderAll = document.querySelector(".btn-order-all");
 const totalPriceEl = document.getElementById("total-price");
+const shippingFeeEl = document.getElementById("shipping-fee");
 const finalAmountEl = document.getElementById("final-amount");
 
 /**
@@ -111,7 +112,9 @@ function renderCart() {
                 <p class="item-total-price">${(item.price * item.quantity).toLocaleString()}원</p>
                 <button class="btn-order-single">주문하기</button>
             </div>
-            <button class="btn-delete">x</button>
+            <button class="btn-delete">
+                <img src="/src/assets/images/icon-delete.svg" alt="삭제" />
+            </button>
         </li>
     `
         )
@@ -127,8 +130,9 @@ function updateSummary() {
     const totalProductPrice = cartItems.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
     const totalShipping = cartItems.reduce((acc, cur) => acc + cur.shipping, 0);
 
-    // UI 업데이트 (배송비 포함 여부는 기획에 따라 조정, 여기선 상품 금액만 표시 예시)
+    // UI 업데이트
     totalPriceEl.textContent = totalProductPrice.toLocaleString();
+    shippingFeeEl.textContent = totalShipping.toLocaleString();
 
     // 최종 결제 금액 (상품금액 + 배송비)
     const finalAmount = totalProductPrice + totalShipping;
