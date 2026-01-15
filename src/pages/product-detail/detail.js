@@ -152,18 +152,9 @@ function initEventListeners() {
         if (!checkLogin()) return;
 
         const orderData = {
-            type: "direct_order",
-            items: [
-                {
-                    product_id: productData.id,
-                    product_name: productData.name,
-                    quantity: currentQuantity,
-                    price: productData.price,
-                    shipping_fee: productData.shipping_fee,
-                    image: productData.image,
-                    store_name: productData.seller.store_name,
-                },
-            ],
+            order_kind: "direct_order",
+            product_id: productData.id,
+            quantity: currentQuantity,
         };
 
         localStorage.setItem("order_data", JSON.stringify(orderData));

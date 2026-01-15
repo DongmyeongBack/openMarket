@@ -1,133 +1,261 @@
-:root {
-    --main-green: #21BF48;
-    --border-gray: #C4C4C4;
-    --text-black: #333333;
-    --bg-gray: #F2F2F2;
-}
-
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    color: var(--text-black);
-}
-
-.payment-wrapper {
+/* Basic Setup */
+.payment-container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 54px 0 100px;
 }
 
 .page-title {
-    text-align: center;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
-    margin-bottom: 50px;
-}
-
-/* 상품 정보 테이블 스타일 */
-.cart-info {
-    width: 100%;
-    margin-bottom: 60px;
-}
-
-.table-header {
-    display: flex;
-    background-color: var(--bg-gray);
-    padding: 18px 0;
     text-align: center;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-.col-info { width: 50%; }
-.col-discount { width: 15%; }
-.col-shipping { width: 15%; }
-.col-price { width: 20%; }
-
-.product-item {
-    display: flex;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border-gray);
-}
-
-.p-info {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.p-img { width: 104px; height: 104px; border-radius: 10px; background: #eee; object-fit: cover;}
-.p-text .brand { font-size: 14px; color: #767676; margin-bottom: 6px;}
-.p-text .name { font-size: 18px; margin-bottom: 10px;}
-.p-text .qty { font-size: 14px; color: #767676;}
-
-.p-discount, .p-shipping, .p-price { text-align: center; }
-.p-discount { width: 15%; color: #767676; }
-.p-shipping { width: 15%; color: #767676; }
-.p-price { width: 20%; font-size: 18px; font-weight: 700; }
-
-.total-order-price {
-    text-align: right;
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 30px;
-}
-.total-order-price span {
-    font-size: 24px;
-    color: #EB5757; /* 빨간색 강조 */
-    font-weight: 700;
-}
-
-/* 입력 폼 섹션 공통 */
-.info-section {
-    margin-bottom: 40px;
-    border-bottom: 2px solid var(--border-gray);
-    padding-bottom: 20px;
+    margin-bottom: 52px;
 }
 
 .section-title {
     font-size: 24px;
     font-weight: 500;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-gray);
+    border-bottom: 2px solid #C4C4C4;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+}
+
+.sub-title {
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid #C4C4C4;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+/* Order Item Table */
+.order-table-section {
+    margin-bottom: 70px;
+}
+
+.table-header {
+    display: flex;
+    background-color: #F2F2F2;
+    padding: 19px 0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.col-info {
+    width: 50%;
+    padding-left: 30px;
+    text-align: left;
+}
+
+.col-discount {
+    width: 15%;
+}
+
+.col-shipping {
+    width: 15%;
+}
+
+.col-price {
+    width: 20%;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #C4C4C4;
+    font-size: 18px;
+}
+
+.product-info-cell {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    gap: 36px;
+}
+
+.product-img {
+    width: 104px;
+    height: 104px;
+    border-radius: 10px;
+    object-fit: cover;
+    background-color: #C4C4C4;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shop-name {
+    font-size: 14px;
+    color: #767676;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.product-qty {
+    font-size: 14px;
+    color: #767676;
+}
+
+.discount-cell,
+.shipping-cell,
+.price-cell {
+    display: flex;
+    justify-content: center;
+    color: #767676;
+}
+
+.discount-cell {
+    width: 15%;
+}
+
+.shipping-cell {
+    width: 15%;
+}
+
+.price-cell {
+    width: 20%;
+}
+
+.price-cell {
+    font-weight: 700;
+    color: #000;
+}
+
+/* Total Order Price Row */
+.total-order-price-row {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.total-order-price-row span {
+    font-size: 24px;
+    font-weight: 700;
+    color: #EB5757;
+    margin-left: 10px;
+}
+
+/* Forms */
+.delivery-info-section {
+    margin-bottom: 70px;
+}
+
+.form-group-wrapper {
+    margin-bottom: 40px;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }
 
 .form-row {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #C4C4C4;
+    padding: 8px 0;
+}
+
+.form-row:last-child {
+    border-bottom: 1px solid #C4C4C4;
+    /* Keep border for last item too based on design */
+}
+
+/* Adjusting to match design which is more like a table with label on left */
+.form-row {
+    border-bottom: 1px solid #C4C4C4;
+    padding: 0;
+    height: 56px;
+    /* Approx height */
 }
 
 .form-row label {
-    width: 150px;
-    font-weight: 500;
+    width: 170px;
+    padding-left: 8px;
+    font-size: 16px;
+    font-weight: 400;
 }
 
-input[type="text"], input[type="email"] {
+.input-field,
+.input-wide {
     height: 40px;
-    border: 1px solid var(--border-gray);
+    border: 1px solid #C4C4C4;
     padding: 0 10px;
+    font-size: 16px;
     width: 334px;
 }
 
-.phone-inputs { display: flex; align-items: center; gap: 5px; }
-.phone-inputs input { width: 100px; text-align: center; }
+.input-wide {
+    width: 800px;
+}
 
-.address-inputs { display: flex; flex-direction: column; gap: 10px; }
-.zip-box { display: flex; gap: 10px; }
-.zip-box input { width: 170px; }
-.btn-zipcode {
-    background-color: var(--main-green);
+.phone-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-phone {
+    width: 80px;
+    height: 40px;
+    border: 1px solid #C4C4C4;
+    text-align: center;
+    font-size: 16px;
+}
+
+.address-row {
+    height: auto;
+    padding: 8px 0;
+    align-items: flex-start;
+}
+
+.address-row label {
+    margin-top: 10px;
+}
+
+.address-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.zipcode-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.input-short {
+    width: 170px;
+    height: 40px;
+    border: 1px solid #C4C4C4;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.btn-green {
+    background-color: #21BF48;
     color: white;
     border: none;
-    padding: 0 20px;
     border-radius: 5px;
+    padding: 0 18px;
+    height: 40px;
+    font-size: 16px;
     cursor: pointer;
 }
 
-.payment-bottom-layout {
+/* Bottom Layout (Payment Method + Sticky Box) */
+.bottom-layout {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -138,68 +266,87 @@ input[type="text"], input[type="email"] {
     margin-right: 40px;
 }
 
-.method-options {
+.payment-methods {
     display: flex;
     gap: 20px;
-    padding: 10px 0;
-    flex-wrap: wrap;
+    padding: 18px 0;
+    border-bottom: 1px solid #C4C4C4;
 }
 
-/* 최종 결제 카드 (오른쪽 sticky) */
-.final-payment-card {
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Final Payment Box */
+.final-payment-container {
     width: 480px;
-    border: 2px solid var(--main-green);
-    border-radius: 10px;
-    padding: 30px;
-    background: white;
 }
 
-.card-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
+.payment-box {
+    border: 1px solid #21BF48;
+    background-color: #fff;
+    border-radius: 10px;
+    /* Optional rounded */
+    overflow: hidden;
 }
 
 .price-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    padding: 12px 30px;
+    font-size: 16px;
 }
 
-.price-val { font-weight: 700; }
+.price-row strong {
+    font-weight: 700;
+    font-size: 18px;
+}
 
-.total-row {
-    margin-top: 20px;
+.price-row .unit {
+    font-size: 14px;
+    font-weight: 400;
+    color: #767676;
+}
+
+.divider {
+    height: 1px;
+    background-color: #C4C4C4;
+    margin: 10px 30px;
+}
+
+.price-row.total {
+    margin-top: 10px;
     align-items: center;
 }
 
-.total-val {
+.price-row.total .total-amount strong {
     font-size: 24px;
     color: #EB5757;
-    font-weight: 700;
 }
 
-.agreement-box {
-    background: #F2F2F2;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 5px;
+.consent-check {
+    background-color: #F2F2F2;
+    padding: 30px;
+    text-align: center;
     font-size: 14px;
 }
 
-.btn-pay {
+.btn-payment {
     width: 100%;
     height: 60px;
-    background-color: var(--main-green);
+    background-color: #21BF48;
     color: white;
     font-size: 24px;
     font-weight: 700;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
-.btn-pay:hover {
-    background-color: #1a9c3a;
+.btn-payment:disabled {
+    background-color: #C4C4C4;
+    cursor: not-allowed;
 }

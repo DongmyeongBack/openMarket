@@ -44,10 +44,9 @@ async function getCartData() {
         } else {
             // 4. API 데이터 구조를 화면 렌더링용 구조로 매핑(변환)
             // API의 results 배열 안에는 { id, product: { ... }, quantity } 구조로 들어옵니다.
-            console.log(cartItems);
             cartItems = data.results.map((item) => ({
                 cart_id: item.id, // 장바구니 항목 ID (삭제/수정 시 필요)
-                product_id: item.product.product_id, // 상품 ID
+                product_id: item.product.id, // 상품 ID
                 seller: item.product.seller.store_name, // 판매자명
                 name: item.product.name, // 상품명
                 price: item.product.price, // 가격
@@ -55,6 +54,7 @@ async function getCartData() {
                 image: item.product.image, // 이미지 URL
                 quantity: item.quantity, // 수량
             }));
+            console.log(cartItems);
         }
 
         // 5. 화면 렌더링
@@ -216,19 +216,33 @@ cartListEl.addEventListener("click", async (e) => {
             }
         }
     }
-    // [추가] 개별 상품 주문 버튼: 실제 폴더 구조인 /src/pages/payment/index.html로 이동
+    // [수정] 개별 상품 주문 버튼: localStorage에 데이터 저장 후 이동
     else if (e.target.classList.contains("btn-order-single")) {
-        window.location.href = `/src/pages/payment/index.html?order_kind=cart_one_order&cart_id=${item.cart_id}`;
+        const orderData = {
+            order_kind: "cart_order",
+            // 단일 상품 주문이지만 카트에서 주문하므로 cart_order로 처리
+            // API 명세 5.1.2에 따라 cart_order는 리스트 형태의 items를 보냄
+            product_ids: [item.product_id]
+        };
+        localStorage.setItem("order_data", JSON.stringify(orderData));
+        window.location.href = "/src/pages/payment/index.html";
     }
 });
 
-// [추가] 전체 주문하기 버튼 클릭 이벤트: 실제 폴더 구조인 /src/pages/payment/index.html로 이동
+// [수정] 전체 주문하기 버튼 클릭 이벤트: localStorage에 데이터 저장 후 이동
 btnOrderAll.addEventListener("click", () => {
     if (cartItems.length === 0) {
         alert("장바구니에 담긴 상품이 없습니다.");
         return;
     }
-    window.location.href = "/src/pages/payment/index.html?order_kind=cart_order";
+
+    const orderData = {
+        order_kind: "cart_order",
+        product_ids: cartItems.map(item => item.product_id)
+    };
+    localStorage.setItem("order_data", JSON.stringify(orderData));
+
+    window.location.href = "/src/pages/payment/index.html";
 });
 
 // 초기 실행
