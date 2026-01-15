@@ -125,7 +125,7 @@ export function showStockLimitModal() {
   document.getElementById("stockModalNo").onclick = closeStockModal;
 
   document.getElementById("stockModalYes").onclick = () => {
-    // ✅ 예 버튼 클릭 시 처리 로직
+    // 예 버튼 클릭 시 처리 로직
     console.log("재고 초과 상태에서 계속 진행");
     closeStockModal();
   };
@@ -134,4 +134,42 @@ export function showStockLimitModal() {
 function closeStockModal() {
   const modal = document.getElementById("stockLimitModal");
   if (modal) modal.remove();
+}
+
+export function showCartMoveModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="cartMoveModal">
+            <div class="modal-box">
+                <button class="modal-close-btn" id="cartModalClose">&times;</button>
+
+                <p class="modal-text">
+                    이미 장바구니에 있는 상품입니다.<br>
+                    장바구니로 이동하시겠습니까?
+                </p>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-no" id="cartModalNo">아니오</button>
+                    <button class="modal-btn btn-yes" id="cartModalYes">예</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 닫기 이벤트
+    document.getElementById('cartModalClose').onclick = closeCartModal;
+    document.getElementById('cartModalNo').onclick = closeCartModal;
+
+    document.getElementById('cartModalYes').onclick = () => {
+        // 장바구니 이동 로직
+        console.log('장바구니로 이동');
+        closeCartModal();
+        // location.href = '/cart'; // 실제 사용 시
+    };
+}
+
+function closeCartModal() {
+    const modal = document.getElementById('cartMoveModal');
+    if (modal) modal.remove();
 }
