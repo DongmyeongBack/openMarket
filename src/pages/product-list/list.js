@@ -132,12 +132,4 @@ function initBannerEvents() {
         moveSlide(currentSlide + 1);
     }, 5000);
 }
-
-// 3. 페이지 로드 시 실행
-document.addEventListener("DOMContentLoaded", () => {
-    fetchProducts();
-
-    // (선택사항) 헤더, 푸터 컴포넌트 로드 함수가 있다면 여기서 호출
-    // loadHeader();
-    // loadFooter();
-});
+fetchProducts();
