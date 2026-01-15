@@ -115,12 +115,7 @@ select:focus {
 
 .btn-check {
     width: 120px;
-    background-color: var(--main-color); /* 변수 적용 */
-    color: var(--text-white); /* 변수 적용 */
-    border: none;
-    border-radius: 5px;
     font-size: 16px;
-    cursor: pointer;
 }
 
 /* 휴대폰 번호 레이아웃 */

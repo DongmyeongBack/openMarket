@@ -1,5 +1,5 @@
 import { request } from "/src/utils/api.js";
-import { showLoginModal } from "/src/components/Modal/Modal.js";
+import { showLoginModal, showCartMoveModal } from "/src/components/Modal/Modal.js";
 
 import Header from "/src/components/Header/Header.js";
 import Footer from "/src/components/Footer/Footer.js";
@@ -43,8 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         new Header(headerTarget);
     }
 
-    // [2] Footer 렌더링
-    const footerTarget = document.querySelector("#footer"); // HTML에 id="footer"가 있어야 함
+    const footerTarget = document.querySelector("#footer");
     if (footerTarget) {
         new Footer(footerTarget);
     }
@@ -91,10 +90,43 @@ function renderProduct(data) {
     } else {
         updateTotalUI();
     }
+
+    // [추가됨] 판매자 권한 확인 및 UI 비활성화 처리
+    checkSellerMode();
+}
+
+// [새로 추가된 함수] 판매자 모드 확인
+function checkSellerMode() {
+    // 로그인 시 localStorage에 저장된 user_type을 가져옵니다.
+    // (로그인 로직에서 setItem("user_type", "SELLER")가 되어 있다고 가정)
+    const userType = localStorage.getItem("userType");
+
+    if (userType === "SELLER") {
+        // 1. 버튼 비활성화
+        buyBtn.disabled = true;
+        cartBtn.disabled = true;
+        minusBtn.disabled = true;
+        plusBtn.disabled = true;
+
+        // 2. 스타일 변경 (선택 사항: 시각적으로 비활성화 느낌 주기)
+        buyBtn.style.backgroundColor = "#ccc";
+        buyBtn.textContent = "판매자 구매 불가"; // 텍스트 변경
+        buyBtn.style.cursor = "not-allowed";
+
+        cartBtn.style.backgroundColor = "#eee";
+        cartBtn.style.cursor = "not-allowed";
+
+        // 수량 버튼도 흐릿하게 처리
+        minusBtn.style.opacity = "0.3";
+        plusBtn.style.opacity = "0.3";
+    }
 }
 
 // 4. 이벤트 리스너 설정
 function initEventListeners() {
+    // 판매자라면 이벤트 리스너 자체를 등록하지 않거나, 등록해도 버튼이 disabled 되어 동작하지 않음
+    // 안전을 위해 상단에서 return 처리 가능하지만, 이미 버튼을 disable 했으므로 그대로 둬도 무방합니다.
+
     if (!productData || productData.stock === 0) return;
 
     // (-) 버튼
@@ -115,30 +147,26 @@ function initEventListeners() {
         }
     });
 
-    // [구매 버튼] (⭐⭐⭐ 여기가 수정된 핵심 부분입니다!)
+    // [구매 버튼]
     buyBtn.addEventListener("click", () => {
-        // 1. 로그인 체크
         if (!checkLogin()) return;
 
-        // 2. payment.js가 알아들을 수 있는 형태로 데이터 포장
         const orderData = {
-            type: "direct_order", // 바로 구매임을 표시
-            items: [{
-                // productData 안에 있는 실제 데이터 이름으로 매핑
-                product_id: productData.id, 
-                product_name: productData.name, 
-                quantity: currentQuantity,
-                price: productData.price,
-                shipping_fee: productData.shipping_fee,
-                image: productData.image,
-                store_name: productData.seller.store_name
-            }]
+            type: "direct_order",
+            items: [
+                {
+                    product_id: productData.id,
+                    product_name: productData.name,
+                    quantity: currentQuantity,
+                    price: productData.price,
+                    shipping_fee: productData.shipping_fee,
+                    image: productData.image,
+                    store_name: productData.seller.store_name,
+                },
+            ],
         };
 
-        // 3. 우편함(localStorage)에 데이터 넣기
         localStorage.setItem("order_data", JSON.stringify(orderData));
-
-        // 4. 결제 페이지로 이동
         window.location.href = "/src/pages/payment/index.html";
     });
 
@@ -158,11 +186,10 @@ function initEventListeners() {
  * 로그인 상태 확인 및 모달 호출 함수
  */
 function checkLogin() {
-    // api.js에서 사용하는 스토리지 키(token) 확인
     const token = localStorage.getItem("token");
 
     if (!token) {
-        showLoginModal(); // 비로그인 시 모달 띄우기
+        showLoginModal();
         return false;
     }
     return true;
@@ -184,6 +211,10 @@ function updateTotalUI() {
     const isMaxStock = currentQuantity >= stock;
     plusBtn.disabled = isMaxStock;
     plusBtn.style.opacity = isMaxStock ? "0.3" : "1";
+
+    // [보완] 만약 판매자라면 updateTotalUI가 호출되더라도 버튼은 계속 disable 상태여야 함
+    // 하지만 renderProduct에서 이미 버튼 자체를 disable 시켰고,
+    // click 이벤트가 발생하지 않으므로 여기서는 추가 처리가 필수는 아닙니다.
 }
 
 // 품절 상태 처리
@@ -200,32 +231,33 @@ function setSoldOutState() {
     plusBtn.disabled = true;
 }
 
-// 장바구니 로직 (수정됨)
+// 장바구니 로직
 async function handleCartAction() {
-    // 1. 로그인 체크
     if (!checkLogin()) return;
 
-    // 2. 서버에 장바구니 추가 요청
     try {
         await request("/cart/", {
             method: "POST",
             body: JSON.stringify({
                 product_id: productData.id,
                 quantity: currentQuantity,
-                check: true, // 장바구니에서 기본적으로 선택된 상태
+                check: true,
             }),
         });
 
-        // 3. 장바구니 이동 여부 확인
+        // 성공 시 (새로 추가된 경우) 기존 confirm 창 유지
         const moveToCart = confirm("장바구니에 상품을 담았습니다.\n장바구니 페이지로 이동하시겠습니까?");
-
         if (moveToCart) {
-            window.location.href = "/src/pages/cart/index.html"; // 장바구니 페이지 경로
+            window.location.href = "/src/pages/cart/index.html";
         }
     } catch (error) {
+        // 실패 시 (이미 장바구니에 있는 경우 등)
         console.error("장바구니 추가 실패:", error);
-        // 이미 장바구니에 있는 경우 등 에러 처리
-        alert("이미 장바구니에 담긴 상품이거나 통신 오류가 발생했습니다.");
+
+        // [수정됨] 단순 alert 대신 모달 호출
+        // API 에러 메시지가 명확하다면 if (error.message.includes("exist")) 등으로 분기 처리를 권장합니다.
+        // 현재는 에러 발생 시(중복) 모달을 띄우도록 처리했습니다.
+        showCartMoveModal();
     }
 }
 

@@ -71,22 +71,9 @@
 /* 로그인 버튼 */
 .login-btn {
     width: 80%;
-    /* 메인 컬러 변수 적용 */
-    background-color: var(--main-color);
-    color: var(--text-white);
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
+    margin: 36px auto 36px auto;
     font-size: 1.1rem;
     font-weight: 700;
-    cursor: pointer;
-    margin: 36px auto 36px auto;
-    transition: opacity 0.2s;
-}
-
-/* common.css의 버튼 스타일(opacity 조절)을 따름 */
-.login-btn:hover {
-    opacity: 0.9;
 }
 
 /* 하단 링크 */

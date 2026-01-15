@@ -111,7 +111,7 @@ function renderCart() {
                 <p class="item-total-price">${(item.price * item.quantity).toLocaleString()}원</p>
                 <button class="btn-order-single">주문하기</button>
             </div>
-            <button class="btn-delete">×</button>
+            <button class="btn-delete">x</button>
         </li>
     `
         )
