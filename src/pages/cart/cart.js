@@ -1,6 +1,7 @@
 import Header from "/src/components/Header/Header.js";
 import Footer from "/src/components/Footer/Footer.js";
 import { request } from "/src/utils/api.js"; // api.js 경로 확인 필요
+import { showLoginModal, showDeleteModal } from "/src/components/Modal/Modal.js";
 
 /* [공통 컴포넌트 초기화] */
 const headerTarget = document.getElementById("header");
@@ -27,7 +28,7 @@ async function getCartData() {
     // 1. 로그인 여부 확인 (토큰이 없으면 로그인 페이지로)
     const token = localStorage.getItem("token");
     if (!token) {
-        alert("로그인이 필요한 서비스입니다.");
+        showLoginModal();
         window.location.href = "/src/pages/login/index.html";
         return;
     }
@@ -156,12 +157,19 @@ cartListEl.addEventListener("click", async (e) => {
         renderCart();
     } else if (e.target.classList.contains("btn-delete")) {
         // TODO: 여기서 삭제 API 호출 (DELETE)
-        if (confirm("정말 장바구니에서 삭제하시겠습니까?")) {
-            /* // 예시 삭제 로직
-            await request(`/cart/${cartId}/`, { method: "DELETE" });
-            */
-            cartItems = cartItems.filter((i) => i.cart_id !== cartId);
-            renderCart();
+        const isConfirmed = await showDeleteModal();
+
+        if (isConfirmed) {
+            // 확인 버튼을 눌렀을 때만 실행
+            try {
+                /* 실제 삭제 API 예시 
+                await request(`/cart/${cartId}/`, { method: "DELETE" });
+                */
+                cartItems = cartItems.filter((i) => i.cart_id !== cartId);
+                renderCart();
+            } catch (error) {
+                console.error("삭제 실패:", error);
+            }
         }
     }
 });
