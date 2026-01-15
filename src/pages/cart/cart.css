@@ -106,7 +106,7 @@
 
 /* 빈 장바구니 스타일 */
 .empty-cart {
-    display: none;
+  display: none;
   margin: 150px 0;
 }
 .empty-msg {
@@ -125,13 +125,48 @@
   margin-top: 80px;
   padding: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
-.value strong {
+.summary-item .value strong {
   font-size: 24px;
+  display: flex;
+  flex-direction: column;
 }
+
+.value {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.difference {
+  width: 50px;
+  border-radius: 50%;
+  font-size: 36px;
+  background-color: white;
+}
+
+.sum {
+  width: 50px;
+  border-radius: 50%;
+  font-size: 36px;
+  background-color: white;
+}
+
+.equal {
+  width: 50px;
+  border-radius: 50%;
+  font-size: 36px;
+  background-color: white;
+}
+
+.summary-total {
+  display: flex;
+  flex-direction: column;
+}
+
 .value-total strong {
   font-size: 36px;
   color: #eb5757;
