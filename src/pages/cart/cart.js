@@ -135,6 +135,24 @@ function updateSummary() {
     finalAmountEl.textContent = finalAmount.toLocaleString();
 }
 
+// [추가됨] 수량 변경 API 요청 함수
+async function updateCartQuantity(cartId, newQuantity) {
+    try {
+        // API 명세: PUT /cart/<cart_item_id>/, body: { quantity: Int }
+        const result = await request(`/cart/${cartId}/`, {
+            method: "PUT",
+            body: JSON.stringify({
+                quantity: newQuantity,
+            }),
+        });
+        return result; // 수정된 장바구니 아이템 객체 반환
+    } catch (error) {
+        alert("수량 변경에 실패했습니다.");
+        console.error(error);
+        return null;
+    }
+}
+
 // 이벤트 위임 (수량 조절 및 삭제)
 // 주의: 현재는 화면상에서만 변경됩니다. 실제 서버 데이터를 변경하려면
 // PUT /cart/{cart_item_id}/ (수량변경) 및 DELETE /cart/{cart_item_id}/ (삭제) API 호출이 추가로 필요합니다.
@@ -148,27 +166,53 @@ cartListEl.addEventListener("click", async (e) => {
     if (!item) return;
 
     if (e.target.classList.contains("plus")) {
-        // TODO: 여기서 수량 증가 API 호출 (await request(..., 'PUT', ...))
-        item.quantity++;
-        renderCart();
-    } else if (e.target.classList.contains("minus") && item.quantity > 1) {
-        // TODO: 여기서 수량 감소 API 호출
-        item.quantity--;
-        renderCart();
+        const newQty = item.quantity + 1;
+
+        // API 호출
+        const updatedItem = await updateCartQuantity(cartId, newQty);
+
+        if (updatedItem) {
+            // 성공 시 로컬 데이터 업데이트 및 렌더링
+            item.quantity = updatedItem.quantity;
+            renderCart();
+        }
+    }
+    // 2. 수량 감소 (-)
+    else if (e.target.classList.contains("minus")) {
+        if (item.quantity > 1) {
+            const newQty = item.quantity - 1;
+
+            // API 호출
+            const updatedItem = await updateCartQuantity(cartId, newQty);
+
+            if (updatedItem) {
+                // 성공 시 로컬 데이터 업데이트 및 렌더링
+                item.quantity = updatedItem.quantity;
+                renderCart();
+            }
+        } else {
+            alert("최소 수량은 1개입니다.");
+        }
     } else if (e.target.classList.contains("btn-delete")) {
-        // TODO: 여기서 삭제 API 호출 (DELETE)
+        // 1. 삭제 모달 띄우기 (결과를 기다림)
         const isConfirmed = await showDeleteModal();
 
         if (isConfirmed) {
-            // 확인 버튼을 눌렀을 때만 실행
             try {
-                /* 실제 삭제 API 예시 
-                await request(`/cart/${cartId}/`, { method: "DELETE" });
-                */
+                // 2. API 삭제 요청 (DELETE 메서드 사용)
+                // 명세: DELETE /cart/<int:cart_item_id>/
+                await request(`/cart/${cartId}/`, {
+                    method: "DELETE",
+                });
+
+                // 3. 성공 시: 로컬 데이터 배열(cartItems)에서 삭제된 아이템 제거
                 cartItems = cartItems.filter((i) => i.cart_id !== cartId);
+
+                // 4. 화면 다시 그리기 (삭제된 항목 제거 및 총 금액 재계산)
                 renderCart();
             } catch (error) {
                 console.error("삭제 실패:", error);
+                alert("상품 삭제 처리에 실패했습니다.");
             }
         }
     }
