@@ -1,112 +1,194 @@
-/* ... 상단 import 문은 동일 ... */
+import { request } from "/src/utils/api.js";
 
-let product = null;
-let quantity = 1;
+// DOM 요소 선택 (상단에 몰아서 정의하여 관리 용이성 확보)
+const productImg = document.getElementById("productImage");
+const sellerName = document.getElementById("sellerName");
+const productName = document.getElementById("productName");
+const productPrice = document.getElementById("productPrice");
+const shippingInfo = document.getElementById("shippingInfo");
 
-// [추가] 로그인한 사용자의 타입 확인 (로그인 시 저장했다는 가정)
-const userType = sessionStorage.getItem("user_type"); 
-
-/* DOM 요소 선택 */
-// ... 기존 선택자 동일 ...
-const plusBtn = document.getElementById("plusBtn");
+// 수량 및 가격 관련 요소
 const minusBtn = document.getElementById("minusBtn");
+const plusBtn = document.getElementById("plusBtn");
+const quantityDisplay = document.getElementById("quantity");
+const totalQuantity = document.getElementById("totalQuantity");
+const totalPrice = document.getElementById("totalPrice");
+
+// 액션 버튼
 const buyBtn = document.querySelector(".buy");
 const cartBtn = document.querySelector(".cart");
+const tabs = document.querySelectorAll(".tab");
 
-/* 초기 실행 및 API 호출 */
-async function loadProduct() {
-    try {
-        product = await getProductDetail(productId);
-        
-        imageEl.src = product.image;
-        sellerNameEl.textContent = product.seller.store_name;
-        nameEl.textContent = product.name;
-        priceEl.textContent = product.price.toLocaleString();
-        shippingEl.textContent = product.shipping_fee === 0 ? "무료배송" : `배송비 ${product.shipping_fee.toLocaleString()}원`;
+// 상태 관리 변수
+let productData = null; // 상품 전체 데이터 저장
+let currentQuantity = 1;
 
-        updateUI(); // 가격 및 버튼 상태 통합 업데이트
-    } catch (e) {
-        console.error("에러 발생:", e);
-        alert("상품 정보를 불러올 수 없습니다.");
-    }
-}
+// 1. 초기화 및 실행
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("productId"); // list.js의 링크 파라미터와 일치시킴
 
-/* --- 이벤트 리스너 --- */
-
-plusBtn.addEventListener("click", () => {
-    // [수정] 판매자가 아닐 때만 작동하도록 조건 추가 가능 (버튼이 비활성화되므로 필수항목은 아님)
-    if (userType !== "SELLER" && product && quantity < product.stock) {
-        quantity++;
-        updateUI();
-    }
-});
-
-minusBtn.addEventListener("click", () => {
-    if (userType !== "SELLER" && quantity > 1) {
-        quantity--;
-        updateUI();
-    }
-});
-
-/* 구매 및 장바구니 버튼 클릭 이벤트 */
-const handlePurchaseClick = (type) => {
-    if (userType === "SELLER") {
-        alert("판매자는 상품을 구매하거나 장바구니에 담을 수 없습니다.");
+    if (!productId) {
+        alert("잘못된 접근입니다.");
+        history.back();
         return;
     }
-    
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-        showLoginModal();
+
+    fetchProductDetail(productId);
+});
+
+// 2. 상품 상세 정보 가져오기
+async function fetchProductDetail(id) {
+    try {
+        // api.js의 request 함수 사용 (Base URL 및 헤더 처리 포함)
+        const data = await request(`/products/${id}/`, {
+            method: "GET",
+        });
+
+        productData = data; // 데이터 저장
+        renderProduct(data);
+        initEventListeners(); // 데이터가 로드된 후 이벤트 연결
+    } catch (error) {
+        console.error("Error loading product:", error);
+        alert("상품 정보를 불러오는 데 실패했습니다.");
+        // 필요 시 에러 페이지로 이동하거나 에러 메시지 표시
+    }
+}
+
+// 3. 화면 렌더링
+function renderProduct(data) {
+    const { image, name, price, seller, shipping_method, shipping_fee, stock } = data;
+
+    // 이미지 및 기본 정보
+    productImg.src = image;
+    productImg.alt = name;
+    sellerName.textContent = seller.store_name || seller.name;
+    productName.textContent = name;
+    productPrice.textContent = formatPrice(price);
+
+    // 배송 정보
+    const methodText = shipping_method === "PARCEL" ? "택배배송" : "직접배송";
+    const feeText = shipping_fee === 0 ? "무료배송" : `${formatPrice(shipping_fee)}원`;
+    shippingInfo.textContent = `${methodText} / ${feeText}`;
+
+    // 재고 상태에 따른 초기화
+    if (stock === 0) {
+        setSoldOutState();
     } else {
-        console.log(`${type} 프로세스 진행`);
+        updateTotalUI(); // 초기 가격 및 수량 렌더링
     }
-};
-
-buyBtn.addEventListener("click", () => handlePurchaseClick("구매"));
-cartBtn.addEventListener("click", () => handlePurchaseClick("장바구니"));
-
-/* UI 업데이트 헬퍼 함수들 */
-function updateUI() {
-    quantityEl.textContent = quantity;
-    totalQuantityEl.textContent = quantity;
-    updatePrice();
-    updateButtonState();
 }
 
-function updatePrice() {
-    if (!product) return;
-    const total = product.price * quantity;
-    totalPriceEl.textContent = total.toLocaleString();
+// 4. 이벤트 리스너 설정
+function initEventListeners() {
+    if (!productData || productData.stock === 0) return;
+
+    // 수량 감소
+    minusBtn.addEventListener("click", () => {
+        if (currentQuantity > 1) {
+            currentQuantity--;
+            updateTotalUI();
+        }
+    });
+
+    // 수량 증가
+    plusBtn.addEventListener("click", () => {
+        if (currentQuantity < productData.stock) {
+            currentQuantity++;
+            updateTotalUI();
+        } else {
+            // 재고 초과 시 (보조적인 알림, 버튼은 이미 비활성화되도록 로직 구성됨)
+            alert("최대 구매 가능 수량입니다.");
+        }
+    });
+
+    // 구매 버튼
+    buyBtn.addEventListener("click", () => {
+        const totalAmount = productData.price * currentQuantity;
+        alert(
+            `[주문 요청]\n상품명: ${productData.name}\n수량: ${currentQuantity}개\n총 금액: ${formatPrice(
+                totalAmount
+            )}원`
+        );
+        // 여기에 결제 페이지 이동 로직 추가
+    });
+
+    // 장바구니 버튼
+    cartBtn.addEventListener("click", handleCartAction);
+
+    // 탭 전환
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            e.target.classList.add("active");
+        });
+    });
 }
 
-// [핵심 수정] 버튼 상태 및 스타일 업데이트
-function updateButtonState() {
-    if (!product) return;
+// UI 업데이트 (수량 변경 시 호출)
+function updateTotalUI() {
+    const stock = productData.stock;
 
-    // 1. 판매자인 경우: 모든 버튼 비활성화 및 색상 변경
-    if (userType === "SELLER") {
-        const disabledColor = "var(--border-color)";
-        
-        // 수량 버튼
-        plusBtn.disabled = true;
-        minusBtn.disabled = true;
-        
-        // 구매/장바구니 버튼 비활성화 및 배경색 변경
-        buyBtn.disabled = true;
-        cartBtn.disabled = true;
-        
-        buyBtn.style.backgroundColor = disabledColor;
-        cartBtn.style.backgroundColor = disabledColor;
-        buyBtn.style.cursor = "not-allowed";
-        cartBtn.style.cursor = "not-allowed";
-        
-        return; // 판매자라면 여기서 로직 종료
+    // 1. 수량 표시 업데이트
+    quantityDisplay.textContent = currentQuantity;
+    totalQuantity.textContent = currentQuantity;
+
+    // 2. 총 가격 계산 및 업데이트
+    const totalAmount = productData.price * currentQuantity;
+    totalPrice.textContent = formatPrice(totalAmount);
+
+    // 3. 버튼 활성화/비활성화 상태 관리
+    // 최소 수량(1개)일 때 - 버튼 비활성화
+    minusBtn.disabled = currentQuantity <= 1;
+    minusBtn.style.opacity = currentQuantity <= 1 ? "0.3" : "1";
+
+    // 재고 수량 도달 시 + 버튼 비활성화 (요구사항)
+    const isMaxStock = currentQuantity >= stock;
+    plusBtn.disabled = isMaxStock;
+    plusBtn.style.opacity = isMaxStock ? "0.3" : "1";
+}
+
+// 품절 상태 처리
+function setSoldOutState() {
+    currentQuantity = 0;
+    quantityDisplay.textContent = "0";
+    totalQuantity.textContent = "0";
+    totalPrice.textContent = "0";
+
+    buyBtn.textContent = "품절";
+    buyBtn.disabled = true;
+    buyBtn.classList.add("disabled"); // CSS 스타일링을 위한 클래스
+
+    cartBtn.disabled = true;
+    minusBtn.disabled = true;
+    plusBtn.disabled = true;
+}
+
+// 장바구니 로직
+async function handleCartAction() {
+    const confirmCart = confirm("장바구니에 담으시겠습니까?");
+    if (confirmCart) {
+        try {
+            // API 호출 예시 (실제 구현 시 주석 해제)
+            /*
+      await request("/cart/", {
+        method: "POST",
+        body: JSON.stringify({
+          product_id: productData.id,
+          quantity: currentQuantity,
+          check: false // 장바구니 활성 여부 등
+        })
+      });
+      */
+            alert("장바구니에 상품이 담겼습니다.");
+        } catch (error) {
+            console.error(error);
+            alert("장바구니 담기에 실패했습니다.");
+        }
     }
-
-    // 2. 일반 유저인 경우: 재고 상태에 따라 활성화/비활성화
-    plusBtn.disabled = quantity >= product.stock;
-    minusBtn.disabled = quantity <= 1;
 }
 
-/* ... 하단 탭 버튼 및 API 함수는 동일 ... */
+// 유틸리티: 가격 포맷팅 (콤마 추가)
+function formatPrice(price) {
+    return new Intl.NumberFormat("ko-KR").format(price);
+}
