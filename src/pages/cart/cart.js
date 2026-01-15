@@ -216,6 +216,19 @@ cartListEl.addEventListener("click", async (e) => {
             }
         }
     }
+    // [추가] 개별 상품 주문 버튼: 실제 폴더 구조인 /src/pages/payment/index.html로 이동
+    else if (e.target.classList.contains("btn-order-single")) {
+        window.location.href = `/src/pages/payment/index.html?order_kind=cart_one_order&cart_id=${item.cart_id}`;
+    }
+});
+
+// [추가] 전체 주문하기 버튼 클릭 이벤트: 실제 폴더 구조인 /src/pages/payment/index.html로 이동
+btnOrderAll.addEventListener("click", () => {
+    if (cartItems.length === 0) {
+        alert("장바구니에 담긴 상품이 없습니다.");
+        return;
+    }
+    window.location.href = "/src/pages/payment/index.html?order_kind=cart_order";
 });
 
 // 초기 실행
