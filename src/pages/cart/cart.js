@@ -85,7 +85,7 @@ function renderCart() {
     // 장바구니가 비어있지 않을 때
     emptyCartEl.style.display = "none";
     cartListEl.style.display = "block";
-    cartSummaryEl.style.display = "block";
+    cartSummaryEl.style.display = "flex";
     btnOrderAll.style.display = "block";
 
     cartListEl.innerHTML = cartItems
