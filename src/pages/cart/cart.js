@@ -7,6 +7,7 @@ import { showLoginModal, showDeleteModal } from "../../components/Modal/Modal.js
 import "../../styles/reset.css";
 import "../../styles/common.css";
 import "./cart.css";
+import deleteIcon from "../../assets/images/icon-delete.svg";
 
 /* [공통 컴포넌트 초기화] */
 const headerTarget = document.getElementById("header");
@@ -126,7 +127,7 @@ function renderCart() {
             <button class="btn-order-single">주문하기</button>
         </div>
         <button class="btn-delete">
-            <img src="${import.meta.env.BASE_URL}src/assets/images/icon-delete.svg" alt="삭제" />
+            <img src="${deleteIcon}" alt="삭제" />
         </button>
     </li>
 `

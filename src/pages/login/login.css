@@ -7,11 +7,12 @@
 }
 
 /* 로고 이미지 스타일 */
-.login-logo {
+.logo {
     display: block;
     width: 238px;
     height: 74px;
-    margin: 0 auto 70px; /* 상하:0, 좌우:auto, 하단:70px */
+    margin: 0 auto 70px auto;
+    /* 상하:0, 좌우:auto, 하단:70px */
 }
 
 .login-tab {
