@@ -91,36 +91,42 @@ function renderCart() {
     cartSummaryEl.style.display = "flex";
     btnOrderAll.style.display = "block";
 
-    cartListEl.innerHTML = cartItems
-        .map(
-            (item) => `
-        <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
-            <input type="checkbox" class="checkbox" ${item.isChecked ? "checked" : ""}>
+
+cartListEl.innerHTML = cartItems
+    .map(
+        (item) => `
+    <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
+        <input type="checkbox" class="checkbox" checked>
+        
+        <a href="/src/pages/product-detail/index.html?productId=${item.product_id}" class="product-img-link">
             <img src="${item.image}" alt="${item.name}" class="product-img">
-            <div class="product-info">
-                <p class="seller-name">${item.seller}</p>
-                <p class="product-name">${item.name}</p>
-                <p class="product-price">${item.price.toLocaleString()}원</p>
-                <p class="shipping-info">
-                    ${item.shipping > 0 ? `${item.shipping.toLocaleString()}원` : "무료배송"}
-                </p>
-            </div>
-            <div class="quantity-ctrl">
-                <button type="button" class="minus">-</button>
-                <span>${item.quantity}</span>
-                <button type="button" class="plus">+</button>
-            </div>
-            <div class="item-total">
-                <p class="item-total-price">${(item.price * item.quantity).toLocaleString()}원</p>
-                <button class="btn-order-single">주문하기</button>
-            </div>
-            <button class="btn-delete">
-                <img src="/src/assets/images/icon-delete.svg" alt="삭제" />
-            </button>
-        </li>
-    `
-        )
-        .join("");
+        </a>
+        
+        <div class="product-info">
+            <p class="seller-name">${item.seller}</p>
+            <p class="product-name">${item.name}</p>
+            <p class="product-price">${item.price.toLocaleString()}원</p>
+            <p class="shipping-info">
+                ${item.shipping > 0 ? `${item.shipping.toLocaleString()}원` : "무료배송"}
+            </p>
+        </div>
+        
+        <div class="quantity-ctrl">
+            <button type="button" class="minus">-</button>
+            <span>${item.quantity}</span>
+            <button type="button" class="plus">+</button>
+        </div>
+        <div class="item-total">
+            <p class="item-total-price">${(item.price * item.quantity).toLocaleString()}원</p>
+            <button class="btn-order-single">주문하기</button>
+        </div>
+        <button class="btn-delete">
+            <img src="/src/assets/images/icon-delete.svg" alt="삭제" />
+        </button>
+    </li>
+`
+    )
+    .join("");
 
     updateSummary();
 
