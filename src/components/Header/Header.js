@@ -101,11 +101,11 @@ export default class Header {
 
     async fetchProducts(keyword) {
         try {
-            console.log(`📡 검색어: ${keyword}`);
+            console.log(`검색어: ${keyword}`);
             const data = await searchProducts(keyword);
             return data.results || [];
         } catch (error) {
-            console.error("❌ 네트워크 에러:", error);
+            console.error("네트워크 에러:", error);
             return [];
         }
     }
@@ -252,6 +252,11 @@ export default class Header {
                 await showLogoutModal();
                 window.location.href = `${import.meta.env.BASE_URL}index.html`;
             });
+        }
+
+        // [추가] 현재 페이지가 장바구니라면 장바구니 버튼 활성화
+        if (cartBtn && window.location.pathname.includes("/cart")) {
+            cartBtn.classList.add("active");
         }
     }
 }

@@ -130,9 +130,16 @@ header {
 }
 
 /* 버튼이 활성화(active) 되었을 때 이미지 색상 변경 (필터 사용) */
-#my-page-btn.active img {
+/* 버튼이 활성화(active) 되었을 때 이미지 색상 변경 (필터 사용) */
+#my-page-btn.active img,
+#cart-btn.active img {
     /* 이 필터 조합이 회색/검정 아이콘을 #21bf48 (호두 그린) 색상으로 바꿔줍니다 */
     filter: invert(64%) sepia(35%) saturate(1008%) hue-rotate(84deg) brightness(92%) contrast(84%);
+}
+
+#my-page-btn.active,
+#cart-btn.active {
+    color: var(--main-color);
 }
 
 /* 판매자 센터 버튼 스타일 */
