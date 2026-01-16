@@ -381,7 +381,7 @@ submitBtn.addEventListener("click", async (e) => {
         await join(formData, currentType);
 
         alert("회원가입이 완료되었습니다!");
-        window.location.href = "/login.html";
+        window.location.href = "/src/pages/login/index.html";
     } catch (error) {
         console.error("Signup Error:", error);
 
