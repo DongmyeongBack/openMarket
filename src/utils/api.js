@@ -58,7 +58,7 @@ export async function request(url, options = {}) {
                         localStorage.removeItem("refreshToken");
                         localStorage.removeItem("userType");
                         // 필요한 경우 로그인 페이지로 이동
-                        window.location.href = "/src/pages/login/index.html";
+                        window.location.href = `${import.meta.env.BASE_URL}src/pages/login/index.html`;
                     }
                 } catch (refreshError) {
                     console.error("❌ 토큰 갱신 중 오류 발생:", refreshError);
@@ -69,7 +69,7 @@ export async function request(url, options = {}) {
                     console.warn("❌ 인증 실패 (토큰 없음). 로그아웃 처리.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("refreshToken");
-                    window.location.href = "/src/pages/login/index.html";
+                    window.location.href = `${import.meta.env.BASE_URL}src/pages/login/index.html`;
                 }
             }
         }

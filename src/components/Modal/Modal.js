@@ -43,7 +43,7 @@ export function showLoginModal() {
     // [예] 버튼 클릭 시 이동
     document.getElementById("modalYes").addEventListener("click", () => {
         closeModal();
-        window.location.href = "/src/pages/login/index.html";
+        window.location.href = `${import.meta.env.BASE_URL}src/pages/login/index.html`;
     });
 }
 
@@ -203,7 +203,7 @@ export function showImageModal() {
                 <button class="modal-close-btn" id="imageModalClose">&times;</button>
 
                 <div class="modal-image">
-                    <img src="/assets/images/notice.png" alt="안내 이미지">
+                    <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="안내 이미지">
                 </div>
 
                 <p class="modal-text">
@@ -239,7 +239,7 @@ export function showPaymentErrorModal() {
                 <button class="modal-close-btn" id="paymentErrorClose">&times;</button>
 
                 <div class="modal-image">
-                    <img src="/assets/images/notice.png" alt="결제 오류 안내 이미지">
+                    <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="결제 오류 안내 이미지">
                 </div>
 
                 <p class="modal-text">
@@ -275,7 +275,7 @@ export function showLoginSuccessModal() {
                 <button class="modal-close-btn" id="loginSuccessClose">&times;</button>
 
                 <div class="modal-image">
-                    <img src="/assets/images/notice.png" alt="로그인 성공 안내 이미지">
+                    <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="로그인 성공 안내 이미지">
                 </div>
 
                 <p class="modal-text">

@@ -155,7 +155,7 @@ productForm.addEventListener("submit", async (e) => {
         console.log("처리 성공:", res);
 
         // 성공 후 페이지 이동
-        window.location.href = "/src/pages/seller-center/index.html";
+        window.location.href = `${import.meta.env.BASE_URL}src/pages/seller-center/index.html`;
     } catch (error) {
         // api.js에서 throw한 error.data 처리
         console.error(error);

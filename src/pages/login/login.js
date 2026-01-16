@@ -87,7 +87,7 @@ loginForm.addEventListener("submit", async (e) => {
         if (referrer && referrer.indexOf(currentHost) !== -1 && !referrer.includes("/login")) {
             window.location.href = referrer;
         } else {
-            window.location.href = "/index.html";
+            window.location.href = `${import.meta.env.BASE_URL}index.html`;
         }
     } catch (error) {
         console.error("로그인 에러:", error);
