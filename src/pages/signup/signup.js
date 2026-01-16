@@ -382,7 +382,7 @@ submitBtn.addEventListener("click", async (e) => {
     try {
         await join(formData, currentType);
         await showSignupSuccessModal();
-        window.location.href = `./src/pages/login/index.html`;
+        window.location.href = `${import.meta.env.BASE_URL}/pages/login/index.html`;
     } catch (error) {
         console.error("Signup Error:", error);
 

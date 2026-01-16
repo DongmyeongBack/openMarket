@@ -38,8 +38,7 @@ const createProductItem = (product) => {
                     src="${imgSrc}" 
                     alt="${product.name}" 
                     class="item-img" 
-                    onclick="location.href='/src/pages/product-detail/index.html?productId=${product.id
-        }'"
+                    onclick="location.href='${import.meta.env.BASE_URL}src/pages/product-detail/index.html?productId=${product.id}'"
                     style="cursor: pointer;" 
                 >
                 <div class="item-details">

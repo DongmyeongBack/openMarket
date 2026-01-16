@@ -51,10 +51,10 @@ function renderProducts(products) {
         const formattedPrice = new Intl.NumberFormat("ko-KR").format(product.price);
         // store_name이 없으면 username(판매자 ID) 사용
         const sellerName = product.seller.store_name || product.seller.username;
-
+        console.log(product);
         return `
             <li class="product-card">
-                <a href="./src/pages/product-detail/index.html?productId=${product.id}">
+                <a href="${import.meta.env.BASE_URL}src/pages/product-detail/index.html?productId=${product.id}">
                     <img src="${product.image}" alt="${product.name}" class="product-img" />
                     <span class="seller-name">${sellerName}</span>
                     <h3 class="product-name">${product.name}</h3>
