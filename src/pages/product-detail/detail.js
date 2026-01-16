@@ -1,8 +1,8 @@
-import { getProductDetail, getCart, addToCart } from "/src/utils/api.js";
-import { showLoginModal, showCartMoveModal } from "/src/components/Modal/Modal.js";
+import { getProductDetail, getCart, addToCart } from "../../utils/api.js";
+import { showLoginModal, showCartMoveModal } from "../../components/Modal/Modal.js";
 
-import Header from "/src/components/Header/Header.js";
-import Footer from "/src/components/Footer/Footer.js";
+import Header from "../../components/Header/Header.js";
+import Footer from "../../components/Footer/Footer.js";
 
 // DOM 요소 선택
 const productImg = document.getElementById("productImage");
@@ -156,7 +156,7 @@ function initEventListeners() {
         };
 
         localStorage.setItem("order_data", JSON.stringify(orderData));
-        window.location.href = "/src/pages/payment/index.html";
+        window.location.href = new URL('../payment/index.html', import.meta.url).href;
     });
 
     // [장바구니 버튼]
@@ -239,7 +239,7 @@ async function handleCartAction() {
         if (isAlreadyInCart) {
             const move = await showCartMoveModal();
             if (move) {
-                window.location.href = "/src/pages/cart/index.html";
+                window.location.href = new URL('../cart/index.html', import.meta.url).href;
             }
             return;
         }
@@ -255,7 +255,7 @@ async function handleCartAction() {
         // 5. 성공 시 (새로 추가된 경우) 컨펌 창 띄우기
         const moveToCart = confirm("장바구니에 상품을 담았습니다.\n장바구니 페이지로 이동하시겠습니까?");
         if (moveToCart) {
-            window.location.href = "/src/pages/cart/index.html";
+            window.location.href = new URL('../cart/index.html', import.meta.url).href;
         }
     } catch (error) {
         console.error("장바구니 처리 중 오류:", error);

@@ -1,5 +1,5 @@
-import Header from "/src/components/Header/Header.js";
-import Footer from "/src/components/Footer/Footer.js";
+import Header from "./src/components/Header/Header.js";
+import Footer from "./src/components/Footer/Footer.js";
 
 // --- From list.js ---
 const API_URL = "https://api.wenivops.co.kr/services/open-market";
@@ -41,7 +41,7 @@ function renderProducts(products) {
         const formattedPrice = new Intl.NumberFormat("ko-KR").format(product.price);
         return `
       <li class="product-card">
-        <a href="/src/pages/product-detail/index.html?productId=${product.id}">
+        <a href="${new URL('./src/pages/product-detail/index.html', import.meta.url).href}?productId=${product.id}">
           <img src="${product.image}" alt="${product.name}" class="product-img" />
           <span class="seller-name">${product.seller.store_name || product.seller.username}</span>
           <h3 class="product-name">${product.name}</h3>

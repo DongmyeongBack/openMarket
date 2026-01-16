@@ -335,7 +335,7 @@ const handlePayment = async () => {
         await order(payload);
 
         alert("주문이 완료되었습니다."); // Success
-        location.href = "/"; // 메인으로 이동 (또는 주문 완료 페이지)
+        location.href = new URL('../../index.html', import.meta.url).href; // 메인으로 이동
 
     } catch (error) {
         console.error("Order Failed", error);

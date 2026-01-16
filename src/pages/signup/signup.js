@@ -1,5 +1,5 @@
 // src/pages/signup/signup.js
-import { checkId, join, checkBusinessNumber } from "/src/utils/api.js";
+import { checkId, join, checkBusinessNumber } from "../../utils/api.js";
 
 // DOM 요소 선택
 const inputs = {
@@ -381,7 +381,7 @@ submitBtn.addEventListener("click", async (e) => {
         await join(formData, currentType);
 
         alert("회원가입이 완료되었습니다!");
-        window.location.href = "/src/pages/login/index.html";
+        window.location.href = new URL('../login/index.html', import.meta.url).href;
     } catch (error) {
         console.error("Signup Error:", error);
 

@@ -1,8 +1,8 @@
 import "./Footer.css"; // CSS 파일 연결
 
-import iconInsta from "/src/assets/images/icon-insta.svg";
-import iconFb from "/src/assets/images/icon-fb.svg";
-import iconYt from "/src/assets/images/icon-yt.svg";
+import iconInsta from "../../assets/images/icon-insta.svg";
+import iconFb from "../../assets/images/icon-fb.svg";
+import iconYt from "../../assets/images/icon-yt.svg";
 
 export default class Footer {
   constructor($target) {

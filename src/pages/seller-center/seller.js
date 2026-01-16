@@ -1,6 +1,6 @@
 import { getSellerProducts, deleteProduct } from "../../utils/api.js";
-import { showDeleteModal } from "/src/components/Modal/Modal.js";
-import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
+import { showDeleteModal } from "../../components/Modal/Modal.js";
+import Footer from "../../components/Footer/Footer.js"; // Footer 임포트
 
 const productListEl = document.getElementById("product-list");
 const sellerNameTitle = document.getElementById("seller-name-title");
@@ -51,7 +51,7 @@ const fetchSellerProducts = async () => {
 
     if (!token || !accountName) {
         alert("로그인이 필요한 서비스입니다.");
-        window.location.href = "/pages/login/index.html"; // 로그인 페이지로 리다이렉트
+        window.location.href = new URL('../login/index.html', import.meta.url).href; // 로그인 페이지로 리다이렉트
         return;
     }
 

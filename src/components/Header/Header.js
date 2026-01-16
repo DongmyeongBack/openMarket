@@ -1,13 +1,13 @@
 // src/components/Header/Header.js
 import "./Header.css";
 import { showLoginModal } from "../Modal/Modal.js";
-import { searchProducts } from "/src/utils/api.js";
+import { searchProducts } from "../../utils/api.js";
 
 // 이미지 임포트
-import logoImg from "/src/assets/images/Logo-hodu.png";
-import iconShoppingCart from "/src/assets/images/icon-shopping-cart.svg";
-import iconUser from "/src/assets/images/icon-user.svg";
-import iconShoppingBag from "/src/assets/images/icon-shopping-bag.svg";
+import logoImg from "../../assets/images/Logo-hodu.png";
+import iconShoppingCart from "../../assets/images/icon-shopping-cart.svg";
+import iconUser from "../../assets/images/icon-user.svg";
+import iconShoppingBag from "../../assets/images/icon-shopping-bag.svg";
 
 export default class Header {
     constructor($target) {
@@ -25,7 +25,7 @@ export default class Header {
     template() {
         const logoHtml = `
             <div class="logo">
-                <a href="/">
+                <a href="${new URL('../../index.html', import.meta.url).href}">
                     <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
@@ -50,7 +50,7 @@ export default class Header {
                     <img src="${iconShoppingCart}" alt="장바구니">
                     <span>장바구니</span>
                 </button>
-                <a href="/src/pages/login/index.html" class="nav-btn">
+                <a href="${new URL('../../pages/login/index.html', import.meta.url).href}" class="nav-btn">
                     <img src="${iconUser}" alt="로그인">
                     <span>로그인</span>
                 </a>
@@ -67,7 +67,7 @@ export default class Header {
                         <button class="dropdown-item" id="logout-btn">로그아웃</button>
                     </div>
                 </div>
-                <a href="/src/pages/seller-center/index.html" class="btn-seller-center">
+                <a href="${new URL('../../pages/seller-center/index.html', import.meta.url).href}" class="btn-seller-center">
                     <img src="${iconShoppingBag}" alt="쇼핑백">
                     판매자 센터
                 </a>
@@ -201,7 +201,8 @@ export default class Header {
 
                 const item = e.target.closest(".search-item");
                 if (item) {
-                    window.location.href = `/src/pages/product-detail/index.html?productId=${item.dataset.id}`;
+                    const detailUrl = new URL('../../pages/product-detail/index.html', import.meta.url).href;
+                    window.location.href = `${detailUrl}?productId=${item.dataset.id}`;
                 }
             });
 
@@ -209,7 +210,8 @@ export default class Header {
             const handleSearch = () => {
                 const keyword = searchInput.value.trim();
                 if (keyword) {
-                    window.location.href = `/src/pages/product-list/index.html?search=${encodeURIComponent(keyword)}`;
+                    const listUrl = new URL('../../pages/product-list/index.html', import.meta.url).href;
+                    window.location.href = `${listUrl}?search=${encodeURIComponent(keyword)}`;
                 }
             };
 
@@ -227,7 +229,8 @@ export default class Header {
 
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
-                this.token ? (window.location.href = "/src/pages/cart/index.html") : showLoginModal();
+                const cartUrl = new URL('../../pages/cart/index.html', import.meta.url).href;
+                this.token ? (window.location.href = cartUrl) : showLoginModal();
             });
         }
         if (myPageBtn && dropdown) {
@@ -247,7 +250,7 @@ export default class Header {
             logoutBtn.addEventListener("click", () => {
                 localStorage.clear();
                 alert("로그아웃 되었습니다.");
-                window.location.href = "/";
+                window.location.href = new URL('../../index.html', import.meta.url).href;
             });
         }
     }

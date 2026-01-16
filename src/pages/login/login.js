@@ -1,5 +1,5 @@
 // [변경] 공용 API 함수 임포트
-import { login } from "/src/utils/api.js";
+import { login } from "../../utils/api.js";
 
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
@@ -78,7 +78,7 @@ loginForm.addEventListener("submit", async (e) => {
         if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
             history.back();
         } else {
-            window.location.href = "/";
+            window.location.href = new URL('../../index.html', import.meta.url).href;
         }
     } catch (error) {
         console.error("로그인 에러:", error);

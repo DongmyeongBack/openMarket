@@ -1,5 +1,5 @@
-import { getProductDetail, createProduct, updateProduct } from "/src/utils/api.js";
-import Footer from "/src/components/Footer/Footer.js"; // Footer 임포트
+import { getProductDetail, createProduct, updateProduct } from "../../../utils/api.js";
+import Footer from "../../../components/Footer/Footer.js"; // Footer 임포트
 
 // 1. DOM 요소 선택
 const productForm = document.getElementById("product-form");

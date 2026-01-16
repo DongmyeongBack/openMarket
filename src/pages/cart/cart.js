@@ -1,7 +1,7 @@
-import Header from "/src/components/Header/Header.js";
-import Footer from "/src/components/Footer/Footer.js";
-import { getCart, updateCartItem, deleteCartItem } from "/src/utils/api.js";
-import { showLoginModal, showDeleteModal } from "/src/components/Modal/Modal.js";
+import Header from "../../components/Header/Header.js";
+import Footer from "../../components/Footer/Footer.js";
+import { getCart, updateCartItem, deleteCartItem } from "../../utils/api.js";
+import { showLoginModal, showDeleteModal } from "../../components/Modal/Modal.js";
 
 /* [공통 컴포넌트 초기화] */
 const headerTarget = document.getElementById("header");
@@ -31,7 +31,7 @@ async function getCartData() {
     const token = localStorage.getItem("token");
     if (!token) {
         showLoginModal();
-        window.location.href = "/src/pages/login/index.html";
+        window.location.href = new URL('../login/index.html', import.meta.url).href;
         return;
     }
 
@@ -67,7 +67,7 @@ async function getCartData() {
         // 401 Unauthorized 등의 에러 처리
         if (error.status === 401 || error.status === 403) {
             alert("로그인 정보가 만료되었거나 접근 권한이 없습니다.");
-            window.location.href = "/src/pages/login/index.html";
+            window.location.href = new URL('../login/index.html', import.meta.url).href;
         }
     }
 }
@@ -92,9 +92,9 @@ function renderCart() {
     btnOrderAll.style.display = "block";
 
 
-cartListEl.innerHTML = cartItems
-    .map(
-        (item) => `
+    cartListEl.innerHTML = cartItems
+        .map(
+            (item) => `
     <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
         <input type="checkbox" class="checkbox" checked>
         
@@ -121,12 +121,12 @@ cartListEl.innerHTML = cartItems
             <button class="btn-order-single">주문하기</button>
         </div>
         <button class="btn-delete">
-            <img src="/src/assets/images/icon-delete.svg" alt="삭제" />
+            <img src="${new URL('../../assets/images/icon-delete.svg', import.meta.url).href}" alt="삭제" />
         </button>
     </li>
 `
-    )
-    .join("");
+        )
+        .join("");
 
     updateSummary();
 
@@ -241,7 +241,7 @@ cartListEl.addEventListener("click", async (e) => {
             product_ids: [item.product_id]
         };
         localStorage.setItem("order_data", JSON.stringify(orderData));
-        window.location.href = "/src/pages/payment/index.html";
+        window.location.href = new URL('../payment/index.html', import.meta.url).href;
     }
 });
 
@@ -304,7 +304,7 @@ btnOrderAll.addEventListener("click", () => {
     };
     localStorage.setItem("order_data", JSON.stringify(orderData));
 
-    window.location.href = "/src/pages/payment/index.html";
+    window.location.href = new URL('../payment/index.html', import.meta.url).href;
 });
 
 // 초기 실행
