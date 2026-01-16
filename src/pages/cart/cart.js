@@ -21,6 +21,7 @@ const btnOrderAll = document.querySelector(".btn-order-all");
 const totalPriceEl = document.getElementById("total-price");
 const shippingFeeEl = document.getElementById("shipping-fee");
 const finalAmountEl = document.getElementById("final-amount");
+const selectAllCheckbox = document.getElementById("selectAll"); // [추가] 전체 선택 체크박스
 
 /**
  * 장바구니 데이터 가져오기 (API 호출)
@@ -122,6 +123,13 @@ function renderCart() {
         .join("");
 
     updateSummary();
+
+    // [추가] 렌더링 시 전체 선택 체크박스 상태 동기화
+    if (cartItems.length > 0) {
+        selectAllCheckbox.checked = cartItems.every(item => item.isChecked);
+    } else {
+        selectAllCheckbox.checked = false;
+    }
 }
 
 /**
@@ -240,9 +248,33 @@ cartListEl.addEventListener("change", (e) => {
 
         if (item) {
             item.isChecked = e.target.checked;
+
+            // [추가] 개별 선택 시 '전체 선택' 체크박스 상태 동기화
+            const isAllChecked = cartItems.every(i => i.isChecked);
+            selectAllCheckbox.checked = isAllChecked;
+
             updateSummary(); // 합계 재계산
         }
     }
+});
+
+// [추가] 전체 선택 체크박스 이벤트
+selectAllCheckbox.addEventListener("change", (e) => {
+    const isChecked = e.target.checked;
+
+    // 1. 상태 업데이트
+    cartItems.forEach(item => {
+        item.isChecked = isChecked;
+    });
+
+    // 2. DOM 업데이트 (개별 체크박스들)
+    const checkboxes = document.querySelectorAll(".cart-item .checkbox");
+    checkboxes.forEach(cb => {
+        cb.checked = isChecked;
+    });
+
+    // 3. 합계 재계산
+    updateSummary();
 });
 
 // [수정] 전체 주문하기 버튼 클릭 이벤트: localStorage에 데이터 저장 후 이동

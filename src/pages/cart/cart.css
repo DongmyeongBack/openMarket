@@ -24,6 +24,31 @@
     margin-bottom: 35px;
 }
 
+/* [추가] 체크박스 커스텀 스타일 */
+.checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    /* 크롬, 사파리 호환 */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--main-color, #21bf48);
+    /* 메인 컬러 사용 (기본값 녹색) */
+    border-radius: 50%;
+    /* 둥근 모양 */
+    background-color: #fff;
+    cursor: pointer;
+    vertical-align: middle;
+    outline: none;
+}
+
+.checkbox:checked {
+    /* 체크 시 내부 색상 채우기 및 흰색 테두리로 도넛 모양 만들기 */
+    background-color: var(--main-color, #21bf48);
+    border-color: var(--main-color, #21bf48);
+    /* 내부 흰색 링을 만들기 위해 inset shadow 사용 (두께 2~3px 조절) */
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
 /* 장바구니 아이템 스타일 */
 .cart-item {
     position: relative;
@@ -87,7 +112,10 @@
 
 .quantity-ctrl span {
     width: 40px;
-    line-height: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-left: 1px solid #c4c4c4;
     border-right: 1px solid #c4c4c4;
 }
