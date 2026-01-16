@@ -5,9 +5,10 @@
 }
 
 .logo {
+    display: block;
     width: 238px;
     height: 74px;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
 }
 
 /* 탭 메뉴 스타일 */
