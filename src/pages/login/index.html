@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
-    <head>
-        <title>로그인 - Market</title>
-        <link rel="stylesheet" href="/src/styles/reset.css" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="./login.css" />
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>로그인페이지</title>
-    </head>
-    <body>
-        <div id="app">
-            <main class="login-container">
-                <h1 class="sr-only">호두로그인</h1>
-               <a href="/"> 
-               <img src="/src/assets/images/Logo-hodu.png" alt="호두 마켓" class="login-logo" />
-               </a>
-                <div class="login-tab">로그인</div>
-                <form id="loginForm" class="login-form">
-                    <div class="input-group">
-                        <input type="text" id="username" placeholder="아이디" autocomplete="username" />
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" />
-                    </div>
 
-                    <div id="errorMessage" class="error-message"></div>
+<head>
+    <title>로그인 - Market</title>
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="./login.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인페이지</title>
+</head>
 
-                    <button type="submit" class="login-btn btn-primary">로그인</button>
-                </form>
-
-                <div class="links">
-                    <a href="../signup/index.html">회원가입</a>
-                    <a href="#">비밀번호 찾기</a>
+<body>
+    <div id="app">
+        <main class="login-container">
+            <h1 class="sr-only">호두로그인</h1>
+            <a href="/" class="logo">
+                <img src="../../assets/images/Logo-hodu.png" alt="HODU" />
+            </a>
+            <div class="login-tab">로그인</div>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="아이디" autocomplete="username" />
                 </div>
-            </main>
-        </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password" />
+                </div>
 
-        <script type="module" src="./login.js"></script>
-    </body>
+                <div id="errorMessage" class="error-message"></div>
+
+                <button type="submit" class="login-btn btn-primary">로그인</button>
+            </form>
+
+            <div class="links">
+                <a href="../signup/index.html">회원가입</a>
+                <a href="#">비밀번호 찾기</a>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./login.js"></script>
+</body>
+
 </html>

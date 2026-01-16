@@ -48,10 +48,11 @@ const formatPrice = (price) => {
 const loadProducts = async () => {
     try {
         let productsToFetch = [];
-        console.log(orderData);
+        console.log(state)
         if (state.orderType === "direct_order") {
             // 바로 구매: 단일 상품
             // orderData: { order_kind, product_id, quantity }
+            console.log("direct_order", orderData)
             productsToFetch.push({ id: orderData.product_id, quantity: orderData.quantity });
         } else if (state.orderType === "cart_order") {
             // 장바구니 구매: 다수 상품 (ID 리스트 혹은 객체 리스트일 수 있음)
@@ -69,6 +70,7 @@ const loadProducts = async () => {
             // 만약 orderData.product_ids (Array of int)라면? -> Cart 정보를 가져와야 함.
 
             // 안전한 구현: Cart 목록을 가져와서 필터링
+            console.log("orderdata", orderData)
             if (orderData.product_ids) {
                 const cartData = await getCart();
                 // cartData.results (Array of CartItem)
@@ -76,7 +78,7 @@ const loadProducts = async () => {
                 // 주의: CartItem에는 product_id가 있음.
 
                 // cartData 구조 확인 필요하지만, 보통 { product_id, quantity, ... }
-                console.log(cartData)
+                console.log("cart: ", cartData)
                 const targetItems = cartData.results.filter(item =>
                     orderData.product_ids.includes(item.product.id)
                 );
@@ -130,14 +132,14 @@ const renderProductList = () => {
         const itemTotalPrice = (item.price * item.quantity);
         // 배송비 표시
         const shippingFee = item.shipping_fee === 0 ? "무료배송" : `${formatPrice(item.shipping_fee)}원`;
-
+        console.log('item', item)
         return `
         <div class="product-item" data-id="${item.id}">
             <div class="product-info-cell">
-                <img src="${item.image}" alt="${item.product_name}" class="product-img" />
+                <img src="${item.image}" alt="${item.name}" class="product-img" />
                 <div class="product-details">
-                    <span class="shop-name">${item.store_name}</span>
-                    <span class="product-name">${item.product_name}</span>
+                    <span class="shop-name">${item.seller.store_name}</span>
+                    <span class="product-name">${item.name}</span>
                     <span class="product-qty">수량: ${item.quantity}개</span>
                 </div>
             </div>
