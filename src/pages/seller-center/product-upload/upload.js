@@ -75,23 +75,51 @@ async function fetchProductDetail(id) {
 
         // 이미지 미리보기 및 Blob 변환
         if (data.image) {
-            previewImg.src = data.image;
+            // [공통] 이미지 URL 변환 (로컬: 프록시, 배포: HTTPS 업그레이드)
+            const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+            let imageUrl = data.image;
+
+            if (isLocal) {
+                // 로컬: /proxy로 교체
+                imageUrl = data.image.replace("https://api.wenivops.co.kr", "/proxy");
+                imageUrl = imageUrl.replace("http://api.wenivops.co.kr", "/proxy");
+            } else {
+                // 배포: HTTPS로 업그레이드 (Mixed Content 방지)
+                if (imageUrl.startsWith("http:")) {
+                    imageUrl = imageUrl.replace("http:", "https:");
+                }
+            }
+
+            // 변환된 URL을 미리보기에 적용
+            previewImg.src = imageUrl;
             previewImg.style.display = "block";
             uploadIcon.style.display = "none";
             document.querySelector(".img-placeholder").style.backgroundColor = "transparent";
 
             // [복사 모드] 이미지 URL을 Blob으로 변환하여 저장
             if (isCopyMode) {
-                try {
-                    const response = await fetch(data.image);
-                    const blob = await response.blob();
-                    // 파일 객체처럼 만들기
-                    const filename = data.image.split("/").pop() || "image.jpg";
-                    originalImageBlob = new File([blob], filename, { type: blob.type });
-                    console.log("이미지 변환 성공:", originalImageBlob);
-                } catch (err) {
-                    console.error("이미지 변환 실패:", err);
-                    alert("기존 이미지를 불러오는 데 실패했습니다. 이미지를 다시 등록해주세요.");
+                if (isLocal) {
+                    try {
+                        // 변환된 imageUrl 사용 (프록시 경로)
+                        const response = await fetch(imageUrl);
+                        if (!response.ok) throw new Error("이미지 다운로드 실패");
+
+                        const blob = await response.blob();
+
+                        // 파일 객체처럼 만들기
+                        const filename = data.image.split("/").pop() || "image.jpg";
+                        originalImageBlob = new File([blob], filename, { type: blob.type });
+                        console.log("이미지 변환 성공:", originalImageBlob);
+
+                    } catch (err) {
+                        console.error("이미지 변환 실패 (네트워크 오류):", err);
+                        alert("이미지 변환 중 오류가 발생했습니다. 수동으로 등록해주세요.");
+                    }
+                } else {
+                    // [배포 환경] CORS 문제로 fetch가 불가능하므로 시도하지 않음 (콘솔 에러 방지)
+                    // 대신 사용자에게 안내
+                    // alert("배포 환경에서는 보안 정책으로 인해 이미지를 자동으로 불러올 수 없습니다.\n이미지를 수동으로 다시 등록해주세요.");
+                    console.log("배포 환경: 이미지 자동 패치 건너뜀 (CORS 회피)");
                 }
             }
         }

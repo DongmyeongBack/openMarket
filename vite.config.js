@@ -30,7 +30,28 @@ export default defineConfig({
                 productUpload: resolve(__dirname, "src/pages/seller-center/product-upload/index.html"),
 
                 // 8. [NEW] 결제 페이지
+                // 8. [NEW] 결제 페이지
                 payment: resolve(__dirname, "src/pages/payment/index.html"),
+            },
+        },
+    },
+    server: {
+        proxy: {
+            "/proxy": {
+                target: "https://api.wenivops.co.kr",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/proxy/, ""),
+                secure: false, // HTTPS 인증서 오류 무시 (필요시)
+            },
+        },
+    },
+    preview: {
+        proxy: {
+            "/proxy": {
+                target: "https://api.wenivops.co.kr",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/proxy/, ""),
+                secure: false,
             },
         },
     },
