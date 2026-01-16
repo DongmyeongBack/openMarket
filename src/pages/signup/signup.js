@@ -370,19 +370,14 @@ submitBtn.addEventListener("click", async (e) => {
         phone_number: `${inputs.phonePrefix.value}${inputs.phoneMiddle.value}${inputs.phoneLast.value}`,
     };
 
-    let apiUrl = "/accounts/buyer/signup/";
-
-    // 2. 판매자일 경우 데이터 추가 및 URL 변경
+    // 2. 판매자일 경우 데이터 추가
     if (currentType === "SELLER") {
-        apiUrl = "/accounts/seller/signup/";
         formData.company_registration_number = inputs.businessNo.value;
         formData.store_name = inputs.storeName.value;
-    } else {
-        formData.user_type = "BUYER";
     }
 
     try {
-        await join(formData);
+        await join(formData, currentType);
 
         alert("회원가입이 완료되었습니다!");
         window.location.href = "/login.html";

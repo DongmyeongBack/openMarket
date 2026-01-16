@@ -113,8 +113,9 @@ export const checkBusinessNumber = (businessNumber) => {
     });
 };
 
-export const join = (userData) => {
-    return request("/accounts/signup/", {
+export const join = (userData, userType) => {
+    const url = userType === "SELLER" ? "/accounts/seller/signup/" : "/accounts/buyer/signup/";
+    return request(url, {
         method: "POST",
         body: JSON.stringify(userData),
     });

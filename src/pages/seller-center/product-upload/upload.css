@@ -202,9 +202,3 @@ h1 {
     border: 1px solid var(--border-color);
     color: var(--text-grey);
 }
-
-.save-btn {
-    background: var(--main-color);
-    border: none;
-    color: var(--text-white);
-}

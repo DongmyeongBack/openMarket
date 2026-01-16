@@ -229,20 +229,13 @@ select:focus {
 .btn-submit {
     width: 90%;
     padding: 18px;
-    border: none;
-    border-radius: 5px;
     font-size: 18px;
     font-weight: 700;
-    cursor: pointer;
-    background-color: var(--border-color);
-    /* 비활성 상태는 회색 변수 사용 */
-    color: var(--text-white);
-    /* 변수 적용 */
-    transition: background-color 0.3s;
 }
 
-/* 활성화 된 버튼 스타일 */
-.btn-submit:not(:disabled) {
-    background-color: var(--main-color);
-    /* 변수 적용 */
-}
+/* 활성화 된 버튼 스타일 - common.css가 처리하므로 삭제 또는 유지. 
+   btn-primary handled disabled state.
+   btn-primary default bg is main-color.
+   btn-primary:disabled is border-color.
+   So we don't need .btn-submit:not(:disabled) or .btn-submit base rules for color.
+*/

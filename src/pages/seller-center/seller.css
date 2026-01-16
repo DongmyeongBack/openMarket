@@ -122,21 +122,11 @@
 }
 
 .btn-upload {
-    background-color: var(--main-color);
-    color: var(--text-white);
     padding: 16px 20px;
-    border-radius: 5px;
     font-size: 18px;
-    border: none;
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: opacity 0.2s;
-}
-
-.btn-upload:hover {
-    opacity: 0.9;
 }
 
 /* --- 테이블 및 기타 스타일 (기존 유지) --- */

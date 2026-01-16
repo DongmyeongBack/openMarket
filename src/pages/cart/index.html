@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HODU | 장바구니</title>
-        <link rel="stylesheet" href="/src/styles/reset.css" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="./cart.css" />
-    </head>
-    <body>
-        <header id="header"></header>
 
-        <main class="cart-main">
-            <h1>장바구니</h1>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HODU | 장바구니</title>
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="./cart.css" />
+</head>
 
-            <div class="cart-table-header">
-                <label for="selectAll" class="sr-only">전체 선택</label>
-                <input type="checkbox" id="selectAll" class="checkbox" />
-                <span>상품정보</span>
-                <span>수량</span>
-                <span>상품금액</span>
+<body>
+    <header id="header"></header>
+
+    <main class="cart-main">
+        <h1>장바구니</h1>
+
+        <div class="cart-table-header">
+            <label for="selectAll" class="sr-only">전체 선택</label>
+            <input type="checkbox" id="selectAll" class="checkbox" />
+            <span>상품정보</span>
+            <span>수량</span>
+            <span>상품금액</span>
+        </div>
+
+        <ul id="cart-list" class="cart-list"></ul>
+
+        <div id="empty-cart" class="empty-cart">
+            <p class="empty-msg">장바구니에 담긴 상품이 없습니다.</p>
+            <p class="empty-sub">원하는 상품을 장바구니에 담아보세요!</p>
+        </div>
+
+        <section id="cart-summary" class="cart-summary">
+            <div class="summary-item">
+                <span class="label">총 상품금액</span>
+                <span class="value"><strong id="total-price">0</strong>원</span>
             </div>
-
-            <ul id="cart-list" class="cart-list"></ul>
-
-            <div id="empty-cart" class="empty-cart">
-                <p class="empty-msg">장바구니에 담긴 상품이 없습니다.</p>
-                <p class="empty-sub">원하는 상품을 장바구니에 담아보세요!</p>
+            <div class="difference">-</div>
+            <div class="summary-item">
+                <span class="label">상품 할인</span>
+                <p class="value"><strong id="total-discount">0</strong>원</p>
             </div>
+            <div class="sum">+</div>
+            <div class="summary-item">
+                <span class="label">배송비</span>
+                <span class="value"><strong id="shipping-fee">0</strong>원</span>
+            </div>
+            <div class="equal">=</div>
+            <div class="summary-total">
+                <span class="label">결제 예정 금액</span>
+                <span class="value-total"><strong id="final-amount">0</strong>원</span>
+            </div>
+        </section>
 
-            <section id="cart-summary" class="cart-summary">
-                <div class="summary-item">
-                    <span class="label">총 상품금액</span>
-                    <span class="value"><strong id="total-price">0</strong>원</span>
-                </div>
-                <div class="difference">-</div>
-                <div class="summary-item">
-                    <span class="label">상품 할인</span>
-                    <p class="value"><strong id="total-discount">0</strong>원</p>
-                </div>
-                <div class="sum">+</div>
-                <div class="summary-item">
-                    <span class="label">배송비</span>
-                    <span class="value"><strong id="shipping-fee">0</strong>원</span>
-                </div>
-                <div class="equal">=</div>
-                <div class="summary-total">
-                    <span class="label">결제 예정 금액</span>
-                    <span class="value-total"><strong id="final-amount">0</strong>원</span>
-                </div>
-            </section>
+        <button type="button" class="btn-order-all btn-primary">주문하기</button>
+    </main>
+    <footer id="footer"></footer>
+    <script type="module" src="./cart.js"></script>
+</body>
 
-            <button type="button" class="btn-order-all">주문하기</button>
-        </main>
-        <footer id="footer"></footer>
-        <script type="module" src="./cart.js"></script>
-    </body>
 </html>
