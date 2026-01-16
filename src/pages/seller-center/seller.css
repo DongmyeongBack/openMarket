@@ -8,10 +8,15 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.header-inner {
     display: flex;
     align-items: center;
     gap: 20px;
     padding: 20px;
+    max-width: 1920px;
+    margin: 0 auto;
 }
 
 .logo {

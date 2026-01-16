@@ -1,126 +1,119 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>상품 등록 - HODU</title>
-        <script type="module" src="./upload.js" defer></script>
-        <link rel="stylesheet" href="/src/styles/reset.css" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="./upload.css" />
-    </head>
 
-    <body>
-        <header class="seller-header">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 등록 - HODU</title>
+    <script type="module" src="./upload.js" defer></script>
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="./upload.css" />
+</head>
+
+<body>
+    <header class="seller-header">
+        <div class="header-inner">
             <a href="/" class="logo">
-                <img
-                    src="../../../assets/images/Logo-hodu.png"
-                    alt="HODU"
-                    onerror="this.src='https://via.placeholder.com/150x50?text=HODU+Center'"
-                />
+                <img src="../../../assets/images/Logo-hodu.png" alt="HODU"
+                    onerror="this.src='https://via.placeholder.com/150x50?text=HODU+Center'" />
             </a>
             <h1 class="page-title">판매자 센터</h1>
-        </header>
-
-        <div class="container">
-            <main class="upload-layout">
-                <aside class="caution-box">
-                    <h3>*상품 등록 주의사항</h3>
-                    <div class="caution-content">
-                        <p>- 너무 귀여운 사진은 심장이 아파올 수 있습니다.</p>
-                        <p>
-                            - 유소년에게서 천자만홍이 피고 이상이 온갖 들어 약동하다. 이상의 가지에 사랑의 있는가? 주며,
-                            끓는 힘차게 얼음이 얼음 가치를 황금시대의 있음으로써 사라지지 것이다. 이 뜨거운지라, 이상의
-                            속에서 이것은 피가 보배를 황금시대의 싹이 사막이다.
-                        </p>
-                        <p>
-                            - 자신과 우는 옷을 지혜는 아니다. 더운지라 설레는 기쁘며, 위하여서, 평화스러운 광야에서
-                            그리하였는가? 소담스러운 위하여 인도하겠다는 어디 무엇을 이상을 같지 따뜻한 청춘 칼이다.
-                        </p>
-                        <p>
-                            - 가치를 그들을 예수는 찬미를 가슴이 과실이 이것이다. 희망의 것이다.보라, 풍부하게 이것은
-                            황금시대를 얼마나 인간에 돋고, 이것이다.
-                        </p>
-                    </div>
-                </aside>
-
-                <form id="product-form" class="form-box">
-                    <div class="top-section">
-                        <div class="image-area">
-                            <label for="img-input" class="img-placeholder">
-                                <img id="preview-img" src="" alt="상품 이미지 미리보기" style="display: none" />
-                                <div class="icon-box" id="upload-icon">
-                                    <span class="img-icon">🖼️</span>
-                                </div>
-                            </label>
-                            <input type="file" id="img-input" accept=".jpg, .gif, .png" hidden />
-                        </div>
-
-                        <div class="input-area">
-                            <div class="input-group">
-                                <label>상품명</label>
-                                <input
-                                    type="text"
-                                    id="product-name"
-                                    placeholder="상품명을 입력해주세요."
-                                    maxlength="20"
-                                />
-                            </div>
-
-                            <div class="input-group">
-                                <label>판매가</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="price" min="0" />
-                                    <span class="unit">원</span>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label>배송방법</label>
-                                <div class="btn-group">
-                                    <button type="button" class="shipping-btn active" data-method="PARCEL">
-                                        택배, 소포, 등기
-                                    </button>
-                                    <button type="button" class="shipping-btn" data-method="DELIVERY">
-                                        직접배송(화물배달)
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label>기본 배송비</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="shipping-fee" min="0" />
-                                    <span class="unit">원</span>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label>재고</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="stock" min="0" />
-                                    <span class="unit">개</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="detail-section">
-                        <label>상품 상세 정보</label>
-                        <textarea
-                            id="product-info"
-                            placeholder="에디터 영역 (상품 상세 정보를 입력해주세요)"
-                        ></textarea>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button type="button" class="cancel-btn">취소</button>
-                        <button type="submit" class="save-btn btn-primary">저장하기</button>
-                    </div>
-                </form>
-            </main>
         </div>
+    </header>
 
-        <footer id="footer"></footer>
-    </body>
+    <div class="container">
+        <main class="upload-layout">
+            <aside class="caution-box">
+                <h3>*상품 등록 주의사항</h3>
+                <div class="caution-content">
+                    <p>- 너무 귀여운 사진은 심장이 아파올 수 있습니다.</p>
+                    <p>
+                        - 유소년에게서 천자만홍이 피고 이상이 온갖 들어 약동하다. 이상의 가지에 사랑의 있는가? 주며,
+                        끓는 힘차게 얼음이 얼음 가치를 황금시대의 있음으로써 사라지지 것이다. 이 뜨거운지라, 이상의
+                        속에서 이것은 피가 보배를 황금시대의 싹이 사막이다.
+                    </p>
+                    <p>
+                        - 자신과 우는 옷을 지혜는 아니다. 더운지라 설레는 기쁘며, 위하여서, 평화스러운 광야에서
+                        그리하였는가? 소담스러운 위하여 인도하겠다는 어디 무엇을 이상을 같지 따뜻한 청춘 칼이다.
+                    </p>
+                    <p>
+                        - 가치를 그들을 예수는 찬미를 가슴이 과실이 이것이다. 희망의 것이다.보라, 풍부하게 이것은
+                        황금시대를 얼마나 인간에 돋고, 이것이다.
+                    </p>
+                </div>
+            </aside>
+
+            <form id="product-form" class="form-box">
+                <div class="top-section">
+                    <div class="image-area">
+                        <label for="img-input" class="img-placeholder">
+                            <img id="preview-img" src="" alt="상품 이미지 미리보기" style="display: none" />
+                            <div class="icon-box" id="upload-icon">
+                                <span class="img-icon">🖼️</span>
+                            </div>
+                        </label>
+                        <input type="file" id="img-input" accept=".jpg, .gif, .png" hidden />
+                    </div>
+
+                    <div class="input-area">
+                        <div class="input-group">
+                            <label>상품명</label>
+                            <input type="text" id="product-name" placeholder="상품명을 입력해주세요." maxlength="20" />
+                        </div>
+
+                        <div class="input-group">
+                            <label>판매가</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="price" min="0" />
+                                <span class="unit">원</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>배송방법</label>
+                            <div class="btn-group">
+                                <button type="button" class="shipping-btn active" data-method="PARCEL">
+                                    택배, 소포, 등기
+                                </button>
+                                <button type="button" class="shipping-btn" data-method="DELIVERY">
+                                    직접배송(화물배달)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>기본 배송비</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="shipping-fee" min="0" />
+                                <span class="unit">원</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>재고</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="stock" min="0" />
+                                <span class="unit">개</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <label>상품 상세 정보</label>
+                    <textarea id="product-info" placeholder="에디터 영역 (상품 상세 정보를 입력해주세요)"></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="cancel-btn">취소</button>
+                    <button type="submit" class="save-btn btn-primary">저장하기</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <footer id="footer"></footer>
+</body>
+
 </html>

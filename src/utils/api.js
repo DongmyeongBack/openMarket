@@ -122,9 +122,11 @@ export const join = (userData, userType) => {
 };
 
 // Products
-export const getProducts = (params = "") => {
-    return request(`/products/${params}`);
-};
+export async function getProducts() {
+    return await request("/products/", {
+        method: "GET",
+    });
+}
 
 export const getProductDetail = (id) => {
     return request(`/products/${id}/`);

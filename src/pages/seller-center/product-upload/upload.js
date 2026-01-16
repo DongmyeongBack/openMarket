@@ -4,7 +4,6 @@ import Footer from "../../../components/Footer/Footer.js"; // Footer 임포트
 // [추가] CSS 임포트
 import "../../../styles/reset.css";
 import "../../../styles/common.css";
-import "../seller.css";
 import "./upload.css";
 
 // 1. DOM 요소 선택
