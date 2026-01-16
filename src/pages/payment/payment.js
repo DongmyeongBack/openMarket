@@ -337,14 +337,28 @@ const handlePayment = async () => {
 
     } catch (error) {
         console.error("Order Failed", error);
-        alert(error.message || "주문에 실패했습니다.");
 
-        // Handle field errors if available in error object (need to parse API error response structure)
-        // api.js throws error with .data property?
+        let errorMessage = "주문에 실패했습니다.";
+
         if (error.data) {
-            console.log("Error Data:", error.data);
-            // Simple alert for now
+            // API Spec: Field errors or "non_field_errors"
+            const messages = [];
+            for (const [key, value] of Object.entries(error.data)) {
+                const msgText = Array.isArray(value) ? value.join(", ") : value;
+                if (key === "non_field_errors") {
+                    messages.push(msgText);
+                } else {
+                    messages.push(`[${key}] ${msgText}`);
+                }
+            }
+            if (messages.length > 0) {
+                errorMessage = messages.join("\n");
+            }
+        } else if (error.message) {
+            errorMessage = error.message;
         }
+
+        alert(errorMessage);
     }
 };
 

@@ -173,7 +173,8 @@ async function checkIdDuplicate() {
     } catch (error) {
         let msg = "이미 사용 중인 아이디입니다.";
         if (error.data) {
-            msg = error.data.FAIL_Message || (error.data.username && error.data.username[0]) || msg;
+            // API Spec: {"error": "message"} for 400
+            msg = error.data.error || error.data.FAIL_Message || (error.data.username && error.data.username[0]) || msg;
         }
         showError(inputs.username, msg);
         state.username = false;

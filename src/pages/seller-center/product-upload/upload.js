@@ -155,7 +155,10 @@ productForm.addEventListener("submit", async (e) => {
         console.error(error);
         if (error.data) {
             const errorMessages = Object.entries(error.data)
-                .map(([field, msg]) => `[${field}] ${msg}`)
+                .map(([field, msg]) => {
+                    const msgText = Array.isArray(msg) ? msg.join(", ") : msg;
+                    return `[${field}] ${msgText}`;
+                })
                 .join("\n");
             alert(`처리 실패:\n${errorMessages}`);
         } else if (error.detail) {
