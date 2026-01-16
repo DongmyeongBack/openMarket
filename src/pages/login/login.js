@@ -84,7 +84,7 @@ loginForm.addEventListener("submit", async (e) => {
         const referrer = document.referrer;
         const currentHost = window.location.host;
 
-        if (referrer && referrer.indexOf(currentHost) !== -1 && !referrer.includes("/login")) {
+        if (referrer && referrer.indexOf(currentHost) !== -1 && !referrer.includes("/login") && !referrer.includes("signup")) {
             window.location.href = referrer;
         } else {
             window.location.href = `${import.meta.env.BASE_URL}index.html`;
