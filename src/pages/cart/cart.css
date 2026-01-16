@@ -14,14 +14,14 @@
 
 /* 테이블 헤더 스타일 */
 .cart-table-header {
-  background: #f2f2f2;
-  border-radius: 10px;
-  padding: 18px 30px;
-  display: grid;
-  grid-template-columns: 50px 1fr 200px 200px;
-  align-items: center;
-  font-size: 18px;
-  margin-bottom: 35px;
+    background: var(--bg-gray);
+    border-radius: 10px;
+    padding: 18px 30px;
+    display: grid;
+    grid-template-columns: 50px 1fr 200px 200px;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 35px;
 }
 
 /* [추가] 체크박스 커스텀 스타일 */
@@ -73,8 +73,8 @@
 }
 
 .seller-name {
-  font-size: 14px;
-  color: #767676;
+    font-size: 14px;
+    color: var(--text-grey);
 }
 
 .product-name {
@@ -87,53 +87,53 @@
 }
 
 .shipping-info {
-  font-size: 14px;
-  color: #767676;
-  margin-top: 40px;
+    font-size: 14px;
+    color: var(--text-grey);
+    margin-top: 40px;
 }
 
 /* 수량 조절 버튼 */
 .quantity-ctrl {
-  display: flex;
-  border: 1px solid #c4c4c4;
-  border-radius: 5px;
-  width: 120px;
-  overflow: hidden;
-  margin: 0 auto;
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    width: 120px;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 .quantity-ctrl button {
-  width: 40px;
-  height: 40px;
-  background: white;
-  border: none;
-  cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: var(--text-white);
+    border: none;
+    cursor: pointer;
 }
 
 .quantity-ctrl span {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-left: 1px solid #c4c4c4;
-  border-right: 1px solid #c4c4c4;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
 }
 
 .item-total-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: #eb5757;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--error-color);
 }
 
 .btn-order-single {
-  background: #21bf48;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px auto;
+    background: var(--main-color);
+    color: var(--text-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px auto;
 }
 
 /* 빈 장바구니 스타일 */
@@ -148,21 +148,21 @@
 }
 
 .empty-sub {
-  color: #767676;
-  margin-top: 10px;
+    color: var(--text-grey);
+    margin-top: 10px;
 }
 
 /* 하단 요약 바 */
 .cart-summary {
-  font-size: 1rem;
-  background: #f2f2f2;
-  border-radius: 10px;
-  margin-top: 80px;
-  padding: 40px;
-  display: flex;
-  justify-content: space-between;
-  /* 요소들 사이 간격을 균등하게 배치 */
-  align-items: center;
+    font-size: 1rem;
+    background: var(--bg-gray);
+    border-radius: 10px;
+    margin-top: 80px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    /* 요소들 사이 간격을 균등하게 배치 */
+    align-items: center;
 }
 
 .summary-item .value strong {
@@ -180,27 +180,27 @@
 .difference,
 .sum,
 .equal {
-  /* 기존 스타일 유지 */
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 36px;
-  background-color: white;
-  color: #767676;
-  /* 기호 색상 (필요시 변경) */
+    /* 기존 스타일 유지 */
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 36px;
+    background-color: var(--text-white);
+    color: var(--text-grey);
+    /* 기호 색상 (필요시 변경) */
 
-  /* [추가] Flexbox를 이용한 중앙 정렬 */
-  display: flex;
-  justify-content: center;
-  /* 수평 중앙 정렬 */
-  align-items: center;
-  /* 수직 중앙 정렬 */
+    /* [추가] Flexbox를 이용한 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    align-items: center;
+    /* 수직 중앙 정렬 */
 
-  /* [선택 사항] 폰트에 따라 약간의 높이 오차가 있을 경우 조절 */
-  line-height: 1;
-  /* 줄 높이를 글자 크기에 맞춤 */
-  padding-bottom: 4px;
-  /* 미세 조정: 기호가 약간 위로 올라가 보이게 */
+    /* [선택 사항] 폰트에 따라 약간의 높이 오차가 있을 경우 조절 */
+    line-height: 1;
+    /* 줄 높이를 글자 크기에 맞춤 */
+    padding-bottom: 4px;
+    /* 미세 조정: 기호가 약간 위로 올라가 보이게 */
 }
 
 .summary-total {
@@ -213,7 +213,7 @@
 
 .value-total strong {
   font-size: 36px;
-  color: #eb5757;
+  color: var(--error-color);
 }
 
 .btn-order-all {

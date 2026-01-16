@@ -237,7 +237,10 @@ async function handleCartAction() {
 
         // 3. 이미 장바구니에 있다면 모달을 띄우고 함수를 종료합니다.
         if (isAlreadyInCart) {
-            showCartMoveModal();
+            const move = await showCartMoveModal();
+            if (move) {
+                window.location.href = "/src/pages/cart/index.html";
+            }
             return;
         }
 

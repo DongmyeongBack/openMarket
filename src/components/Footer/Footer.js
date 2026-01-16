@@ -1,14 +1,18 @@
 import "./Footer.css"; // CSS 파일 연결
 
-export default class Footer {
-    constructor($target) {
-        this.$target = $target;
-        this.render();
-    }
+import iconInsta from "/src/assets/images/icon-insta.svg";
+import iconFb from "/src/assets/images/icon-fb.svg";
+import iconYt from "/src/assets/images/icon-yt.svg";
 
-    render() {
-        // 렌더링할 HTML 템플릿
-        const footerHtml = `
+export default class Footer {
+  constructor($target) {
+    this.$target = $target;
+    this.render();
+  }
+
+  render() {
+    // 렌더링할 HTML 템플릿
+    const footerHtml = `
       <div class="footer-inner">
         <div class="footer-top">
           <ul class="footer-nav">
@@ -27,13 +31,13 @@ export default class Footer {
           
           <div class="footer-sns">
             <a href="#" aria-label="Instagram">
-              <img src="/src/assets/images/icon-insta.svg" alt="Instagram" />
+              <img src="${iconInsta}" alt="Instagram" />
             </a>
             <a href="#" aria-label="Facebook">
-              <img src="/src/assets/images/icon-fb.svg" alt="Facebook" />
+              <img src="${iconFb}" alt="Facebook" />
             </a>
             <a href="#" aria-label="Youtube">
-              <img src="/src/assets/images/icon-yt.svg" alt="Youtube" />
+              <img src="${iconYt}" alt="Youtube" />
             </a>
           </div>
         </div>
@@ -51,10 +55,10 @@ export default class Footer {
       </div>
     `;
 
-        const footerElement = document.createElement("footer");
-        footerElement.className = "footer";
-        footerElement.innerHTML = footerHtml;
+    const footerElement = document.createElement("footer");
+    footerElement.className = "footer";
+    footerElement.innerHTML = footerHtml;
 
-        this.$target.appendChild(footerElement);
-    }
+    this.$target.appendChild(footerElement);
+  }
 }

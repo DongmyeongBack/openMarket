@@ -3,7 +3,7 @@
 /* --- Header Layout --- */
 header {
     width: 100%;
-    background-color: #fff;
+    background-color: var(--text-white);
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -35,7 +35,8 @@ header {
 .search-input {
     width: 100%;
     padding: 13px 22px;
-    border: 2px solid var(--main-color); /* 호두 그린 */
+    border: 2px solid var(--main-color);
+    /* 호두 그린 */
     border-radius: 50px;
     font-size: 16px;
     outline: none;
@@ -57,37 +58,42 @@ header {
 .search-results {
     position: absolute;
     /* 검색창 바로 아래에 위치하도록 설정 (input 높이 + 여백) */
-    top: 55px; 
+    top: 55px;
     left: 0;
     width: 100%;
-    
-    background-color: #fff;
-    border: 1px solid #c4c4c4;
+
+    background-color: var(--text-white);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    
-    list-style: none; /* 리스트 불릿 제거 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    list-style: none;
+    /* 리스트 불릿 제거 */
     padding: 10px 0;
     margin: 0;
-    
-    z-index: 1000; /* 다른 요소보다 위에 뜨게 설정 */
-    display: none; /* 기본적으로 숨김 (JS에서 제어) */
-    max-height: 300px; /* 너무 길어지면 스크롤 */
+
+    z-index: 1000;
+    /* 다른 요소보다 위에 뜨게 설정 */
+    display: none;
+    /* 기본적으로 숨김 (JS에서 제어) */
+    max-height: 300px;
+    /* 너무 길어지면 스크롤 */
     overflow-y: auto;
 }
 
 .search-item {
-    padding: 10px 22px; /* input 패딩과 비슷하게 맞춤 */
+    padding: 10px 22px;
+    /* input 패딩과 비슷하게 맞춤 */
     font-size: 16px;
-    color: #767676;
+    color: var(--text-grey);
     cursor: pointer;
     transition: background-color 0.2s;
     text-align: left;
 }
 
 .search-item:hover {
-    background-color: #f2f2f2;
-    color: #000;
+    background-color: var(--bg-gray);
+    color: var(--text-black);
 }
 
 
@@ -96,7 +102,8 @@ header {
     display: flex;
     align-items: center;
     gap: 26px;
-    position: relative; /* 드롭다운 위치 기준 */
+    position: relative;
+    /* 드롭다운 위치 기준 */
     margin-left: auto;
 }
 
@@ -107,7 +114,7 @@ header {
     background: none;
     border: none;
     cursor: pointer;
-    color: #767676;
+    color: var(--text-grey);
     font-size: 12px;
     gap: 4px;
     position: relative;
@@ -133,7 +140,7 @@ header {
     display: flex;
     align-items: center;
     background-color: var(--main-color);
-    color: #fff;
+    color: var(--text-white);
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 18px;
@@ -145,12 +152,14 @@ header {
 .btn-seller-center img {
     width: 25px;
     height: 25px;
-    filter: brightness(0) invert(1); /* 아이콘 흰색으로 변경 */
+    filter: brightness(0) invert(1);
+    /* 아이콘 흰색으로 변경 */
 }
 
 /* --- Dropdown (My Page) --- */
 .my-page-wrapper {
-    position: relative; /* 자식 요소(드롭다운)의 위치 기준점 */
+    position: relative;
+    /* 자식 요소(드롭다운)의 위치 기준점 */
     display: flex;
     align-items: center;
 }
@@ -167,7 +176,7 @@ header {
     /* 기존 right: 0 제거 */
 
     width: 130px;
-    background: #fff;
+    background: var(--text-white);
     border-radius: 10px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
     padding: 10px;
@@ -194,7 +203,7 @@ header {
 
     width: 16px;
     height: 16px;
-    background: #fff;
+    background: var(--text-white);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -202,7 +211,7 @@ header {
 .dropdown-item {
     width: 100%;
     font-weight: 500;
-    background: #fff;
+    background: var(--text-white);
     border: none;
     padding: 8px;
     font-size: 16px;

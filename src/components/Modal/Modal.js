@@ -137,35 +137,45 @@ function closeStockModal() {
 }
 
 export function showCartMoveModal() {
-    const modalHTML = `
-        <div class="modal-overlay" id="cartMoveModal">
-            <div class="modal-box">
-                <button class="modal-close-btn" id="cartModalClose">&times;</button>
+    return new Promise((resolve) => {
+        const modalHTML = `
+            <div class="modal-overlay" id="cartMoveModal">
+                <div class="modal-box">
+                    <button class="modal-close-btn" id="cartModalClose">&times;</button>
 
-                <p class="modal-text">
-                    이미 장바구니에 있는 상품입니다.<br> 장바구니로 이동하시겠습니까?
-                </p>
+                    <p class="modal-text">
+                        이미 장바구니에 있는 상품입니다.<br> 장바구니로 이동하시겠습니까?
+                    </p>
 
-                <div class="modal-actions">
-                    <button class="modal-btn btn-no" id="cartModalNo">아니오</button>
-                    <button class="modal-btn btn-yes" id="cartModalYes">예</button>
+                    <div class="modal-actions">
+                        <button class="modal-btn btn-no" id="cartModalNo">아니오</button>
+                        <button class="modal-btn btn-yes" id="cartModalYes">예</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
 
-    document.body.insertAdjacentHTML("beforeend", modalHTML);
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // 닫기 이벤트
-    document.getElementById("cartModalClose").onclick = closeCartModal;
-    document.getElementById("cartModalNo").onclick = closeCartModal;
+        const modal = document.getElementById("cartMoveModal");
+        const closeBtn = document.getElementById("cartModalClose");
+        const noBtn = document.getElementById("cartModalNo");
+        const yesBtn = document.getElementById("cartModalYes");
 
-    document.getElementById("cartModalYes").onclick = () => {
-        // 장바구니 이동 로직
-        console.log("장바구니로 이동");
-        closeCartModal();
-        // location.href = '/cart'; // 실제 사용 시
-    };
+        const handleClose = (result) => {
+            if (modal) modal.remove();
+            resolve(result);
+        };
+
+        closeBtn.onclick = () => handleClose(false);
+        noBtn.onclick = () => handleClose(false);
+        yesBtn.onclick = () => handleClose(true);
+
+        // 배경 클릭 시 닫기
+        modal.onclick = (e) => {
+            if (e.target === modal) handleClose(false);
+        };
+    });
 }
 
 function closeCartModal() {

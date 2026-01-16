@@ -3,6 +3,12 @@ import "./Header.css";
 import { showLoginModal } from "../Modal/Modal.js";
 import { searchProducts } from "/src/utils/api.js";
 
+// 이미지 임포트
+import logoImg from "/src/assets/images/Logo-hodu.png";
+import iconShoppingCart from "/src/assets/images/icon-shopping-cart.svg";
+import iconUser from "/src/assets/images/icon-user.svg";
+import iconShoppingBag from "/src/assets/images/icon-shopping-bag.svg";
+
 export default class Header {
     constructor($target) {
         this.$target = $target;
@@ -20,7 +26,7 @@ export default class Header {
         const logoHtml = `
             <div class="logo">
                 <a href="/">
-                    <img src="/src/assets/images/Logo-hodu.png" alt="HODU" class="logo-img">
+                    <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
         `;
@@ -41,11 +47,11 @@ export default class Header {
         if (!this.token) {
             navItemsHtml = `
                 <button id="cart-btn" class="nav-btn">
-                    <img src="/src/assets/images/icon-shopping-cart.svg" alt="장바구니">
+                    <img src="${iconShoppingCart}" alt="장바구니">
                     <span>장바구니</span>
                 </button>
                 <a href="/src/pages/login/index.html" class="nav-btn">
-                    <img src="/src/assets/images/icon-user.svg" alt="로그인">
+                    <img src="${iconUser}" alt="로그인">
                     <span>로그인</span>
                 </a>
             `;
@@ -53,7 +59,7 @@ export default class Header {
             navItemsHtml = `
                 <div class="my-page-wrapper">
                     <button id="my-page-btn" class="nav-btn">
-                        <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
+                        <img src="${iconUser}" alt="마이페이지">
                         <span>마이페이지</span>
                     </button>
                     <div class="my-page-dropdown" id="dropdown-menu">
@@ -62,19 +68,19 @@ export default class Header {
                     </div>
                 </div>
                 <a href="/src/pages/seller-center/index.html" class="btn-seller-center">
-                    <img src="/src/assets/images/icon-shopping-bag.svg" alt="쇼핑백">
+                    <img src="${iconShoppingBag}" alt="쇼핑백">
                     판매자 센터
                 </a>
             `;
         } else {
             navItemsHtml = `
                 <button id="cart-btn" class="nav-btn">
-                    <img src="/src/assets/images/icon-shopping-cart.svg" alt="장바구니">
+                    <img src="${iconShoppingCart}" alt="장바구니">
                     <span>장바구니</span>
                 </button>
                 <div class="my-page-wrapper">
                     <button id="my-page-btn" class="nav-btn">
-                        <img src="/src/assets/images/icon-user.svg" alt="마이페이지">
+                        <img src="${iconUser}" alt="마이페이지">
                         <span>마이페이지</span>
                     </button>
                     <div class="my-page-dropdown" id="dropdown-menu">

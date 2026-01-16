@@ -173,7 +173,8 @@ async function checkIdDuplicate() {
     } catch (error) {
         let msg = "이미 사용 중인 아이디입니다.";
         if (error.data) {
-            msg = error.data.FAIL_Message || (error.data.username && error.data.username[0]) || msg;
+            // API Spec: {"error": "message"} for 400
+            msg = error.data.error || error.data.FAIL_Message || (error.data.username && error.data.username[0]) || msg;
         }
         showError(inputs.username, msg);
         state.username = false;
@@ -370,22 +371,17 @@ submitBtn.addEventListener("click", async (e) => {
         phone_number: `${inputs.phonePrefix.value}${inputs.phoneMiddle.value}${inputs.phoneLast.value}`,
     };
 
-    let apiUrl = "/accounts/buyer/signup/";
-
-    // 2. 판매자일 경우 데이터 추가 및 URL 변경
+    // 2. 판매자일 경우 데이터 추가
     if (currentType === "SELLER") {
-        apiUrl = "/accounts/seller/signup/";
         formData.company_registration_number = inputs.businessNo.value;
         formData.store_name = inputs.storeName.value;
-    } else {
-        formData.user_type = "BUYER";
     }
 
     try {
-        await join(formData);
+        await join(formData, currentType);
 
         alert("회원가입이 완료되었습니다!");
-        window.location.href = "/login.html";
+        window.location.href = "/src/pages/login/index.html";
     } catch (error) {
         console.error("Signup Error:", error);
 
