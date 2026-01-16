@@ -31,7 +31,7 @@ async function getCartData() {
     const token = localStorage.getItem("token");
     if (!token) {
         showLoginModal();
-        window.location.href = new URL('../login/index.html', import.meta.url).href;
+        window.location.href = "/src/pages/login/index.html";
         return;
     }
 
@@ -67,7 +67,7 @@ async function getCartData() {
         // 401 Unauthorized 등의 에러 처리
         if (error.status === 401 || error.status === 403) {
             alert("로그인 정보가 만료되었거나 접근 권한이 없습니다.");
-            window.location.href = new URL('../login/index.html', import.meta.url).href;
+            window.location.href = "/src/pages/login/index.html";
         }
     }
 }
@@ -121,7 +121,7 @@ function renderCart() {
             <button class="btn-order-single">주문하기</button>
         </div>
         <button class="btn-delete">
-            <img src="${new URL('../../assets/images/icon-delete.svg', import.meta.url).href}" alt="삭제" />
+            <img src="/src/assets/images/icon-delete.svg" alt="삭제" />
         </button>
     </li>
 `
@@ -241,7 +241,7 @@ cartListEl.addEventListener("click", async (e) => {
             product_ids: [item.product_id]
         };
         localStorage.setItem("order_data", JSON.stringify(orderData));
-        window.location.href = new URL('../payment/index.html', import.meta.url).href;
+        window.location.href = "/src/pages/payment/index.html";
     }
 });
 
@@ -304,7 +304,7 @@ btnOrderAll.addEventListener("click", () => {
     };
     localStorage.setItem("order_data", JSON.stringify(orderData));
 
-    window.location.href = new URL('../payment/index.html', import.meta.url).href;
+    window.location.href = "/src/pages/payment/index.html";
 });
 
 // 초기 실행

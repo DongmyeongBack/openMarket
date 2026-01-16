@@ -51,7 +51,7 @@ const fetchSellerProducts = async () => {
 
     if (!token || !accountName) {
         alert("로그인이 필요한 서비스입니다.");
-        window.location.href = new URL('../login/index.html', import.meta.url).href; // 로그인 페이지로 리다이렉트
+        window.location.href = "/src/pages/login/index.html"; // 로그인 페이지로 리다이렉트
         return;
     }
 

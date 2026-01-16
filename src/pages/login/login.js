@@ -1,6 +1,11 @@
 // [변경] 공용 API 함수 임포트
 import { login } from "../../utils/api.js";
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./login.css";
+
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("username");
@@ -78,7 +83,7 @@ loginForm.addEventListener("submit", async (e) => {
         if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
             history.back();
         } else {
-            window.location.href = new URL('../../index.html', import.meta.url).href;
+            window.location.href = "/index.html";
         }
     } catch (error) {
         console.error("로그인 에러:", error);

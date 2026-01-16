@@ -25,7 +25,7 @@ export default class Header {
     template() {
         const logoHtml = `
             <div class="logo">
-                <a href="${new URL('../../index.html', import.meta.url).href}">
+                <a href="/index.html">
                     <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
@@ -50,7 +50,7 @@ export default class Header {
                     <img src="${iconShoppingCart}" alt="장바구니">
                     <span>장바구니</span>
                 </button>
-                <a href="${new URL('../../pages/login/index.html', import.meta.url).href}" class="nav-btn">
+                <a href="/src/pages/login/index.html" class="nav-btn">
                     <img src="${iconUser}" alt="로그인">
                     <span>로그인</span>
                 </a>
@@ -67,7 +67,7 @@ export default class Header {
                         <button class="dropdown-item" id="logout-btn">로그아웃</button>
                     </div>
                 </div>
-                <a href="${new URL('../../pages/seller-center/index.html', import.meta.url).href}" class="btn-seller-center">
+                <a href="/src/pages/seller-center/index.html" class="btn-seller-center">
                     <img src="${iconShoppingBag}" alt="쇼핑백">
                     판매자 센터
                 </a>
@@ -201,7 +201,7 @@ export default class Header {
 
                 const item = e.target.closest(".search-item");
                 if (item) {
-                    const detailUrl = new URL('../../pages/product-detail/index.html', import.meta.url).href;
+                    const detailUrl = "/src/pages/product-detail/index.html";
                     window.location.href = `${detailUrl}?productId=${item.dataset.id}`;
                 }
             });
@@ -210,7 +210,14 @@ export default class Header {
             const handleSearch = () => {
                 const keyword = searchInput.value.trim();
                 if (keyword) {
-                    const listUrl = new URL('../../pages/product-list/index.html', import.meta.url).href;
+                    const listUrl = "/index.html";
+                    // Assuming product-list is index.html or handled there?
+                    // Original was: ../../pages/product-list/index.html
+                    // Wait, vite.config.js checks:
+                    // main: resolve(__dirname, "index.html"),
+                    // There is no explicit product-list page in vite.config.js input, likely index.html is the list?
+                    // Previous file view of index.html title is "쇼핑몰 (상품 목록)". Yes.
+
                     window.location.href = `${listUrl}?search=${encodeURIComponent(keyword)}`;
                 }
             };
@@ -229,7 +236,7 @@ export default class Header {
 
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
-                const cartUrl = new URL('../../pages/cart/index.html', import.meta.url).href;
+                const cartUrl = "/src/pages/cart/index.html";
                 this.token ? (window.location.href = cartUrl) : showLoginModal();
             });
         }
@@ -250,7 +257,7 @@ export default class Header {
             logoutBtn.addEventListener("click", () => {
                 localStorage.clear();
                 alert("로그아웃 되었습니다.");
-                window.location.href = new URL('../../index.html', import.meta.url).href;
+                window.location.href = "/index.html";
             });
         }
     }
