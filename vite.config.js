@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 export default defineConfig({
     // 배포할때만 다음 활성화
-    // base: "/openMarket/",
+    base: "/openMarket/",
     build: {
         rollupOptions: {
             input: {
@@ -28,6 +28,9 @@ export default defineConfig({
 
                 // 7. [추가됨] 상품 등록 페이지
                 productUpload: resolve(__dirname, "src/pages/seller-center/product-upload/index.html"),
+
+                // 8. [NEW] 결제 페이지
+                payment: resolve(__dirname, "src/pages/payment/index.html"),
             },
         },
     },
