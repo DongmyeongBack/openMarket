@@ -136,20 +136,38 @@ function closeStockModal() {
     if (modal) modal.remove();
 }
 
-export function showCartMoveModal() {
+/**
+ * 공용 장바구니 모달
+ * @param {Object} options
+ * @param {string} options.message - 안내 문구 (HTML 가능)
+ * @param {string} options.confirmText - 확인 버튼 문구
+ * @param {string} options.cancelText - 취소 버튼 문구
+ * @returns {Promise<boolean>} true: 확인 / false: 취소
+ */
+export function showCartModal(options) {
+    const {
+        message,
+        confirmText = '확인',
+        cancelText = '쇼핑 계속',
+    } = options;
+
     return new Promise((resolve) => {
         const modalHTML = `
-            <div class="modal-overlay" id="cartMoveModal">
+            <div class="modal-overlay" id="cartCommonModal">
                 <div class="modal-box">
-                    <button class="modal-close-btn" id="cartModalClose">&times;</button>
+                    <button class="modal-close-btn" id="cartCommonClose">&times;</button>
 
                     <p class="modal-text">
-                        이미 장바구니에 있는 상품입니다.<br> 장바구니로 이동하시겠습니까?
+                        ${message}
                     </p>
 
                     <div class="modal-actions">
-                        <button class="modal-btn btn-no" id="cartModalNo">아니오</button>
-                        <button class="modal-btn btn-yes" id="cartModalYes">예</button>
+                        <button class="modal-btn btn-no" id="cartCommonCancel">
+                            ${cancelText}
+                        </button>
+                        <button class="modal-btn btn-yes" id="cartCommonConfirm">
+                            ${confirmText}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -157,10 +175,10 @@ export function showCartMoveModal() {
 
         document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-        const modal = document.getElementById("cartMoveModal");
-        const closeBtn = document.getElementById("cartModalClose");
-        const noBtn = document.getElementById("cartModalNo");
-        const yesBtn = document.getElementById("cartModalYes");
+        const modal = document.getElementById("cartCommonModal");
+        const closeBtn = document.getElementById("cartCommonClose");
+        const cancelBtn = document.getElementById("cartCommonCancel");
+        const confirmBtn = document.getElementById("cartCommonConfirm");
 
         const handleClose = (result) => {
             if (modal) modal.remove();
@@ -168,19 +186,14 @@ export function showCartMoveModal() {
         };
 
         closeBtn.onclick = () => handleClose(false);
-        noBtn.onclick = () => handleClose(false);
-        yesBtn.onclick = () => handleClose(true);
+        cancelBtn.onclick = () => handleClose(false);
+        confirmBtn.onclick = () => handleClose(true);
 
         // 배경 클릭 시 닫기
         modal.onclick = (e) => {
             if (e.target === modal) handleClose(false);
         };
     });
-}
-
-function closeCartModal() {
-    const modal = document.getElementById("cartMoveModal");
-    if (modal) modal.remove();
 }
 
 export function showImageModal() {
@@ -219,3 +232,78 @@ function closeImageModal() {
     if (modal) modal.remove();
 }
 
+export function showPaymentErrorModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="paymentErrorModal">
+            <div class="modal-box image-modal-box">
+                <button class="modal-close-btn" id="paymentErrorClose">&times;</button>
+
+                <div class="modal-image">
+                    <img src="/assets/images/notice.png" alt="결제 오류 안내 이미지">
+                </div>
+
+                <p class="modal-text">
+                    결재를 진행할 수 없습니다.<br>
+                    <span class="error-code">[Error Code: API_CONNECTION_ERROR]</span>
+                </p>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-yes" id="paymentErrorOk">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 닫기 이벤트
+    document.getElementById('paymentErrorClose').onclick = closePaymentErrorModal;
+    document.getElementById('paymentErrorOk').onclick = closePaymentErrorModal;
+}
+
+function closePaymentErrorModal() {
+    const modal = document.getElementById('paymentErrorModal');
+    if (modal) modal.remove();
+}
+
+export function showLoginSuccessModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="loginSuccessModal">
+            <div class="modal-box image-modal-box">
+                <button class="modal-close-btn" id="loginSuccessClose">&times;</button>
+
+                <div class="modal-image">
+                    <img src="/assets/images/notice.png" alt="로그인 성공 안내 이미지">
+                </div>
+
+                <p class="modal-text">
+                    BYER 회원으로 로그인 되었습니다.<br>
+                    홈페이지로 이동합니다.
+                </p>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-yes" id="loginSuccessOk">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 닫기 이벤트
+    document.getElementById('loginSuccessClose').onclick = closeLoginSuccessModal;
+    document.getElementById('loginSuccessOk').onclick = () => {
+        closeLoginSuccessModal();
+        // 홈으로 이동
+        // location.href = '/';
+    };
+}
+
+function closeLoginSuccessModal() {
+    const modal = document.getElementById('loginSuccessModal');
+    if (modal) modal.remove();
+}
