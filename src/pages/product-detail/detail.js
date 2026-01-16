@@ -1,5 +1,5 @@
 import { getProductDetail, getCart, addToCart } from "../../utils/api.js";
-import { showLoginModal, showCartMoveModal } from "../../components/Modal/Modal.js";
+import { showLoginModal, showCartModal } from "../../components/Modal/Modal.js";
 
 import Header from "../../components/Header/Header.js";
 import Footer from "../../components/Footer/Footer.js";
@@ -237,7 +237,11 @@ async function handleCartAction() {
 
         // 3. 이미 장바구니에 있다면 모달을 띄우고 함수를 종료합니다.
         if (isAlreadyInCart) {
-            const move = await showCartMoveModal();
+            const move = await showCartModal({
+                message: "이미 장바구니에 있는 상품입니다.<br>장바구니로 이동하시겠습니까?",
+                confirmText: "예",
+                cancelText: "아니오"
+            });
             if (move) {
                 window.location.href = new URL('../cart/index.html', import.meta.url).href;
             }
