@@ -25,9 +25,9 @@ const createProductItem = (product) => {
     return `
         <li class="product-item" data-id="${product.id}">
             <div class="item-info">
-                <img src="${imgSrc}" alt="${product.product_name}" class="item-img">
+                <img src="${imgSrc}" alt="${product.name}" class="item-img">
                 <div class="item-details">
-                    <span class="item-name">${product.product_name}</span>
+                    <span class="item-name">${product.name}</span>
                     <span class="item-stock">재고 : ${product.stock}개</span>
                 </div>
             </div>
