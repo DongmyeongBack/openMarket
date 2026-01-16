@@ -5,7 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HODU 판매자 센터</title>
-    <title>HODU 판매자 센터</title>
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="./seller.css" />
 </head>
 
 <body>
@@ -42,20 +44,30 @@
 
         <main class="content">
             <div class="content-header">
-                <h2>대시보드 <span class="seller-name" id="seller-name-title">판매자님</span></h2>
-                <button type="button" class="btn-upload btn-primary" id="upload-btn"><i>+</i> 상품 업로드</button>
+                <div class="dashboard-title-group">
+                    <h2>대시보드</h2>
+                    <p class="greeting-text">
+                        안녕하세요. <strong id="store-title"></strong>,
+                        <span id="seller-title"></span>
+                    </p>
+                </div>
+                <button type="button" class="btn-upload btn-primary" id="upload-btn">
+                    <i>+</i> 상품 업로드
+                </button>
             </div>
 
             <div class="dashboard-layout">
                 <div class="tab-menu">
-                    <button class="tab active">판매중인 상품(<span id="product-count-tab">0</span>)</button>
+                    <button class="tab active">
+                        판매중인 상품(<span id="product-count-tab">0</span>)
+                    </button>
                 </div>
 
                 <div class="product-table-container">
                     <div class="table-header">
                         <div class="col-info">상품정보</div>
                         <div class="col-price">판매가격</div>
-                        <div class="col-edit">수정</div>
+                        <div class="col-edit">수정/복사</div>
                         <div class="col-delete">삭제</div>
                     </div>
 

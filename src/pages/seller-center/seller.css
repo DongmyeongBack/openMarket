@@ -1,284 +1,349 @@
 /* src/pages/seller/seller.css */
 
-/* common.css의 변수를 우선 사용합니다. */
-
-/* --- [수정됨] 헤더 스타일 (header.css와 통일) --- */
+/* --- 기존 헤더 스타일 유지 --- */
 .seller-header {
-    width: 100%;
-    background-color: var(--text-white);
-
-    /* header.css와 동일한 그림자 및 고정 위치 적용 */
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    /* 내부 정렬 */
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    /* 높이는 padding으로 조절 (header.css의 20px 기준) 
-       좌우 패딩은 Seller 페이지의 넓은 뷰를 위해 100px 유지 */
-    padding: 20px 100px;
+  width: 100%;
+  background-color: var(--text-white);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 100px;
 }
 
 .logo {
-    width: 80px;
-    height: 24px;
-    cursor: pointer;
+  width: 80px;
+  height: 24px;
+  cursor: pointer;
 }
 
-/* header.css의 .logo-img와 크기 통일 */
 .logo img {
-    object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
 .page-title {
-    font-size: 30px;
-    font-weight: 500;
-    margin-top: 4px;
-    /* 폰트 베이스라인 보정 */
-    color: var(--text-dark);
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 4px;
+  color: var(--text-dark);
 }
 
 /* --- 레이아웃 --- */
 .container {
-    display: flex;
-    max-width: 1920px;
-    margin: 0 auto;
-    /* 헤더가 sticky로 바뀌었으므로 min-height 계산 시 주의 */
-    min-height: 100vh;
+  display: flex;
+  max-width: 1920px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
 /* --- 사이드바 --- */
 .sidebar {
-    width: 250px;
-    /* 헤더가 sticky이므로 사이드바도 스크롤에 따라오게 하려면 
-       position: sticky; top: 80px; 등을 추가할 수 있습니다. 
-       일단 기존 스타일 유지 */
-    padding: 42px 20px;
-    border-right: 1px solid var(--border-color);
-    background-color: var(--text-white);
+  width: 250px;
+  padding: 42px 20px;
+  border-right: 1px solid var(--border-color);
+  background-color: var(--text-white);
 }
 
 .menu-item {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .menu-item a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    font-weight: 500;
-    color: var(--text-black);
-    transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: var(--text-black);
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .menu-item a:hover {
-    background-color: #effff3;
+  background-color: #effff3;
 }
 
-/* 활성화 된 메뉴 */
 .menu-item.active a {
-    background-color: var(--main-color);
-    color: var(--text-white);
+  background-color: var(--main-color);
+  color: var(--text-white);
 }
 
 .menu-item .badge {
-    color: var(--error-color);
-    font-weight: bold;
+  color: var(--error-color);
+  font-weight: bold;
 }
 
 .menu-item.active .badge {
-    color: var(--text-white);
+  color: var(--text-white);
 }
 
 /* --- 메인 컨텐츠 --- */
 .content {
-    flex: 1;
-    padding: 44px 60px;
-    background-color: var(--bg-gray);
+  flex: 1;
+  padding: 44px 60px;
+  background-color: var(--bg-gray);
+}
+
+/* [수정됨] 상단 타이틀 그룹 정렬 */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  margin-bottom: 42px;
+}
+
+.dashboard-title-group {
+  display: flex;
+  align-items: baseline;
+  /* 텍스트 라인 맞춤 */
+  gap: 16px;
 }
 
 .content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* 버튼과 수직 중앙 정렬 */
+  margin-bottom: 42px;
+}
+
+/* 제목과 인사말을 감싸는 그룹 */
+.dashboard-title-group {
+  display: flex;
+  flex-direction: column;
+  /* ★ 핵심: 세로로 배치 ★ */
+  gap: 8px;
+  /* 대시보드와 인사말 사이 간격 */
 }
 
 .content-header h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--text-black);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-black);
+  line-height: 1;
+  /* 줄 간격 좁힘 */
 }
 
-.seller-name {
-    color: var(--main-color);
+/* 인사말 스타일 (대시보드보다 작게) */
+.greeting-text {
+  font-size: 16px;
+  /* 36px보다 훨씬 작게 설정 */
+  color: #767676;
+  /* 회색으로 부드럽게 */
+  font-weight: 400;
+}
+
+.greeting-text strong {
+  color: var(--main-color);
+  /* 스토어명 초록색 */
+  font-weight: 600;
 }
 
 .btn-upload {
-    padding: 16px 20px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  padding: 12px 20px;
+  /* 버튼 크기 살짝 조정 */
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 5px;
 }
 
-/* --- 테이블 및 기타 스타일 (기존 유지) --- */
+/* --- 테이블 스타일 --- */
 .dashboard-layout {
-    background: transparent;
+  background: transparent;
 }
 
 .tab-menu {
-    display: flex;
-    margin-bottom: -1px;
+  display: flex;
+  margin-bottom: -1px;
 }
 
 .tab {
-    padding: 15px 20px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: var(--text-black);
-    cursor: pointer;
+  padding: 15px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--text-black);
+  cursor: pointer;
 }
 
 .product-table-container {
-    background: var(--text-white);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    overflow: hidden;
+  background: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .table-header {
-    display: flex;
-    background-color: var(--text-white);
-    border-bottom: 1px solid var(--border-color);
-    padding: 18px 0;
-    font-size: 18px;
-    text-align: center;
-    color: var(--text-black);
+  display: flex;
+  background-color: var(--text-white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 18px 0;
+  font-size: 18px;
+  text-align: center;
+  color: var(--text-black);
 }
 
+/* 컬럼 비율 조정 */
 .col-info {
-    flex: 5;
-    text-align: center;
+  flex: 5;
+  text-align: center;
 }
 
 .col-price {
-    flex: 2;
+  flex: 2;
 }
 
 .col-edit {
-    flex: 1.5;
+  flex: 1.5;
 }
 
 .col-delete {
-    flex: 1.5;
+  flex: 1.5;
 }
 
 .product-list {
-    background: var(--text-white);
+  background: var(--text-white);
 }
 
+/* [수정됨] 리스트 아이템 정렬 강화 */
 .product-item {
-    display: flex;
-    align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 18px;
-    color: var(--text-black);
+  display: flex;
+  align-items: center;
+  /* 모든 요소 수직 중앙 정렬 */
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 18px;
+  color: var(--text-black);
 }
 
 .product-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .item-info {
-    flex: 5;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    gap: 30px;
+  flex: 5;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  gap: 30px;
 }
 
 .item-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-gray);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-gray);
+  flex-shrink: 0;
+  /* 이미지 찌그러짐 방지 */
 }
 
 .item-details {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .item-name {
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-dark);
 }
 
 .item-stock {
-    font-size: 16px;
-    color: var(--text-grey);
+  font-size: 14px;
+  color: var(--text-grey);
 }
 
 .item-price {
-    flex: 2;
-    text-align: center;
-    font-weight: 700;
-    color: var(--text-black);
+  flex: 2;
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-black);
 }
 
-.item-edit,
+/* [수정됨] 수정/복사 버튼 영역 */
+.item-edit {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  /* 세로 배치 */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* 버튼 사이 간격 */
+}
+
 .item-delete {
-    flex: 1.5;
-    text-align: center;
+  flex: 1.5;
+  text-align: center;
+  display: flex;
+  /* Flexbox 추가 */
+  justify-content: center;
+  /* 가로 중앙 */
+  align-items: center;
+  /* 세로 중앙 */
 }
 
-/* 버튼 스타일 */
+/* 버튼 공통 스타일 */
 .btn-small {
-    padding: 10px 30px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 8px 0;
+  /* 좌우 패딩 제거 후 width로 제어 */
+  width: 80px;
+  /* 버튼 너비 고정 */
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
 }
 
 .btn-update {
-    background-color: var(--main-color);
-    color: var(--text-white);
-    border: none;
+  background-color: var(--main-color);
+  color: var(--text-white);
+  border: 1px solid var(--main-color);
 }
 
 .btn-update:hover {
-    opacity: 0.9;
+  opacity: 0.9;
+}
+
+.btn-copy {
+  background-color: var(--text-white);
+  /* 흰색 배경 */
+  border: 1px solid var(--border-color);
+  color: var(--text-dark);
+}
+
+.btn-copy:hover {
+  background-color: #f0f0f0;
 }
 
 .btn-delete {
-    background-color: var(--text-white);
-    border: 1px solid var(--border-color);
-    color: var(--text-grey);
+  background-color: var(--text-white);
+  border: 1px solid var(--border-color);
+  color: var(--text-grey);
 }
 
 .btn-delete:hover {
-    background-color: var(--text-black);
-    color: var(--text-white);
-    border-color: var(--text-black);
+  background-color: var(--error-color);
+  /* 삭제 시 빨간색 강조 */
+  color: var(--text-white);
+  border-color: var(--error-color);
 }
 
 .no-data {
-    padding: 50px;
-    text-align: center;
-    color: var(--text-grey);
+  padding: 50px;
+  text-align: center;
+  color: var(--text-grey);
 }
