@@ -1,6 +1,6 @@
 import Header from "../../components/Header/Header.js";
 import Footer from "../../components/Footer/Footer.js";
-import { getCart, updateCartItem, deleteCartItem } from "../../utils/api.js";
+import { getCart, updateCartItem, deleteCartItem, getProductDetail } from "../../utils/api.js";
 import { showLoginModal, showDeleteModal } from "../../components/Modal/Modal.js";
 
 // [추가] CSS 임포트
@@ -51,19 +51,44 @@ async function getCartData() {
             cartItems = [];
         } else {
             // 4. API 데이터 구조를 화면 렌더링용 구조로 매핑(변환)
-            // API의 results 배열 안에는 { id, product: { ... }, quantity } 구조로 들어옵니다.
-            cartItems = data.results.map((item) => ({
-                cart_id: item.id, // 장바구니 항목 ID (삭제/수정 시 필요)
-                product_id: item.product.id, // 상품 ID
-                seller: item.product.seller.store_name, // 판매자명
-                name: item.product.name, // 상품명
-                price: item.product.price, // 가격
-                shipping: item.product.shipping_fee, // 배송비
-                image: item.product.image, // 이미지 URL
-                quantity: item.quantity, // 수량
-                isChecked: true, // [추가] 체크 상태 관리 (기본값: true)
-            }));
-            console.log(cartItems);
+            // [수정] 각 상품의 최신 재고(stock) 정보를 확인하기 위해 추가 API 요청
+            const cartWithDetails = await Promise.all(
+                data.results.map(async (item) => {
+                    try {
+                        const detail = await getProductDetail(item.product.id);
+                        return {
+                            ...item,
+                            product: {
+                                ...item.product,
+                                stock: detail.stock, // 최신 재고 정보 확보
+                            },
+                        };
+                    } catch (err) {
+                        console.error(`Failed to fetch detail for product ${item.product.id}`, err);
+                        return item; // 실패 시 기존 정보 사용 (stock 정보가 없을 수도 있음)
+                    }
+                })
+            );
+
+            cartItems = cartWithDetails.map((item) => {
+                const stock = item.product.stock !== undefined ? item.product.stock : 999; // 재고 정보 없으면 주문 가능으로 처리
+                const isOutOfStock = stock === 0;
+
+                return {
+                    cart_id: item.id,
+                    product_id: item.product.id,
+                    seller: item.product.seller.store_name,
+                    name: item.product.name,
+                    price: item.product.price,
+                    shipping: item.product.shipping_fee,
+                    image: item.product.image,
+                    quantity: item.quantity,
+                    stock: stock,
+                    // [수정] 재고가 0이면 체크 해제 및 비활성화
+                    isChecked: !isOutOfStock,
+                };
+            });
+            console.log("Cart Items with Stock:", cartItems);
         }
 
         // 5. 화면 렌더링
@@ -100,12 +125,15 @@ function renderCart() {
 
     cartListEl.innerHTML = cartItems
         .map(
-            (item) => `
-    <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
-        <input type="checkbox" class="checkbox" checked>
+            (item) => {
+                const isOutOfStock = item.stock === 0;
+                return `
+    <li class="cart-item ${isOutOfStock ? "out-of-stock" : ""}" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
+        <input type="checkbox" class="checkbox" ${item.isChecked ? "checked" : ""} ${isOutOfStock ? "disabled" : ""}>
         
         <a href="${import.meta.env.BASE_URL}src/pages/product-detail/index.html?productId=${item.product_id}" class="product-img-link">
             <img src="${item.image}" alt="${item.name}" class="product-img">
+            ${isOutOfStock ? '<div class="sold-out-overlay">품절</div>' : ""}
         </a>
         
         <div class="product-info">
@@ -118,19 +146,22 @@ function renderCart() {
         </div>
         
         <div class="quantity-ctrl">
-            <button type="button" class="minus">-</button>
+            <button type="button" class="minus" ${isOutOfStock ? "disabled" : ""}>-</button>
             <span>${item.quantity}</span>
-            <button type="button" class="plus">+</button>
+            <button type="button" class="plus" ${isOutOfStock ? "disabled" : ""}>+</button>
         </div>
         <div class="item-total">
             <p class="item-total-price">${(item.price * item.quantity).toLocaleString()}원</p>
-            <button class="btn-order-single">주문하기</button>
+            <button class="btn-order-single" ${isOutOfStock ? "disabled" : ""}>
+                ${isOutOfStock ? "품절" : "주문하기"}
+            </button>
         </div>
         <button class="btn-delete">
             <img src="${deleteIcon}" alt="삭제" />
         </button>
     </li>
-`
+`;
+            }
         )
         .join("");
 
@@ -138,7 +169,17 @@ function renderCart() {
 
     // [추가] 렌더링 시 전체 선택 체크박스 상태 동기화
     if (cartItems.length > 0) {
-        selectAllCheckbox.checked = cartItems.every(item => item.isChecked);
+        // 품절이 아닌 상품들 중에서 모두 체크되어 있는지 확인
+        const availableItems = cartItems.filter(item => item.stock > 0);
+
+        // 품절이 아닌 상품이 하나도 없다면 체크박스 해제
+        if (availableItems.length === 0) {
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.disabled = true; // 선택할 게 없으므로 비활성화
+        } else {
+            selectAllCheckbox.checked = availableItems.every(item => item.isChecked);
+            selectAllCheckbox.disabled = false;
+        }
     } else {
         selectAllCheckbox.checked = false;
     }
@@ -274,9 +315,11 @@ cartListEl.addEventListener("change", (e) => {
 selectAllCheckbox.addEventListener("change", (e) => {
     const isChecked = e.target.checked;
 
-    // 1. 상태 업데이트
+    // 1. 상태 업데이트 (품절 상품 제외)
     cartItems.forEach(item => {
-        item.isChecked = isChecked;
+        if (item.stock > 0) {
+            item.isChecked = isChecked;
+        }
     });
 
     // 2. DOM 업데이트 (개별 체크박스들)

@@ -21,7 +21,7 @@ export default class Header {
     template() {
         const logoHtml = `
             <div class="logo">
-                <a href="${import.meta.env.BASE_URL}/index.html" class="logo">
+                <a href="${import.meta.env.BASE_URL}index.html" class="logo">
                     <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
