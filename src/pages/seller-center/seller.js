@@ -154,41 +154,14 @@ const attachEventListeners = () => {
     // 3. [신규 기능] 복사
     const copyBtns = document.querySelectorAll(".btn-copy");
     copyBtns.forEach((btn) => {
-        btn.addEventListener("click", async (e) => {
-            if (!confirm("상품을 복사하시겠습니까?")) return;
+        btn.addEventListener("click", (e) => {
+            if (!confirm("이 상품의 정보로 새로운 상품을 등록하시겠습니까? (상품 등록 페이지로 이동합니다)")) return;
 
             const productItem = e.target.closest(".product-item");
             const productId = productItem.dataset.id;
 
-            try {
-                // 기존 정보 가져오기
-                const originalProduct = await getProductDetail(productId);
-
-                // API 전송을 위한 FormData 생성 (api.js가 formData를 원함)
-                const formData = new FormData();
-
-                // 필수 데이터 채우기
-                formData.append(
-                    "product_name",
-                    `[복사] ${originalProduct.product_name}`
-                );
-                formData.append("price", originalProduct.price);
-                formData.append("shipping_method", originalProduct.shipping_method); // 배송방법(PARCEL 등)
-                formData.append("shipping_fee", originalProduct.shipping_fee);
-                formData.append("stock", 0); // 재고는 0으로 초기화
-                formData.append("product_info", originalProduct.product_info);
-
-                // [주의] 이미지 URL은 복사가 안 될 수 있으므로, 이미지가 없어도 등록되게 시도하거나
-                // 텍스트만 복사한다고 가정합니다.
-
-                await createProduct(formData);
-
-                alert("상품이 복사되었습니다. (이미지는 수정에서 다시 등록해주세요)");
-                window.location.reload();
-            } catch (error) {
-                console.error("복사 실패", error);
-                alert("복사 중 오류가 발생했습니다.");
-            }
+            // 페이지 이동 (id와 mode=copy 전달)
+            window.location.href = `./product-upload/index.html?id=${productId}&mode=copy`;
         });
     });
 };

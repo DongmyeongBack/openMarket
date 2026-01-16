@@ -21,13 +21,26 @@ new Footer(footerTarget);
 let selectedShippingMethod = "PARCEL";
 let isEditMode = false;
 let productId = null;
+let isCopyMode = false; // 복사 모드 플래그
+let originalImageBlob = null; // 복사 시 기존 이미지 Blob 저장
 
 // [추가] 2.1 URL 파라미터 확인 및 수정 모드 설정
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     productId = urlParams.get("id");
+    const mode = urlParams.get("mode");
 
-    if (productId) {
+    if (mode === "copy" && productId) {
+        isCopyMode = true;
+        document.title = "상품 복사 등록 | HODU Seller";
+        document.querySelector(".page-title").textContent = "상품 복사 등록";
+        document.querySelector(".save-btn").textContent = "저장하기";
+
+        await fetchProductDetail(productId);
+
+        // productId 초기화 (신규 등록이므로)
+        productId = null;
+    } else if (productId) {
         isEditMode = true;
         document.title = "상품 수정 | HODU Seller";
         document.querySelector(".page-title").textContent = "상품 수정"; // .upload-title -> .page-title 변경
@@ -60,12 +73,27 @@ async function fetchProductDetail(id) {
             }
         });
 
-        // 이미지 미리보기
+        // 이미지 미리보기 및 Blob 변환
         if (data.image) {
             previewImg.src = data.image;
             previewImg.style.display = "block";
             uploadIcon.style.display = "none";
             document.querySelector(".img-placeholder").style.backgroundColor = "transparent";
+
+            // [복사 모드] 이미지 URL을 Blob으로 변환하여 저장
+            if (isCopyMode) {
+                try {
+                    const response = await fetch(data.image);
+                    const blob = await response.blob();
+                    // 파일 객체처럼 만들기
+                    const filename = data.image.split("/").pop() || "image.jpg";
+                    originalImageBlob = new File([blob], filename, { type: blob.type });
+                    console.log("이미지 변환 성공:", originalImageBlob);
+                } catch (err) {
+                    console.error("이미지 변환 실패:", err);
+                    alert("기존 이미지를 불러오는 데 실패했습니다. 이미지를 다시 등록해주세요.");
+                }
+            }
         }
     } catch (error) {
         console.error("상품 정보 로드 실패", error);
@@ -118,7 +146,7 @@ productForm.addEventListener("submit", async (e) => {
     const imageFile = imgInput.files[0];
 
     // 간단한 유효성 검사
-    if (!isEditMode && !imageFile) {
+    if (!isEditMode && !imageFile && !originalImageBlob) {
         return alert("상품 이미지를 등록해주세요!");
     }
     if (!name || !price || !shippingFee || !stock || !info) {
@@ -134,9 +162,12 @@ productForm.addEventListener("submit", async (e) => {
     formData.append("stock", parseInt(stock));
     formData.append("info", info);
 
-    // 수정 모드일 때 이미지를 새로 선택하지 않으면 append 하지 않음 (기존 유지)
+    // 수정 모드일 때: 이미지를 새로 선택했을 때만 append
+    // 등록/복사 모드일 때: 새로 선택했으면 그거 쓰고, 아니면 복사된 Blob 사용
     if (imageFile) {
         formData.append("image", imageFile);
+    } else if (isCopyMode && originalImageBlob) {
+        formData.append("image", originalImageBlob);
     }
 
     try {
