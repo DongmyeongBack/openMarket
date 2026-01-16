@@ -5,7 +5,7 @@
 /* --- [수정됨] 헤더 스타일 (header.css와 통일) --- */
 .seller-header {
     width: 100%;
-    background-color: #fff;
+    background-color: var(--text-white);
 
     /* header.css와 동일한 그림자 및 고정 위치 적용 */
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
@@ -37,7 +37,8 @@
 .page-title {
     font-size: 30px;
     font-weight: 500;
-    margin-top: 4px; /* 폰트 베이스라인 보정 */
+    margin-top: 4px;
+    /* 폰트 베이스라인 보정 */
     color: var(--text-dark);
 }
 
@@ -178,12 +179,15 @@
     flex: 5;
     text-align: center;
 }
+
 .col-price {
     flex: 2;
 }
+
 .col-edit {
     flex: 1.5;
 }
+
 .col-delete {
     flex: 1.5;
 }

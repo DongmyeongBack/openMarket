@@ -1,7 +1,8 @@
 /* Footer 전체 영역 */
 .footer {
     width: 100%;
-    background-color: #f2f2f2; /* 배경색은 common 변수에 없으므로 유지 */
+    background-color: var(--bg-gray);
+    /* 배경색은 common 변수에 없으므로 유지 -> var로 변경 */
     padding: 40px 0;
     margin-top: auto;
     /* font-family 삭제: common.css의 body 설정을 상속받음 */
@@ -30,12 +31,14 @@
     padding: 0;
     margin: 0;
     font-size: 14px;
-    color: var(--text-dark); /* #333 -> var(--text-dark) */
+    color: var(--text-dark);
+    /* #333 -> var(--text-dark) */
 }
 
 .footer-nav li a {
     text-decoration: none;
-    color: var(--text-dark); /* #333 -> var(--text-dark) */
+    color: var(--text-dark);
+    /* #333 -> var(--text-dark) */
 }
 
 /* '개인정보처리방침' 볼드 처리 */
@@ -80,7 +83,8 @@
 
 /* --- 하단 정보 영역 --- */
 .footer-bottom {
-    color: var(--text-grey); /* #767676 -> var(--text-grey) */
+    color: var(--text-grey);
+    /* #767676 -> var(--text-grey) */
     font-size: 14px;
     line-height: 1.6;
 }
