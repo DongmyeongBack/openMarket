@@ -182,3 +182,40 @@ function closeCartModal() {
     const modal = document.getElementById("cartMoveModal");
     if (modal) modal.remove();
 }
+
+export function showImageModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="imageModal">
+            <div class="modal-box image-modal-box">
+                <button class="modal-close-btn" id="imageModalClose">&times;</button>
+
+                <div class="modal-image">
+                    <img src="/assets/images/notice.png" alt="안내 이미지">
+                </div>
+
+                <p class="modal-text">
+                    서비스 이용 전<br>
+                    꼭 확인해 주세요.
+                </p>
+
+                <div class="modal-actions">
+                    <button class="modal-btn btn-yes" id="imageModalOk">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // 닫기 이벤트
+    document.getElementById('imageModalClose').onclick = closeImageModal;
+    document.getElementById('imageModalOk').onclick = closeImageModal;
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) modal.remove();
+}
+
