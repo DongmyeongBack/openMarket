@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>쇼핑몰 (상품 목록)</title>
 
-        <link rel="stylesheet" href="/src/styles/reset.css" />
-        <link rel="stylesheet" href="/src/styles/common.css" />
-        <link rel="stylesheet" href="/src/pages/product-list/list.css" />
-    </head>
-    <body>
-        <header id="header"></header>
-        <section class="banner-section">
-            <div class="banner-container">
-                <button class="banner-btn prev-btn">
-                    <img src="/src/assets/images/icon-swiper-1.svg" alt="이전 배너" />
-                </button>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쇼핑몰 (상품 목록)</title>
 
-                <div class="banner-slide"></div>
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <link rel="stylesheet" href="/src/styles/common.css" />
+    <link rel="stylesheet" href="/main.css" />
+</head>
 
-                <button class="banner-btn next-btn">
-                    <img src="/src/assets/images/icon-swiper-2.svg" alt="다음 배너" />
-                </button>
+<body>
+    <header id="header"></header>
+    <section class="banner-section">
+        <div class="banner-container">
+            <button class="banner-btn prev-btn">
+                <img src="/src/assets/images/icon-swiper-1.svg" alt="이전 배너" />
+            </button>
 
-                <div class="banner-indicators">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
+            <div class="banner-slide"></div>
+
+            <button class="banner-btn next-btn">
+                <img src="/src/assets/images/icon-swiper-2.svg" alt="다음 배너" />
+            </button>
+
+            <div class="banner-indicators">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
-        </section>
-        <main class="product-list-container">
-            <ul id="product-grid" class="product-grid"></ul>
-        </main>
+        </div>
+    </section>
+    <main class="product-list-container">
+        <ul id="product-grid" class="product-grid"></ul>
+    </main>
 
-        <footer id="footer"></footer>
+    <footer id="footer"></footer>
 
-        <script type="module" src="/src/main.js"></script>
-        <script type="module" src="/src/pages/product-list/list.js"></script>
-    </body>
+    <script type="module" src="/main.js"></script>
+</body>
+
 </html>

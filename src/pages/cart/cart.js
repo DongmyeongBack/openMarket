@@ -54,6 +54,7 @@ async function getCartData() {
                 shipping: item.product.shipping_fee, // 배송비
                 image: item.product.image, // 이미지 URL
                 quantity: item.quantity, // 수량
+                isChecked: true, // [추가] 체크 상태 관리 (기본값: true)
             }));
             console.log(cartItems);
         }
@@ -93,7 +94,7 @@ function renderCart() {
         .map(
             (item) => `
         <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
-            <input type="checkbox" class="checkbox" checked>
+            <input type="checkbox" class="checkbox" ${item.isChecked ? "checked" : ""}>
             <img src="${item.image}" alt="${item.name}" class="product-img">
             <div class="product-info">
                 <p class="seller-name">${item.seller}</p>
@@ -127,9 +128,12 @@ function renderCart() {
  * 합계 계산 함수
  */
 function updateSummary() {
-    const totalProductPrice = cartItems.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
-    const totalShipping = cartItems.reduce((acc, cur) => acc + cur.shipping, 0);
+    // [수정] 체크된 항목만 계산
+    const selectedItems = cartItems.filter(item => item.isChecked);
 
+    const totalProductPrice = selectedItems.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
+    const totalShipping = selectedItems.reduce((acc, cur) => acc + cur.shipping, 0);
+    console.log(totalProductPrice, totalShipping);
     // UI 업데이트
     totalPriceEl.textContent = totalProductPrice.toLocaleString();
     shippingFeeEl.textContent = totalShipping.toLocaleString();
@@ -227,6 +231,20 @@ cartListEl.addEventListener("click", async (e) => {
     }
 });
 
+// [추가] 체크박스 상태 변경 이벤트 (이벤트 위임 - change 사용)
+cartListEl.addEventListener("change", (e) => {
+    if (e.target.classList.contains("checkbox")) {
+        const cartItemEl = e.target.closest(".cart-item");
+        const cartId = parseInt(cartItemEl.dataset.cartId);
+        const item = cartItems.find((i) => i.cart_id === cartId);
+
+        if (item) {
+            item.isChecked = e.target.checked;
+            updateSummary(); // 합계 재계산
+        }
+    }
+});
+
 // [수정] 전체 주문하기 버튼 클릭 이벤트: localStorage에 데이터 저장 후 이동
 btnOrderAll.addEventListener("click", () => {
     if (cartItems.length === 0) {
@@ -234,9 +252,17 @@ btnOrderAll.addEventListener("click", () => {
         return;
     }
 
+    // [수정] 체크된 상품만 필터링
+    const selectedItems = cartItems.filter(item => item.isChecked);
+
+    if (selectedItems.length === 0) {
+        alert("주문할 상품을 선택해주세요.");
+        return;
+    }
+
     const orderData = {
         order_kind: "cart_order",
-        product_ids: cartItems.map(item => item.product_id)
+        product_ids: selectedItems.map(item => item.product_id)
     };
     localStorage.setItem("order_data", JSON.stringify(orderData));
 
