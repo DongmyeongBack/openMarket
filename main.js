@@ -12,7 +12,7 @@ let productGrid;
 let bannerSlide;
 
 async function fetchProducts() {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     try {
         const res = await fetch(`${API_URL}/products/`, {
             method: "GET",

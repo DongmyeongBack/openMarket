@@ -1,6 +1,12 @@
 import { getProductDetail, createProduct, updateProduct } from "../../../utils/api.js";
 import Footer from "../../../components/Footer/Footer.js"; // Footer 임포트
 
+// [추가] CSS 임포트
+import "../../../styles/reset.css";
+import "../../../styles/common.css";
+import "../seller.css";
+import "./upload.css";
+
 // 1. DOM 요소 선택
 const productForm = document.getElementById("product-form");
 const imgInput = document.getElementById("img-input");
@@ -149,7 +155,7 @@ productForm.addEventListener("submit", async (e) => {
         console.log("처리 성공:", res);
 
         // 성공 후 페이지 이동
-        window.location.href = "../index.html";
+        window.location.href = "/src/pages/seller-center/index.html";
     } catch (error) {
         // api.js에서 throw한 error.data 처리
         console.error(error);

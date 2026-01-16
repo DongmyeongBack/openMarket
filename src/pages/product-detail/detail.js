@@ -4,6 +4,11 @@ import { showLoginModal, showCartModal } from "../../components/Modal/Modal.js";
 import Header from "../../components/Header/Header.js";
 import Footer from "../../components/Footer/Footer.js";
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./detail.css";
+
 // DOM 요소 선택
 const productImg = document.getElementById("productImage");
 const sellerName = document.getElementById("sellerName");

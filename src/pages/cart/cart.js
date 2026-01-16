@@ -3,6 +3,11 @@ import Footer from "../../components/Footer/Footer.js";
 import { getCart, updateCartItem, deleteCartItem } from "../../utils/api.js";
 import { showLoginModal, showDeleteModal } from "../../components/Modal/Modal.js";
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./cart.css";
+
 /* [공통 컴포넌트 초기화] */
 const headerTarget = document.getElementById("header");
 new Header(headerTarget);

@@ -2,6 +2,11 @@ import { getSellerProducts, deleteProduct } from "../../utils/api.js";
 import { showDeleteModal } from "../../components/Modal/Modal.js";
 import Footer from "../../components/Footer/Footer.js"; // Footer 임포트
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./seller.css";
+
 const productListEl = document.getElementById("product-list");
 const sellerNameTitle = document.getElementById("seller-name-title");
 const productCountBadge = document.getElementById("product-count-badge");

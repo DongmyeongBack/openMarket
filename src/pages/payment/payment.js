@@ -1,6 +1,11 @@
 import Header from "../../components/Header/Header.js";
 import { getProductDetail, order, getCart } from "../../utils/api.js";
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./payment.css";
+
 new Header(document.querySelector("#header"));
 
 // 데이터 로드 확인

@@ -16,7 +16,24 @@ export default class Header {
         this.userType = localStorage.getItem("userType");
 
         // [디버깅] 현재 상태 확인
+        console.log("--------------- Header Debug ---------------");
+        console.log("1. Explicit window.localStorage.getItem('token'):", window.localStorage.getItem("token"));
+        console.log("2. this.token:", this.token);
+        console.log("3. Keys in localStorage:");
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            console.log(`   - Key: '${key}' (Length: ${key.length}), Code: ${key.charCodeAt(0)}, Value starts with: ${localStorage.getItem(key).substring(0, 10)}`);
+        }
+
         console.log("👤 유저 상태:", this.token ? "회원(토큰 있음)" : "비회원(토큰 없음)");
+
+        // [추가 디버깅] 500ms 후 재확인 (Race Condition 확인용)
+        setTimeout(() => {
+            console.log("--- [500ms later] Header Debug ---");
+            console.log("Late Check Token:", window.localStorage.getItem("token"));
+        }, 500);
+
+        console.log("--------------------------------------------");
 
         this.render();
         this.setEvent();

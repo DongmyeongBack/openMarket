@@ -80,8 +80,12 @@ loginForm.addEventListener("submit", async (e) => {
         alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);
 
         // 이전 페이지 기록 확인 후 이동
-        if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
-            history.back();
+        // 이전 페이지 기록 확인 후 이동 (새로고침 효과를 위해 location.href 사용)
+        const referrer = document.referrer;
+        const currentHost = window.location.host;
+
+        if (referrer && referrer.indexOf(currentHost) !== -1 && !referrer.includes("/login")) {
+            window.location.href = referrer;
         } else {
             window.location.href = "/index.html";
         }
