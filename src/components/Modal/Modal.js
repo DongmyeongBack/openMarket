@@ -333,26 +333,32 @@ export function showLogoutModal() {
 /**
  * 회원 가입 완료 안내 모달
  */
+/**
+ * 회원가입 성공 모달 표시
+ * @returns {Promise<void>} 사용자가 확인 버튼을 누르면 resolve 되는 Promise
+ */
 export function showSignupSuccessModal() {
-    createCommonModal({
-        id: "signupSuccessModal",
-        className: "image-modal-box",
-        content: `
-            <div class="modal-image">
-                <img src="${import.meta.env.BASE_URL
-            }assets/images/notice.png" alt="회원 가입 완료 안내 이미지">
-            </div>
-            <p class="modal-text">
-                회원 가입이 완료되었습니다.
-            </p>
-        `,
-        actions: [
-            {
-                text: "확인",
-                class: "btn-yes",
-                onClick: (close) => close(),
-            },
-        ],
+    return new Promise((resolve) => {
+        createCommonModal({
+            id: "signupSuccessModal",
+            className: "",
+            content: `
+                <p class="modal-text">
+                    회원 가입이 완료되었습니다.
+                </p>
+            `,
+            actions: [
+                {
+                    text: "확인",
+                    class: "btn-yes",
+                    // click 이벤트 핸들러
+                    onClick: (close) => {
+                        close();   // 1. 모달 닫기 (UI 제거)
+                        resolve(); // 2. Promise 완료 신호 보내기 (await 해제)
+                    },
+                },
+            ],
+        });
     });
 }
 

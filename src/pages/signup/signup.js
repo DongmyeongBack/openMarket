@@ -1,6 +1,7 @@
 // src/pages/signup/signup.js
 import { checkId, join, checkBusinessNumber } from "../../utils/api.js";
 
+import { showSignupSuccessModal } from "../../components/Modal/Modal.js";
 
 // DOM 요소 선택
 const inputs = {
@@ -380,8 +381,7 @@ submitBtn.addEventListener("click", async (e) => {
 
     try {
         await join(formData, currentType);
-
-        alert("회원가입이 완료되었습니다!");
+        await showSignupSuccessModal();
         window.location.href = `${import.meta.env.BASE_URL}src/pages/login/index.html`;
     } catch (error) {
         console.error("Signup Error:", error);

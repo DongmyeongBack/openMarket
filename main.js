@@ -37,6 +37,7 @@ function renderProducts(products) {
         productGrid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">등록된 상품이 없습니다.</p>';
         return;
     }
+    console.log(products);
     const productItems = products.map((product) => {
         const formattedPrice = new Intl.NumberFormat("ko-KR").format(product.price);
         return `
