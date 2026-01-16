@@ -11,7 +11,7 @@ function b(){document.body.insertAdjacentHTML("beforeend",`
                 </div>
             </div>
         </div>
-    `);const o=document.getElementById("loginModal"),e=()=>{o&&o.remove()};document.getElementById("modalClose").addEventListener("click",e),document.getElementById("modalNo").addEventListener("click",e),o.addEventListener("click",n=>{n.target===o&&e()}),document.getElementById("modalYes").addEventListener("click",()=>{e(),window.location.href="/src/pages/login/index.html"})}function u(){return new Promise(l=>{document.body.insertAdjacentHTML("beforeend",`
+    `);const o=document.getElementById("loginModal"),e=()=>{o&&o.remove()};document.getElementById("modalClose").addEventListener("click",e),document.getElementById("modalNo").addEventListener("click",e),o.addEventListener("click",n=>{n.target===o&&e()}),document.getElementById("modalYes").addEventListener("click",()=>{e(),window.location.href="/openMarket/src/pages/login/index.html"})}function u(){return new Promise(l=>{document.body.insertAdjacentHTML("beforeend",`
             <div class="modal-overlay" id="deleteModal">
                 <div class="modal-box delete-modal-box">
                     <button class="modal-close-btn" id="deleteModalClose">&times;</button>
