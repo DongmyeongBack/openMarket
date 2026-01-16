@@ -54,7 +54,7 @@ function renderProducts(products) {
 
         return `
             <li class="product-card">
-                <a href="${import.meta.env.BASE_URL}src/pages/product-detail/index.html?productId=${product.id}">
+                <a href="./src/pages/product-detail/index.html?productId=${product.id}">
                     <img src="${product.image}" alt="${product.name}" class="product-img" />
                     <span class="seller-name">${sellerName}</span>
                     <h3 class="product-name">${product.name}</h3>

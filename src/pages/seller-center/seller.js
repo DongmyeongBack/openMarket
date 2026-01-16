@@ -30,21 +30,20 @@ const createProductItem = (product) => {
     const imgSrc = product.image
         ? product.image
         : "../../assets/images/default-image.png";
-
+    console.log("product: ", product);
     return `
-        <li class="product-item" data-id="${product.product_id || product.id}">
+        <li class="product-item" data-id="${product.id}">
             <div class="item-info">
                 <img 
                     src="${imgSrc}" 
-                    alt="${product.product_name}" 
+                    alt="${product.name}" 
                     class="item-img" 
-                    onclick="location.href='/src/pages/product-detail/index.html?productId=${product.product_id || product.id
+                    onclick="location.href='/src/pages/product-detail/index.html?productId=${product.id
         }'"
                     style="cursor: pointer;" 
                 >
                 <div class="item-details">
-                    <span class="item-name">${product.product_name || product.name
-        }</span>
+                    <span class="item-name">${product.name}</span>
                     <span class="item-stock">재고 : ${product.stock}개</span>
                 </div>
             </div>
@@ -68,7 +67,7 @@ const updateDashboardHeader = () => {
 
     // "님"자를 붙여서 출력 (만약 이름에 이미 "님"이 있다면 제거하고 다시 붙임)
     if (sellerTitleEl) {
-        const cleanName = sellerName.replace(/님$/, ""); // 끝에 '님'이 있으면 제거
+        const cleanName = sellerName.replace(/ 님$/, ""); // 끝에 '님'이 있으면 제거
         sellerTitleEl.textContent = `${cleanName}님`;
         console.log(sellerTitleEl.textContent);
     }
@@ -81,7 +80,7 @@ const fetchSellerProducts = async () => {
 
     if (!token || !accountName) {
         alert("로그인이 필요한 서비스입니다.");
-        window.location.href = "/src/pages/login/index.html";
+        window.location.href = "./src/pages/login/index.html";
         return;
     }
 
@@ -93,10 +92,9 @@ const fetchSellerProducts = async () => {
 
         // API 호출 (원본 방식)
         const data = await getSellerProducts(accountName);
-        console.log('data', data);
         // 데이터 처리
         const products = data.results || [];
-        const totalCount = data.count || products.length;
+        const totalCount = data.count
 
         productCountBadge.textContent = totalCount;
         productCountTab.textContent = totalCount;
