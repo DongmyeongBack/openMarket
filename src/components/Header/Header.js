@@ -1,6 +1,6 @@
 // src/components/Header/Header.js
 import "./Header.css";
-import { showLoginModal } from "../Modal/Modal.js";
+import { showLoginModal, showLogoutModal } from "../Modal/Modal.js";
 import { searchProducts } from "../../utils/api.js";
 
 // 이미지 임포트
@@ -247,9 +247,9 @@ export default class Header {
             });
         }
         if (logoutBtn) {
-            logoutBtn.addEventListener("click", () => {
+            logoutBtn.addEventListener("click", async () => {
                 localStorage.clear();
-                alert("로그아웃 되었습니다.");
+                await showLogoutModal();
                 window.location.href = `${import.meta.env.BASE_URL}index.html`;
             });
         }
