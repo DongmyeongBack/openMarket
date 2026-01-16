@@ -126,7 +126,7 @@ export function showDeleteModal() {
     return new Promise((resolve) => {
         createCommonModal({
             id: "deleteModal",
-            className: "delete-modal-box",
+            className: "",
             content: `
                 <p class="modal-text">
                     상품을 삭제하시겠습니까?
@@ -232,31 +232,6 @@ export function showCartModal(options) {
     });
 }
 
-/**
- * 이미지 모달 (안내용)
- */
-export function showImageModal() {
-    createCommonModal({
-        id: "imageModal",
-        className: "image-modal-box",
-        content: `
-            <div class="modal-image">
-                <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="안내 이미지">
-            </div>
-            <p class="modal-text">
-                서비스 이용 전<br>
-                꼭 확인해 주세요.
-            </p>
-        `,
-        actions: [
-            {
-                text: "확인",
-                class: "btn-yes",
-                onClick: (close) => close(),
-            },
-        ],
-    });
-}
 
 /**
  * 결제 오류 모달
@@ -264,11 +239,8 @@ export function showImageModal() {
 export function showPaymentErrorModal() {
     createCommonModal({
         id: "paymentErrorModal",
-        className: "image-modal-box",
+        className: "",
         content: `
-            <div class="modal-image">
-                <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="결제 오류 안내 이미지">
-            </div>
             <p class="modal-text">
                 결재를 진행할 수 없습니다.<br>
                 <span class="error-code">[Error Code: API_CONNECTION_ERROR]</span>
@@ -288,24 +260,26 @@ export function showPaymentErrorModal() {
  * 로그인 성공 모달
  */
 export function showLoginSuccessModal() {
-    createCommonModal({
-        id: "loginSuccessModal",
-        className: "image-modal-box",
-        content: `
-            <div class="modal-image">
-                <img src="${import.meta.env.BASE_URL}assets/images/notice.png" alt="로그인 성공 안내 이미지">
-            </div>
+    return new Promise((resolve) => {
+        createCommonModal({
+            id: "loginSuccessModal",
+            className: "",
+            content: `
             <p class="modal-text">
-                BYER 회원으로 로그인 되었습니다.<br>
-                홈페이지로 이동합니다.
+                로그인 되었습니다.
             </p>
         `,
-        actions: [
-            {
-                text: "확인",
-                class: "btn-yes",
-                onClick: (close) => close(),
-            },
-        ],
+            actions: [
+                {
+                    text: "확인",
+                    class: "btn-yes",
+                    onClick: (close) => {
+                        close(false);
+                        resolve(true);
+                    },
+                },
+            ],
+            onClose: () => resolve(true), // 닫기만 해도 성공으로 간주하고 이동
+        });
     });
 }

@@ -1,10 +1,7 @@
 // [변경] 공용 API 함수 임포트
 import { login } from "../../utils/api.js";
 
-// [추가] CSS 임포트
-import "../../styles/reset.css";
-import "../../styles/common.css";
-import "./login.css";
+import { showLoginSuccessModal } from "../../components/Modal/Modal.js";
 
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
@@ -77,7 +74,7 @@ loginForm.addEventListener("submit", async (e) => {
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("name", data.user.name);
         // 2. 알림 및 페이지 이동
-        alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);
+        await showLoginSuccessModal();
 
         // 이전 페이지 기록 확인 후 이동
         // 이전 페이지 기록 확인 후 이동 (새로고침 효과를 위해 location.href 사용)
