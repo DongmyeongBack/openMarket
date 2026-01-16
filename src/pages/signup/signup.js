@@ -1,10 +1,6 @@
 // src/pages/signup/signup.js
 import { checkId, join, checkBusinessNumber } from "../../utils/api.js";
 
-// [추가] CSS 임포트
-import "../../styles/reset.css";
-import "../../styles/common.css";
-import "./signup.css";
 
 // DOM 요소 선택
 const inputs = {
