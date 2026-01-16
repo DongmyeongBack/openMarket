@@ -10,8 +10,6 @@ import Footer from "/src/components/Footer/Footer.js";
 
 const productListEl = document.getElementById("product-list");
 
-// [UI 수정] 스토어명/판매자명 분리 표시를 위한 요소
-const storeTitleEl = document.getElementById("store-title");
 const sellerTitleEl = document.getElementById("seller-title");
 
 const productCountBadge = document.getElementById("product-count-badge");
@@ -66,21 +64,20 @@ const createProductItem = (product) => {
 
 // [UI 수정] 상단 문구 업데이트 (안녕하세요. 스토어명, 판매자님)
 const updateDashboardHeader = () => {
-    const storeName = localStorage.getItem("store_name") || "내 스토어";
-    const sellerName = localStorage.getItem("name") || "판매자";
-
-    if (storeTitleEl) storeTitleEl.textContent = storeName;
+    const sellerName = localStorage.getItem("name");
 
     // "님"자를 붙여서 출력 (만약 이름에 이미 "님"이 있다면 제거하고 다시 붙임)
     if (sellerTitleEl) {
         const cleanName = sellerName.replace(/님$/, ""); // 끝에 '님'이 있으면 제거
         sellerTitleEl.textContent = `${cleanName}님`;
+        console.log(sellerTitleEl.textContent);
     }
 };
 
 // [핵심] 상품 목록 불러오기 (원본 로직 복구)
 const fetchSellerProducts = async () => {
     const token = localStorage.getItem("token");
+    const accountName = localStorage.getItem("name");
 
     if (!token || !accountName) {
         alert("로그인이 필요한 서비스입니다.");
@@ -93,11 +90,10 @@ const fetchSellerProducts = async () => {
     try {
         // [중요] 원본 코드 그대로 'name' 키값 사용
         // 만약 여기서 에러가 나면 localStorage에 'name'이 없는 상태입니다.
-        const accountName = localStorage.getItem("name");
 
         // API 호출 (원본 방식)
         const data = await getSellerProducts(accountName);
-
+        console.log('data', data);
         // 데이터 처리
         const products = data.results || [];
         const totalCount = data.count || products.length;
