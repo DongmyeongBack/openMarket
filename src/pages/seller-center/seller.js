@@ -84,7 +84,7 @@ const updateDashboardHeader = () => {
 const fetchSellerProducts = async () => {
   const token = localStorage.getItem("token");
 
-  if (!token) {
+  if (!token || !accountName) {
     alert("로그인이 필요한 서비스입니다.");
     window.location.href = "/src/pages/login/index.html";
     return;

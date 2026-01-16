@@ -3,7 +3,12 @@ import { resolve } from "path";
 
 export default defineConfig({
     // 배포할때만 다음 활성화
-    // base: "/openMarket/",
+    base: '/openMarket/',
+    resolve: {
+        alias: {
+            "@": resolve(__dirname, "src"),
+        },
+    },
     build: {
         rollupOptions: {
             input: {

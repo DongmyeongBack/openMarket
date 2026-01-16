@@ -1,6 +1,11 @@
 import Header from "../../components/Header/Header.js";
 import { getProductDetail, order, getCart } from "../../utils/api.js";
 
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./payment.css";
+
 new Header(document.querySelector("#header"));
 
 // 데이터 로드 확인
@@ -335,7 +340,7 @@ const handlePayment = async () => {
         await order(payload);
 
         alert("주문이 완료되었습니다."); // Success
-        location.href = "/"; // 메인으로 이동 (또는 주문 완료 페이지)
+        location.href = "/index.html"; // 메인으로 이동
 
     } catch (error) {
         console.error("Order Failed", error);

@@ -1,7 +1,12 @@
-import Header from "/src/components/Header/Header.js";
-import Footer from "/src/components/Footer/Footer.js";
-import { getCart, updateCartItem, deleteCartItem } from "/src/utils/api.js";
-import { showLoginModal, showDeleteModal } from "/src/components/Modal/Modal.js";
+import Header from "../../components/Header/Header.js";
+import Footer from "../../components/Footer/Footer.js";
+import { getCart, updateCartItem, deleteCartItem } from "../../utils/api.js";
+import { showLoginModal, showDeleteModal } from "../../components/Modal/Modal.js";
+
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./cart.css";
 
 /* [공통 컴포넌트 초기화] */
 const headerTarget = document.getElementById("header");
@@ -92,9 +97,9 @@ function renderCart() {
     btnOrderAll.style.display = "block";
 
 
-cartListEl.innerHTML = cartItems
-    .map(
-        (item) => `
+    cartListEl.innerHTML = cartItems
+        .map(
+            (item) => `
     <li class="cart-item" data-cart-id="${item.cart_id}" data-product-id="${item.product_id}">
         <input type="checkbox" class="checkbox" checked>
         
@@ -125,8 +130,8 @@ cartListEl.innerHTML = cartItems
         </button>
     </li>
 `
-    )
-    .join("");
+        )
+        .join("");
 
     updateSummary();
 

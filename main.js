@@ -1,5 +1,5 @@
-import Header from "/src/components/Header/Header.js";
-import Footer from "/src/components/Footer/Footer.js";
+import Header from "./src/components/Header/Header.js";
+import Footer from "./src/components/Footer/Footer.js";
 
 // --- From list.js ---
 const API_URL = "https://api.wenivops.co.kr/services/open-market";
@@ -12,7 +12,7 @@ let productGrid;
 let bannerSlide;
 
 async function fetchProducts() {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     try {
         const res = await fetch(`${API_URL}/products/`, {
             method: "GET",

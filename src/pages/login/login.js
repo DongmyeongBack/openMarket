@@ -1,5 +1,10 @@
 // [변경] 공용 API 함수 임포트
-import { login } from "/src/utils/api.js";
+import { login } from "../../utils/api.js";
+
+// [추가] CSS 임포트
+import "../../styles/reset.css";
+import "../../styles/common.css";
+import "./login.css";
 
 // DOM 요소 가져오기
 const loginForm = document.getElementById("loginForm");
@@ -75,10 +80,14 @@ loginForm.addEventListener("submit", async (e) => {
         alert(`${data.user.user_type} 회원으로 로그인되었습니다.`);
 
         // 이전 페이지 기록 확인 후 이동
-        if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
-            history.back();
+        // 이전 페이지 기록 확인 후 이동 (새로고침 효과를 위해 location.href 사용)
+        const referrer = document.referrer;
+        const currentHost = window.location.host;
+
+        if (referrer && referrer.indexOf(currentHost) !== -1 && !referrer.includes("/login")) {
+            window.location.href = referrer;
         } else {
-            window.location.href = "/";
+            window.location.href = "/index.html";
         }
     } catch (error) {
         console.error("로그인 에러:", error);

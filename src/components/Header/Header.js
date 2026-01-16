@@ -1,13 +1,13 @@
 // src/components/Header/Header.js
 import "./Header.css";
 import { showLoginModal } from "../Modal/Modal.js";
-import { searchProducts } from "/src/utils/api.js";
+import { searchProducts } from "../../utils/api.js";
 
 // 이미지 임포트
-import logoImg from "/src/assets/images/Logo-hodu.png";
-import iconShoppingCart from "/src/assets/images/icon-shopping-cart.svg";
-import iconUser from "/src/assets/images/icon-user.svg";
-import iconShoppingBag from "/src/assets/images/icon-shopping-bag.svg";
+import logoImg from "../../assets/images/Logo-hodu.png";
+import iconShoppingCart from "../../assets/images/icon-shopping-cart.svg";
+import iconUser from "../../assets/images/icon-user.svg";
+import iconShoppingBag from "../../assets/images/icon-shopping-bag.svg";
 
 export default class Header {
     constructor($target) {
@@ -16,7 +16,24 @@ export default class Header {
         this.userType = localStorage.getItem("userType");
 
         // [디버깅] 현재 상태 확인
+        console.log("--------------- Header Debug ---------------");
+        console.log("1. Explicit window.localStorage.getItem('token'):", window.localStorage.getItem("token"));
+        console.log("2. this.token:", this.token);
+        console.log("3. Keys in localStorage:");
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            console.log(`   - Key: '${key}' (Length: ${key.length}), Code: ${key.charCodeAt(0)}, Value starts with: ${localStorage.getItem(key).substring(0, 10)}`);
+        }
+
         console.log("👤 유저 상태:", this.token ? "회원(토큰 있음)" : "비회원(토큰 없음)");
+
+        // [추가 디버깅] 500ms 후 재확인 (Race Condition 확인용)
+        setTimeout(() => {
+            console.log("--- [500ms later] Header Debug ---");
+            console.log("Late Check Token:", window.localStorage.getItem("token"));
+        }, 500);
+
+        console.log("--------------------------------------------");
 
         this.render();
         this.setEvent();
@@ -25,7 +42,7 @@ export default class Header {
     template() {
         const logoHtml = `
             <div class="logo">
-                <a href="/">
+                <a href="/index.html">
                     <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
@@ -201,7 +218,8 @@ export default class Header {
 
                 const item = e.target.closest(".search-item");
                 if (item) {
-                    window.location.href = `/src/pages/product-detail/index.html?productId=${item.dataset.id}`;
+                    const detailUrl = "/src/pages/product-detail/index.html";
+                    window.location.href = `${detailUrl}?productId=${item.dataset.id}`;
                 }
             });
 
@@ -209,7 +227,15 @@ export default class Header {
             const handleSearch = () => {
                 const keyword = searchInput.value.trim();
                 if (keyword) {
-                    window.location.href = `/src/pages/product-list/index.html?search=${encodeURIComponent(keyword)}`;
+                    const listUrl = "/index.html";
+                    // Assuming product-list is index.html or handled there?
+                    // Original was: ../../pages/product-list/index.html
+                    // Wait, vite.config.js checks:
+                    // main: resolve(__dirname, "index.html"),
+                    // There is no explicit product-list page in vite.config.js input, likely index.html is the list?
+                    // Previous file view of index.html title is "쇼핑몰 (상품 목록)". Yes.
+
+                    window.location.href = `${listUrl}?search=${encodeURIComponent(keyword)}`;
                 }
             };
 
@@ -227,7 +253,8 @@ export default class Header {
 
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
-                this.token ? (window.location.href = "/src/pages/cart/index.html") : showLoginModal();
+                const cartUrl = "/src/pages/cart/index.html";
+                this.token ? (window.location.href = cartUrl) : showLoginModal();
             });
         }
         if (myPageBtn && dropdown) {
@@ -247,7 +274,7 @@ export default class Header {
             logoutBtn.addEventListener("click", () => {
                 localStorage.clear();
                 alert("로그아웃 되었습니다.");
-                window.location.href = "/";
+                window.location.href = "/index.html";
             });
         }
     }
