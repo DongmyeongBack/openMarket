@@ -5,6 +5,66 @@
 > 바닐라 자바스크립트(Vanilla JS)와 Vite를 활용하여 구축한 **오픈마켓 플랫폼 HODU**입니다.
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
 
+## 1. 프로젝트 개요
+
+- **프로젝트명**: HODU (호두 오픈마켓)
+- **개발 기간**: 2026.01 ~ (진행 중)
+- **개발 인원**: Front-End 3명 (Team Project)
+- **배포 주소**: https://modulab-fe6-team5.github.io/openMarket/
+- **Test Account**
+  ```text
+  [구매자]
+  ID : buyer1
+  PW : weniv1
+
+  [판매자]
+  ID : seller1
+  PW : weniv1
+  ```
+
+<details>
+<summary><strong>개발 일정 (WBS)</strong></summary>
+
+```mermaid
+%%{init: { 'gantt': { 'barHeight': 40, 'fontSize': 10, 'sectionFontSize': 10, 'barGap': 0 } } }%%
+gantt
+    title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
+    dateFormat YYYY-MM-DD
+    axisFormat %m-%d
+
+    section 초기 세팅 (Mon)
+        환경 설정 (파일트리/CSS)       :2026-01-12, 2d
+
+    section Basic UI (Tue-Thu)
+        페이지 제작(HTML/CSS)            :2026-01-13, 2d
+        페이지에 핵심 로직 추가      :2026-01-14, 2d
+        PR 및 코드 리뷰               :2026-01-15, 1d
+
+    section Extended UI (Thu-Fri)
+        판매자/상품/결제 구현          :2026-01-15, 2d
+        공통 요소 리팩토링            :2026-01-15, 2d
+
+    section 통합/QA (Fri-Sat)
+        전체 점검 및 QA               :2026-01-16, 1d
+        배포 확인 및 제출              :2026-01-16, 2d
+        문서 보완(README)             :2026-01-17, 1d
+```
+</details>
+
+- **로컬환경 실행법**
+```bash
+$ git clone https://github.com/modulab-fe6-team5/openMarket.git .
+
+# 패키지 설치
+$ npm install
+
+# 개발 서버 실행
+$ npm run dev
+```
+
+## 2. 서비스 아키텍처 (Service Architecture)
+판매자 및 구매자의 회원가입부터 상품 등록, 장바구니, 결제까지 이어지는 **HODU 오픈마켓의 핵심 프로세스**입니다.
+
 ```mermaid
         flowchart TD
         %% 스타일 정의
@@ -79,60 +139,6 @@
             S_Action -- 상품 삭제 --> DelAPI[삭제 API]:::api
             DelAPI
         end
-```
-## 1. 프로젝트 개요
-
-- **프로젝트명**: HODU (호두 오픈마켓)
-- **개발 기간**: 2026.01 ~ (진행 중)
-- **개발 인원**: Front-End 3명 (Team Project)
-- **배포 주소**: https://modulab-fe6-team5.github.io/openMarket/
-- **Test Account**
-  ```text
-  [구매자]
-  ID : buyer1
-  PW : weniv1
-
-  [판매자]
-  ID : seller1
-  PW : weniv1
-  ```
-
-- **로컬환경 실행법**
-
-- **Repository 클론**
-```bash
-$ git clone https://github.com/modulab-fe6-team5/openMarket.git
-
-# 패키지 설치
-$ npm install
-
-# 개발 서버 실행
-$ npm run dev
-```
-
-```mermaid
-%%{init: { 'gantt': { 'barHeight': 40, 'fontSize': 10, 'sectionFontSize': 10, 'barGap': 0 } } }%%
-gantt
-    title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
-    dateFormat YYYY-MM-DD
-    axisFormat %m-%d
-
-    section 초기 세팅 (Mon)
-        환경 설정 (파일트리/CSS)       :2026-01-12, 2d
-
-    section Basic UI (Tue-Thu)
-        페이지 제작(HTML/CSS)            :2026-01-13, 2d
-        페이지에 핵심 로직 추가      :2026-01-14, 2d
-        PR 및 코드 리뷰               :2026-01-15, 1d
-
-    section Extended UI (Thu-Fri)
-        판매자/상품/결제 구현          :2026-01-15, 2d
-        공통 요소 리팩토링            :2026-01-15, 2d
-
-    section 통합/QA (Fri-Sat)
-        전체 점검 및 QA               :2026-01-16, 1d
-        배포 확인 및 제출              :2026-01-16, 2d
-        문서 보완(README)             :2026-01-17, 1d
 ```
 
 ---
