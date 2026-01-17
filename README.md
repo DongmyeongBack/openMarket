@@ -5,8 +5,6 @@
 > 바닐라 자바스크립트(Vanilla JS)와 Vite를 활용하여 구축한 **오픈마켓 플랫폼 HODU**입니다.
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
 
----
-
 ## 1. 프로젝트 개요
 
 - **프로젝트명**: HODU (호두 오픈마켓)
@@ -35,6 +33,9 @@ $ npm install
 # 개발 서버 실행
 $ npm run dev
 ```
+
+---
+
 ## 2. 기술 스택 (Tech Stack)
 
 | 구분 | 기술 | 설명 |
@@ -44,6 +45,8 @@ $ npm run dev
 | **Deploy** | <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white"/> | 정적 웹 호스팅 |
 | **API** | <img src="https://img.shields.io/badge/Fetch_API-000000?style=flat&logo=json&logoColor=white"/> | RESTful API 비동기 통신 |
 | **Collaboration** | <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/> | 형상 관리 및 협업 |
+
+---
 
 ## 3. 페이지 구조 (Page Structure)
 
@@ -62,9 +65,14 @@ $ npm run dev
 | **상품 등록** | `/src/pages/seller-center/product-upload/` | 상품 등록 및 수정 | Seller |
 
 ---
+
 ## 4. 주요 기능 (Key Features)
 
 ### 4-1. 회원가입 및 로그인 (Authentication)
+<details>
+<summary><strong>상세 구현 로직 보기 (Click)</strong></summary>
+<br>
+
 - **탭(Tab) 기반 UI**: 구매자와 판매자 회원을 탭으로 구분하여, 로그인 타입을 명확히 선택하고 전환할 수 있습니다. 판매자 탭 선택 시 사업자 전용 필드(등록번호, 스토어명)가 동적으로 노출됩니다. 
 - **로그인 유효성 검사 및 UX**: 
   - **에러 핸들링**: 로그인 실패 시(비밀번호 불일치 등) 비밀번호 입력란을 **초기화하고 다시 포커스**를 주어 재입력을 유도합니다.
@@ -73,13 +81,17 @@ $ npm run dev
   - **API 기반 데이터 검증**: 
     - **아이디 중복 확인**: API 통신을 통해 중복확인 클릭시 아이디 중복 여부를 확인하고 사용 가능 여부를 피드백합니다.
     - **사업자 인증**: 판매자 가입 시 사업자 등록번호 API 검증을 통해 유효하지 않은 사업자 번호의 입력을 원천 차단합니다.
-  <!-- - **실시간 데이터 정제**: 휴대폰 번호나 사업자 번호 입력 시, 숫자 이외의 문자는 자동으로 제거(Replacement)하여 데이터 무결성을 유지합니다. -->
-- **제출 및 에러 처리**:
+  - **제출 및 에러 처리**:
   - **동적 버튼 제어**: 아이디/비밀번호 정규식 검사, 약관 동의 등 모든 필수 조건(`State`)이 충족될 때만 가입 버튼이 활성화(`Active`)됩니다.
   - **서버 에러 매핑**: 회원가입 요청 실패 시, 서버에서 반환된 에러 필드(예: `user_name`, `phone_number`)를 분석하여 해당 입력창 하단에 정확한 에러 메시지를 노출합니다.
   - **가입 성공 피드백**: 회원가입 성공 시 **안내 모달**을 띄워 사용자에게 명확한 피드백을 제공한 후 로그인 페이지로 이동합니다.
 
+</details>
+
 ### 4-2. 헤더 및 네비게이션 (Global Navigation Bar)
+<details>
+<summary><strong>유저 타입별 UI & 검색 로직 상세 (Click)</strong></summary>
+<br>
 
 **유저 타입별 맞춤 UI**
 `localStorage`의 토큰 및 유저 타입(`userType`)에 따라 네비게이션 메뉴를 다르게 렌더링합니다.
@@ -119,12 +131,22 @@ $ npm run dev
 * **로그아웃**: 클릭 시 로컬 스토리지 정보를 삭제하고 로그아웃 모달을 띄운 뒤 메인으로 리다이렉트합니다.
 * **로고**: 클릭 시 메인 페이지로 이동합니다.
 
+</details>
+
 ### 4-3. 메인 및 상품 목록 (Home & Product List)
+<details>
+<summary><strong>배너 및 상품 카드 상세 (Click)</strong></summary>
+<br>
+
 - **인터랙티브 배너**: 슬라이드 형태의 배너를 구현하여 자동 롤링 및 좌우 버튼 컨트롤 기능을 제공합니다.
 - **상품 카드**: 상품 이미지, 판매자명, 가격, 상품 이름을 직관적으로 배치하였으며 클릭 시 상세 페이지로 이동합니다.
 
+</details>
 
 ### 4-4. 상품 상세 (Product Detail)
+<details>
+<summary><strong>렌더링, 장바구니 로직, 권한 제어 상세 (Click)</strong></summary>
+<br>
 
 **동적 상태 관리 및 렌더링**
 * **상품 정보 렌더링**: API를 통해 받아온 이미지, 가격, 배송 정보(택배/직접배송, 무료/유료)를 렌더링합니다.
@@ -152,7 +174,12 @@ $ npm run dev
 
 * **바로 구매**: 로그인 체크 후, 주문 정보(`order_kind`, `product_id`, `quantity`)를 `localStorage`에 저장하고 결제 페이지로 즉시 이동합니다.
 
+</details>
+
 ### 4-5. 장바구니 및 결제 (Cart & Payment)
+<details>
+<summary><strong>실시간 계산, 주문 연동 및 결제 로직 상세 (Click)</strong></summary>
+<br>
 
 **장바구니 (Cart)**
 - **실시간 재고 확인 및 품절 처리**: 장바구니 진입 시 각 상품의 최신 재고(`stock`) 정보를 조회하여, 품절된 상품은 자동으로 비활성화(Dimmed) 처리하고 주문 선택을 방지합니다.
@@ -172,7 +199,12 @@ $ npm run dev
   - 신용카드, 무통장입금, 간편결제(네이버페이, 카카오페이) 등 결제 수단 선택 UI를 제공합니다.
   - 최종 주문 요청 시 주문 유형(`order_kind`)과 상품 정보, 배송 정보를 포함하여 서버(`POST /order/`)로 전송하며, 성공 시 메인 페이지로 이동합니다.
 
+</details>
+
 ### 4-6. 판매자 센터 (Seller Center)
+<details>
+<summary><strong>대시보드 및 상품 관리(복사/수정) 로직 상세 (Click)</strong></summary>
+<br>
 
 **판매자 대시보드 (Dashboard)**
 - **상품 현황 모니터링**: 판매자가 등록한 상품의 총 개수를 배지로 시각화하여 보여주며, 상품 리스트를 통해 재고(`stock`)와 가격 정보를 한눈에 파악할 수 있습니다.
@@ -188,6 +220,8 @@ $ npm run dev
   - **이미지 미리보기**: `FileReader`를 사용하여 이미지를 업로드하기 전에 미리 볼 수 있습니다.
   - **배송 설정**: 택배(Parcel)와 직접 배송(Delivery)을 버튼 토글 방식으로 간편하게 선택할 수 있습니다.
 - **유효성 검사**: 상품명, 가격, 재고, 상세 정보 및 이미지 등록 여부를 검사하여 불완전한 데이터 전송을 방지합니다.
+
+</details>
 ---
 
 ## 5. 폴더 구조 (Directory Structure)
@@ -212,6 +246,7 @@ openmarket
 ├── vite.config.js       # Vite 설정 파일
 └── package.json         # 프로젝트 의존성 관리
 
+---
 
 ## 6. 개발 주안점 및 트러블 슈팅
 
@@ -235,9 +270,10 @@ openmarket
 - **설계**: 바닐라 자바스크립트를 사용하지만 `Header`, `Footer`, `Modal` 등을 컴포넌트로 추상화하여 재사용성을 높였습니다.
 - **리팩토링**: 초기 개발 시 기능별로 파편화되어 생성되던 모달(삭제 모달, 로그인 모달 등)을 공통 createCommonModal 함수를 사용해 생성하도록 리팩토링하여 유지보수 효율을 높이고 코드 중복을 최소화했습니다.
 
-### 6-6. 보안 및 데이터 저장소에 대한 고찰
+### 6-5. 보안 및 데이터 저장소에 대한 고찰
 - **현황**: 현재 프로젝트는 `localStorage`를 사용하여 인증 토큰 등을 관리하고 있습니다.
 - **회고 (Lesson Learned)**: `localStorage`는 XSS 공격 등에 취약할 수 있음을 인지하였습니다. 향후 개선 시에는 보안 강화를 위해 `sessionStorage`와 `HttpOnly Cookie`를 조합하여 사용하는 방식이 최신 웹 개발 트렌드이자 보안적으로 더 안전한 방법임을 학습하였으며, 차기 프로젝트에 이를 반영할 계획입니다.
+
 ---
 
 ## 7. 팀원 정보
