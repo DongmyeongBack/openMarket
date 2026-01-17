@@ -23,7 +23,7 @@
 
 - **로컬환경 실행법**
 
-# Repository 클론
+- **Repository 클론**
 ```bash
 $ git clone https://github.com/modulab-fe6-team5/openMarket.git
 
@@ -226,6 +226,7 @@ $ npm run dev
 
 ## 5. 폴더 구조 (Directory Structure)
 
+```text
 openmarket
 ├── public/              # 정적 리소스
 ├── src/
@@ -245,7 +246,7 @@ openmarket
 ├── main.css             # 메인 스타일
 ├── vite.config.js       # Vite 설정 파일
 └── package.json         # 프로젝트 의존성 관리
-
+```
 ---
 
 ## 6. 개발 주안점 및 트러블 슈팅
