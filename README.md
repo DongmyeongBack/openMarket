@@ -5,11 +5,33 @@
 > 바닐라 자바스크립트(Vanilla JS)와 Vite를 활용하여 구축한 **오픈마켓 플랫폼 HODU**입니다.
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
 
+gantt
+    title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
+    dateFormat YYYY-MM-DD
+    axisFormat %m-%d
+
+    section 초기 세팅 (Mon)
+        공통 환경 설정 (파일트리, CSS, Header/Footer) :done, 2026-01-13, 1d
+
+    section Basic UI 구현 (Tue-Wed)
+        HTML 구조 및 레이아웃 (역할별 작업)          :active, 2026-01-14, 1d
+        페이지 이동/회원가입 흐름 및 스타일 정리      :2026-01-15, 1d
+        PR 및 코드 리뷰                            :2026-01-15, 1d
+
+    section Extended UI 구현 (Thu)
+        판매자 관리(Seller) 및 상품 등록/결제 구현    :2026-01-16, 1d
+        Extended CSS 적용                         :2026-01-16, 1d
+
+    section 통합/QA 및 마무리 (Fri-Sat)
+        전체 점검 및 경로 에러 수정(QA)             :2026-01-17, 1d
+        공통 컴포넌트 정리 및 README 보완            :2026-01-17, 1d
+        GitHub Pages 배포 확인 및 최종 제출          :2026-01-18, 1d
+
 ## 1. 프로젝트 개요
 
 - **프로젝트명**: HODU (호두 오픈마켓)
 - **개발 기간**: 2026.01 ~ (진행 중)
-- **개발 인원**: Front-End 1명 (Team Project)
+- **개발 인원**: Front-End 3명 (Team Project)
 - **배포 주소**: https://modulab-fe6-team5.github.io/openMarket/
 - **Test Account**
   ```text
