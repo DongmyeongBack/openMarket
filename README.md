@@ -31,10 +31,14 @@
             P1 --> P2{장바구니 담기}
             P2 --> P3[중복 체크 로직]:::logic
             P3 -- 중복X --> P4[담기 성공]
+
+            P4 --> Pay[결제 페이지]
+            Pay --> Final[주문 완료]
         end
 
-        Core_Features --> Pay[결제 페이지]
-        Pay --> Final[주문 완료]
+        subgraph Extension_Features [확장 기능]
+            
+        end
 ```
 ## 1. 프로젝트 개요
 
