@@ -178,13 +178,19 @@ $ npm run dev
 
 ## 5. 기능 시연 (Preview)
 
-서비스의 핵심 기능을 **GIF**로 확인하실 수 있습니다. 각 섹션을 클릭하여 상세 동작을 확인해보세요.
+서비스의 핵심 기능을 **GIF**로 확인하실 수 있습니다.
 
-### 5-1. 회원가입 및 로그인 (Authentication)
+### 5-1. 메인 페이지 (Main Page)
 
-<details>
-<summary><strong>🎥 계정 생성 및 로그인 프로세스 (Click)</strong></summary>
-<br/>
+**메인 상품 목록 및 배너**
+슬라이드 배너와 상품 목록을 조회하고, 검색 기능을 사용할 수 있습니다.
+
+<div align="center">
+  <img src="./docs/메인페이지.gif" width="800" alt="메인 페이지">
+  <br/>
+</div>
+
+### 5-2. 회원가입 및 로그인 (Authentication)
 
 **1. 유형별 회원가입**
 구매자와 판매자는 서로 다른 가입 절차와 유효성 검사 로직을 가집니다.
@@ -197,11 +203,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/f8606abf-5eb1-4654-9754-ee8606c87ec9" width="100%" alt="구매자 회원가입">
+      <img src="./docs/buyer회원가입.gif" width="100%" alt="구매자 회원가입">
       <br/><b>일반 사용자 가입 프로세스</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/19855ad4-3377-42e3-968e-8490c05eb806" width="100%" alt="판매자 회원가입">
+      <img src="./docs/seller회원가입.gif" width="100%" alt="판매자 회원가입">
       <br/><b>사업자 번호 인증 포함</b>
     </td>
   </tr>
@@ -211,17 +217,13 @@ $ npm run dev
 **2. 로그인**
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/8def5c07-b94c-4147-a933-a00ec7401694" width="600" alt="로그인 시연">
+  <img src="./docs/로그인.gif" width="600" alt="로그인 시연">
   <br/>
   <b>탭(Tab)을 통한 회원 유형 전환 및 로그인</b>
 </div>
-</details>
 
-### 5-2. 헤더 및 네비게이션 (Navigation)
+### 5-3. 헤더 및 네비게이션 (Navigation)
 
-<details>
-<summary><strong>🎥 유저 타입별 맞춤 헤더 UI (Click)</strong></summary>
-<br/>
 로그인한 유저의 타입(구매자/판매자)에 따라 네비게이션 바의 메뉴와 이동 경로가 동적으로 변경됩니다.
 
 <div align="center">
@@ -232,23 +234,19 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/4fc09867-e7dc-4a99-b248-a747256f38c7" width="100%" alt="구매자 헤더">
+      <img src="./docs/buyer헤더.gif" width="100%" alt="구매자 헤더">
       <br/>장바구니 / 마이페이지 접근
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/add4dd30-aee3-43fd-9f92-f494eab592f7" width="100%" alt="판매자 헤더">
+      <img src="./docs/seller헤더.gif" width="100%" alt="판매자 헤더">
       <br/>판매자 센터 / 마이페이지 접근
     </td>
   </tr>
 </table>
 </div>
-</details>
 
-### 5-3. 상품 상세 및 권한 제어 (Product Detail)
+### 5-4. 상품 상세 및 권한 제어 (Product Detail)
 
-<details>
-<summary><strong>🎥 상품 상세 조회 및 구매 제한 로직 (Click)</strong></summary>
-<br/>
 판매자는 본인의 상품을 구매할 수 없으며, 비회원은 구매 시도 시 로그인이 필요합니다.
 
 <div align="center">
@@ -259,11 +257,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/caaf81b8-e64d-4ee5-a33d-cfd8e2746a0c" width="100%" alt="구매자 상세">
+      <img src="./docs/buyer상품디테일.gif" width="100%" alt="구매자 상세">
       <br/>수량 조절 가능 / 장바구니 담기 / 구매
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/92217ae5-a56a-4dcc-9d2e-e14ef86a7dcd" width="100%" alt="판매자 상세">
+      <img src="./docs/seller상품디테일.gif" width="100%" alt="판매자 상세">
       <br/><b>구매 관련 버튼 비활성화 (Disabled)</b>
     </td>
   </tr>
@@ -273,29 +271,32 @@ $ npm run dev
 **🔒 비회원 접근 제어**
 
 <div align="center">
-  <!-- <img src="경로/로그인요청모달.gif" width="600" alt="로그인 요청 모달"> -->
+  <img src="./docs/로그인요청모달.gif" width="600" alt="로그인 요청 모달">
   <br/>
   <b>비회원 구매/장바구니 시도 시 로그인 모달 호출</b>
 </div>
-</details>
 
-### 5-4. 장바구니 및 결제 (Transaction)
+### 5-5. 장바구니 및 결제 (Transaction)
 
-<details>
-<summary><strong>🎥 상품 주문 및 결제 프로세스 (Click)</strong></summary>
-<br/>
+**1. 장바구니 (Cart)**
+수량 변경, 상품 삭제 및 선택 상품 주문이 가능합니다.
+
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/473aabc4-2149-4d75-9a56-1f8c1b149a33" width="800" alt="구매 및 결제">
+  <img src="./docs/장바구니.gif" width="800" alt="장바구니">
+  <br/>
+</div>
+
+**2. 주문 및 결제 (Payment)**
+배송지 입력 후 최종 결제를 진행합니다.
+
+<div align="center">
+  <img src="./docs/구매페이지.gif" width="800" alt="구매 및 결제">
   <br/>
   <b>주문서 작성, 배송지 입력, 최종 결제 및 완료 페이지</b>
 </div>
-</details>
 
-### 5-5. 판매자 센터 (Seller Center)
+### 5-6. 판매자 센터 (Seller Center)
 
-<details>
-<summary><strong>🎥 상품 관리 대시보드 및 등록 (Click)</strong></summary>
-<br/>
 판매자는 대시보드에서 판매 현황을 확인하고, 상품을 등록/수정/삭제할 수 있습니다.
 
 <div align="center">
@@ -306,17 +307,16 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <!-- <img src="경로/판매자페이지.gif" width="100%" alt="판매자 대시보드"> -->
+      <img src="./docs/판매자페이지.gif" width="100%" alt="판매자 대시보드">
       <br/>상품 목록 확인 및 삭제
     </td>
     <td align="center">
-      <!-- <img src="경로/상품업로드페이지.gif" width="100%" alt="상품 업로드"> -->
+      <img src="./docs/상품업로드페이지.gif" width="100%" alt="상품 업로드">
       <br/>이미지 미리보기 및 상품 정보 입력
     </td>
   </tr>
 </table>
 </div>
-</details>
 
 ---
 
