@@ -178,6 +178,7 @@ $ npm run dev
 <details>
 <summary><strong>🎥 1. 회원가입 및 로그인 (Authentication)</strong></summary>
 <br/>
+<div align="center">
 <table>
   <tr>
     <td align="center" width="50%">
@@ -194,6 +195,7 @@ $ npm run dev
     </td>
   </tr>
 </table>
+</div>
 </details>
 
 ---
