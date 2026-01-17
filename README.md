@@ -25,6 +25,32 @@ mindmap
     이미지 Blob 변환
 ```
 
+```mermaid
+    flowchart TD
+        %% 스타일 정의
+        classDef api fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
+        classDef logic fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:black;
+
+        Root[HODU Market 프로세스] --> Auth[회원가입/로그인]
+        
+        subgraph Auth_Logic [인증 프로세스]
+            Auth --> A1{유저 타입}
+            A1 -- 판매자 --> A2[사업자 인증 API]:::api
+            A1 -- 구매자 --> A3[일반 가입]
+            A2 & A3 --> A4[유효성 검사]
+        end
+
+        Auth_Logic --> Main[메인/검색]
+        
+        subgraph Core_Features [핵심 기능]
+            Main --> S1(검색어 입력)
+            S1 --> S2[Debouncing]:::logic
+            S2 --> S3[추천 검색어 API]:::api
+            
+            Main --> P1[상품 상세]
+            P1 --> P2{장바구니 담기}
+            P2 --> P3[중복 체크 로직]:::logic
+```
 ## 1. 프로젝트 개요
 
 - **프로젝트명**: HODU (호두 오픈마켓)
@@ -55,6 +81,7 @@ $ npm install
 $ npm run dev
 ```
 
+```mermaid
 %%{init: { 'gantt': { 'barHeight': 60, 'fontSize': 20, 'sectionFontSize': 20, 'barGap': 0 } } }%%
 gantt
     title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
@@ -114,74 +141,6 @@ gantt
 ## 5. 주요 기능 (Key Features)
 
 ### 5-1. 회원가입 및 로그인 (Authentication)
-```mermaid
-sequenceDiagram
-    actor A as Client (User)
-    participant B as Web (Frontend)
-    participant C as Server (Backend)
-
-    Note over A, B: [구매자] 혹은 [판매자] 로그인 탭 선택
-
-    A->>+B: 아이디/비밀번호 입력 후 로그인 클릭
-    
-    rect rgb(255, 240, 240)
-        Note right of B: 유효성 검사 (Client Side)
-        alt 입력창이 비어있는 경우
-            B->>A: 경고 문구 노출
-            B->>A: 비어있는 입력창에 focus 이벤트
-        else 모든 입력이 완료된 경우
-            B->>+C: 로그인 요청 (id, pw, userType)
-        end
-    end
-
-    alt 로그인 정보 일치 (Server Side)
-        C-->>-B: Access/Refresh Token 전달  %% [수정] 점선 화살표 및 비활성화(-) 적용
-        B->>A: 이전 페이지로 이동 (Redirect)
-    else 정보 불일치 또는 없음
-        C-->>-B: 인증 실패 (False/401)      %% [수정] 점선 화살표 및 비활성화(-) 적용
-        B->>A: 비밀번호 입력창 초기화 (빈칸)
-        B->>A: 비밀번호 입력창 focus 이벤트
-        B->>A: 경고 문구 노출
-    end
-```
-```mermaid
-sequenceDiagram
-    actor A as Client (User)
-    participant B as Web (Frontend)
-    participant C as Server (Backend)
-
-    Note over A, B: [구매자] 혹은 [판매자] 가입 탭 선택
-
-    par 아이디 중복 확인
-        A->>+B: 아이디 입력 & 중복확인 버튼 클릭
-        B->>+C: 아이디 중복 체크 요청
-        alt 중복된 아이디일 경우
-            C->>B: 중복됨 (True)
-            B->>A: 입력창 아래 경고 문구 노출
-        else 사용 가능할 경우
-            C->>B: 사용 가능 (False)
-            B->>A: 사용 가능 메시지 노출
-        end
-    and 판매자 사업자 번호 인증 (판매자 탭일 경우)
-        A->>+B: 사업자 번호 입력 & 인증 버튼 클릭
-        alt 10자리가 아닐 경우
-            B->>A: 입력창 아래 경고 메시지 노출
-        else 10자리일 경우
-            B->>+C: 사업자 번호 유효성 확인 요청
-            C->>B: 결과 반환
-        end
-    end
-
-    A->>+B: 모든 정보 입력 & 약관 동의 후 '가입하기' 클릭
-    
-    alt 유효성 검사 통과
-        B->>+C: 회원가입 요청 (Create User)
-        C->>B: 가입 성공
-        B->>A: 로그인 페이지로 이동
-    else 필수 입력 누락 또는 약관 미동의
-        B->>A: 회원가입 불가 (유효성 에러 메시지)
-    end
-```
 <details>
 <summary><strong>상세 구현 로직 보기 (Click)</strong></summary>
 <br>
@@ -202,60 +161,6 @@ sequenceDiagram
 </details>
 
 ### 5-2. 헤더 및 네비게이션 (Global Navigation Bar)
-```mermaid
-sequenceDiagram
-    actor A as Client (User)
-    participant B as Web (Frontend)
-    participant C as Server (Backend)
-
-    %% 상품 목록 및 상세
-    A->>B: 상품 목록 페이지 접속
-    B->>+C: 상품 리스트 요청
-    C->>B: 상품 데이터 반환 (판매자, 상품명, 가격)
-    B->>A: 상품 목록 노출 (배너 슬라이드 등)
-
-    A->>B: 특정 상품 클릭
-    B->>+C: 상품 상세 정보 요청 (productId)
-    C->>B: 상세 정보 반환 (재고, 옵션 등)
-    B->>A: 상품 상세 페이지 노출
-
-    opt 수량 변경 (구매자)
-        A->>B: (+) 버튼 클릭
-        alt 현재 수량 < 재고 수량
-            B->>A: 수량 증가 및 총 가격 재계산
-        else 현재 수량 >= 재고 수량
-            B->>A: (+) 버튼 비활성화
-        end
-    end
-
-    %% GNB 및 장바구니/로그인 모달
-    rect rgb(240, 248, 255)
-        Note right of A: GNB 인터랙션
-        alt 장바구니/바로구매 클릭 (비로그인 상태)
-            A->>B: 버튼 클릭
-            B->>A: 로그인 요청 모달(Modal) 노출
-        else 장바구니 클릭 (로그인 상태)
-            A->>B: 버튼 클릭
-            B->>A: 장바구니 페이지 이동
-        end
-    end
-
-    %% 마이페이지 및 로그아웃
-    opt 마이페이지 인터랙션 (로그인 상태)
-        A->>B: 마이페이지 아이콘 클릭
-        B->>A: 아이콘 메인컬러 변경 & 드롭다운 노출
-        
-        alt 로그아웃 클릭 시
-            A->>B: 로그아웃 선택
-            B->>C: 로그아웃 요청 (세션/토큰 파기)
-            C->>B: 성공
-            B->>A: 로그아웃 처리 & 메인으로 이동
-        else 외부 영역 클릭 시
-            A->>B: 드롭다운 외부 클릭
-            B->>A: 드롭다운 닫기 (UI 사라짐)
-        end
-    end
-```
 <details>
 <summary><strong>유저 타입별 UI & 검색 로직 상세 (Click)</strong></summary>
 <br>
