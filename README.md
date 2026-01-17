@@ -4,29 +4,7 @@
 >
 > 바닐라 자바스크립트(Vanilla JS)와 Vite를 활용하여 구축한 **오픈마켓 플랫폼 HODU**입니다.
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
-```mermaid
-gantt
-    title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
-    dateFormat YYYY-MM-DD
-    axisFormat %m-%d
 
-    section 초기 세팅 (Mon)
-        공통 환경 설정 (파일트리, CSS, Header/Footer) :2026-01-13, 1d
-
-    section Basic UI 구현 (Tue-Wed)
-        HTML 구조 및 레이아웃 (역할별 작업)          :2026-01-14, 1d
-        페이지 이동/회원가입 흐름 및 스타일 정리      :2026-01-15, 1d
-        PR 및 코드 리뷰                            :2026-01-15, 1d
-
-    section Extended UI 구현 (Thu)
-        판매자 관리(Seller) 및 상품 등록/결제 구현    :2026-01-16, 1d
-        Extended CSS 적용                         :2026-01-16, 1d
-
-    section 통합/QA 및 마무리 (Fri-Sat)
-        전체 점검 및 경로 에러 수정(QA)             :2026-01-17, 1d
-        공통 컴포넌트 정리 및 README 보완            :2026-01-17, 1d
-        GitHub Pages 배포 확인 및 최종 제출          :2026-01-18, 1d
-```
 ## 1. 프로젝트 개요
 
 - **프로젝트명**: HODU (호두 오픈마켓)
@@ -58,7 +36,35 @@ $ npm run dev
 
 ---
 
-## 2. 기술 스택 (Tech Stack)
+## 2. 개발 일정(WBS)
+
+```mermaid
+gantt
+    title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
+    dateFormat YYYY-MM-DD
+    axisFormat %m-%d
+
+    section 초기 세팅 (Mon)
+        공통 환경 설정 (파일트리, CSS, Header/Footer) :2026-01-13, 1d
+
+    section Basic UI 구현 (Tue-Wed)
+        HTML 구조 및 레이아웃 (역할별 작업)          :2026-01-14, 1d
+        페이지 이동/회원가입 흐름 및 스타일 정리      :2026-01-15, 1d
+        PR 및 코드 리뷰                            :2026-01-15, 1d
+
+    section Extended UI 구현 (Thu)
+        판매자 관리(Seller) 및 상품 등록/결제 구현    :2026-01-16, 1d
+        Extended CSS 적용                         :2026-01-16, 1d
+
+    section 통합/QA 및 마무리 (Fri-Sat)
+        전체 점검 및 경로 에러 수정(QA)             :2026-01-17, 1d
+        공통 컴포넌트 정리 및 README 보완            :2026-01-17, 1d
+        GitHub Pages 배포 확인 및 최종 제출          :2026-01-18, 1d
+```
+
+---
+
+## 3. 기술 스택 (Tech Stack)
 
 | 구분 | 기술 | 설명 |
 | :--- | :--- | :--- |
@@ -70,7 +76,7 @@ $ npm run dev
 
 ---
 
-## 3. 페이지 구조 (Page Structure)
+## 4. 페이지 구조 (Page Structure)
 
 이 프로젝트는 **Vite**를 기반으로 한 **MPA(Multi Page Application)** 구조로 설계되었습니다. 
 각 페이지는 독립된 `html` 진입점을 가지며, 디렉토리 기반의 경로로 이동합니다.
@@ -88,9 +94,9 @@ $ npm run dev
 
 ---
 
-## 4. 주요 기능 (Key Features)
+## 5. 주요 기능 (Key Features)
 
-### 4-1. 회원가입 및 로그인 (Authentication)
+### 5-1. 회원가입 및 로그인 (Authentication)
 <details>
 <summary><strong>상세 구현 로직 보기 (Click)</strong></summary>
 <br>
@@ -110,7 +116,7 @@ $ npm run dev
 
 </details>
 
-### 4-2. 헤더 및 네비게이션 (Global Navigation Bar)
+### 5-2. 헤더 및 네비게이션 (Global Navigation Bar)
 <details>
 <summary><strong>유저 타입별 UI & 검색 로직 상세 (Click)</strong></summary>
 <br>
@@ -155,7 +161,7 @@ $ npm run dev
 
 </details>
 
-### 4-3. 메인 및 상품 목록 (Home & Product List)
+### 5-3. 메인 및 상품 목록 (Home & Product List)
 <details>
 <summary><strong>배너 및 상품 카드 상세 (Click)</strong></summary>
 <br>
@@ -165,7 +171,7 @@ $ npm run dev
 
 </details>
 
-### 4-4. 상품 상세 (Product Detail)
+### 5-4. 상품 상세 (Product Detail)
 <details>
 <summary><strong>렌더링, 장바구니 로직, 권한 제어 상세 (Click)</strong></summary>
 <br>
@@ -198,7 +204,7 @@ $ npm run dev
 
 </details>
 
-### 4-5. 장바구니 및 결제 (Cart & Payment)
+### 5-5. 장바구니 및 결제 (Cart & Payment)
 <details>
 <summary><strong>실시간 계산, 주문 연동 및 결제 로직 상세 (Click)</strong></summary>
 <br>
@@ -223,7 +229,7 @@ $ npm run dev
 
 </details>
 
-### 4-6. 판매자 센터 (Seller Center)
+### 5-6. 판매자 센터 (Seller Center)
 <details>
 <summary><strong>대시보드 및 상품 관리(복사/수정) 로직 상세 (Click)</strong></summary>
 <br>
@@ -246,7 +252,7 @@ $ npm run dev
 </details>
 ---
 
-## 5. 폴더 구조 (Directory Structure)
+## 6. 폴더 구조 (Directory Structure)
 
 ```text
 openmarket
@@ -271,29 +277,29 @@ openmarket
 ```
 ---
 
-## 6. 개발 주안점 및 트러블 슈팅
+## 7. 개발 주안점 및 트러블 슈팅
 
-### 6-1. API 모듈화 및 유연한 에러 핸들링
+### 7-1. API 모듈화 및 유연한 에러 핸들링
 - **문제**: `fetch`를 래핑한 `request` 유틸리티 함수를 구현하여 사용했더니 백엔드 API마다 에러 응답 구조가 조금씩 상이하여(예: 회원가입 등), 단일화된 에러 처리가 어려운 문제가 있었습니다.
 - **해결**:
     - `request` 함수 내부에서 에러를 일괄 처리하는 대신, 에러 객체 전체를 반환하도록 설계하여 호출하는 각 컴포넌트(함수) 상황에 맞춰 유연하게 예외 처리를 할 수 있도록 구조를 개선했습니다.
 
-### 6-2. 판매자 센터 상품 복사 기능 및 CORS 이슈
+### 7-2. 판매자 센터 상품 복사 기능 및 CORS 이슈
 - **기능 구현**: 상품 등록 시 매번 동일한 정보를 입력해야 하는 번거로움을 해소하기 위해, URL 파라미터(`?mode=copy`)를 활용한 **상품 복사 기능**을 구현했습니다. 기존 상품 데이터를 폼에 자동 입력하고, 이미지 URL을 `fetch`하여 `Blob` 객체로 변환해 재전송하는 방식을 사용했습니다.
 - **트러블 슈팅 (CORS 이슈)**:
     - **현상**: 로컬 환경에서는 정상 작동하던 이미지 복사 기능이 GitHub Pages 배포 환경에서는 작동하지 않는 문제가 발생했습니다.
     - **원인**: 백엔드 서버에서 배포 도메인에 대한 CORS(Cross-Origin Resource Sharing) 허용 정책이 엄격하게 설정되어 있어, 클라이언트(JS)에서 이미지 데이터를 직접 조작(`fetch`)하는 것이 차단되었습니다.
     - **대처**: 배포 환경에서의 보안 제약 사항을 확인하고, 현재 환경(프론트엔드 단독 배포)에서의 한계점을 명확히 인지하였습니다. (추후 Proxy 서버 구축 등을 통한 해결 방안 모색)
 
-### 6-3. Vite 환경 변수를 활용한 배포 경로 최적화
+### 7-3. Vite 환경 변수를 활용한 배포 경로 최적화
 - **문제**: 로컬 개발 환경과 달리, GitHub Pages 배포 시 하위 디렉토리(`/openMarket/`) 경로로 인해 이미지나 페이지 이동 시 절대 경로가 깨지는 문제가 발생했습니다.
 - **해결**: Vite의 `import.meta.env.BASE_URL` 객체를 활용하여 동적으로 경로를 할당했습니다. `vite.config.js`에서 `base` 경로를 설정하고, 코드 내 모든 절대 경로 참조 부분에 이를 적용하여 배포 환경에서도 리소스가 올바르게 로드되도록 수정했습니다.
 
-### 6-4. 컴포넌트 기반 설계 및 리팩토링
+### 7-4. 컴포넌트 기반 설계 및 리팩토링
 - **설계**: 바닐라 자바스크립트를 사용하지만 `Header`, `Footer`, `Modal` 등을 컴포넌트로 추상화하여 재사용성을 높였습니다.
 - **리팩토링**: 초기 개발 시 기능별로 파편화되어 생성되던 모달(삭제 모달, 로그인 모달 등)을 공통 createCommonModal 함수를 사용해 생성하도록 리팩토링하여 유지보수 효율을 높이고 코드 중복을 최소화했습니다.
 
-### 6-5. 보안 및 데이터 저장소에 대한 고찰
+### 7-5. 보안 및 데이터 저장소에 대한 고찰
 - **현황**: 현재 프로젝트는 `localStorage`를 사용하여 인증 토큰 등을 관리하고 있습니다.
 - **회고 (Lesson Learned)**: `localStorage`는 XSS 공격 등에 취약할 수 있음을 인지하였습니다. 향후 개선 시에는 보안 강화를 위해 `sessionStorage`와 `HttpOnly Cookie`를 조합하여 사용하는 방식이 최신 웹 개발 트렌드이자 보안적으로 더 안전한 방법임을 학습하였으며, 차기 프로젝트에 이를 반영할 계획입니다.
 
