@@ -12,7 +12,7 @@
         classDef logic fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:black;
         classDef page fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black;
 
-        classDef subTitle font-size:20px,font-weight:bold,fill:none,stroke:#333,stroke-width:2px;
+        classDef subTitle font-size:40px,font-weight:bold,fill:none,stroke:#333,stroke-width:2px;
         
         Start((Start)) --> Choice{회원 유형}
 
@@ -41,27 +41,27 @@
         subgraph Buyer_Features [구매자 핵심 기능]
             %% 메인 및 검색
             Main --> Search(상품 검색)
-            Search --> SearchAPI[검색/추천 API]:::api
-            SearchAPI --> SearchResult[검색 결과 페이지]:::page
+            Search --> SearchAPI[검색 API]:::api
+            
             
             %% 메인 -> 이동 경로
             Main --> Cart[장바구니 페이지]:::page
             Main --> ProdDetail[상품 상세 페이지]:::page
-            SearchResult --> ProdDetail
+            SearchAPI --> ProdDetail
 
             %% 상품 상세 로직
             ProdDetail -- 즉시 구매 --> PayPage[결제 페이지]:::page
-            ProdDetail -- 장바구니 담기 --> AddCartLogic[장바구니 추가 로직]:::logic
+            ProdDetail -- 장바구니 담기 --> AddCartLogic[장바구니 추가 API]:::api
             AddCartLogic --> Cart
 
             %% 장바구니 기능
-            Cart --> CartAction{장바구니 액션}
-            CartAction -- 수량 변경/삭제 --> UpdateCart[장바구니 업데이트]:::logic
+            Cart --> CartAction{장바구니 관리}
+            CartAction -- 수량 변경/삭제 --> UpdateCart[장바구니 업데이트 API]:::api
             UpdateCart
             CartAction -- 상품 구매 --> PayPage
 
             %% 결제
-            PayPage --> DoPay[결제 요청 API]:::api
+            PayPage --> DoPay[주문 API]:::api
             DoPay --> OrderComplete[주문 완료]:::page
         end
 
