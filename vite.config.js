@@ -4,6 +4,11 @@ import { resolve } from "path";
 export default defineConfig({
     // 배포할때만 다음 활성화
     base: '/openMarket/',
+
+    esbuild: {
+        drop: ['console', 'debugger'],
+    },
+
     build: {
         rollupOptions: {
             input: {
