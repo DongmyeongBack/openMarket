@@ -1,5 +1,5 @@
 // src/pages/signup/signup.js
-import { checkId, join, checkBusinessNumber } from "../../utils/api.js";
+import { checkId, signup, checkBusinessNumber } from "../../utils/api.js";
 
 import { showSignupSuccessModal } from "../../components/Modal/Modal.js";
 
@@ -380,7 +380,7 @@ submitBtn.addEventListener("click", async (e) => {
     }
 
     try {
-        await join(formData, currentType);
+        await signup(formData, currentType);
         await showSignupSuccessModal();
         window.location.href = `${import.meta.env.BASE_URL}/pages/login/index.html`;
     } catch (error) {

@@ -65,7 +65,11 @@ export async function request(url, options = {}) {
                 }
             } else {
                 // 리프레시 토큰이 없거나 리프레시 요청 자체가 실패한 경우
-                if (!url.includes("/accounts/token/refresh/") && !url.includes("/accounts/login/") && !url.includes("/accounts/validate-username/")) {
+                if (
+                    !url.includes("/accounts/token/refresh/") &&
+                    !url.includes("/accounts/login/") &&
+                    !url.includes("/accounts/validate-username/")
+                ) {
                     console.warn("❌ 인증 실패 (토큰 없음). 로그아웃 처리.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("refreshToken");
@@ -89,7 +93,7 @@ export async function request(url, options = {}) {
         console.error("API Fetch Error:", error);
         throw error;
     }
-};
+}
 
 // Auth
 export const login = (username, password) => {
@@ -113,7 +117,7 @@ export const checkBusinessNumber = (businessNumber) => {
     });
 };
 
-export const join = (userData, userType) => {
+export const signup = (userData, userType) => {
     const url = userType === "SELLER" ? "/accounts/seller/signup/" : "/accounts/buyer/signup/";
     return request(url, {
         method: "POST",
