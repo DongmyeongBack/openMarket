@@ -12,6 +12,8 @@
         classDef logic fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:black;
         classDef page fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black;
 
+        classDef subTitle font-size:20px,font-weight:bold,fill:none,stroke:#333,stroke-width:2px;
+        
         Start((Start)) --> Choice{회원 유형}
 
         %% 1. 인증 프로세스
@@ -71,11 +73,11 @@
             RegPage --> RegAPI[상품 등록 API]:::api
             RegAPI
 
-            S_Action -- 상품 삭제 --> DelAPI[삭제 API]:::api
-            DelAPI
-
             S_Action -- 상품 복사 --> CopyPage[복사 페이지 - 기존정보 Load]:::page
             CopyPage --> RegAPI
+
+            S_Action -- 상품 삭제 --> DelAPI[삭제 API]:::api
+            DelAPI
         end
 ```
 ## 1. 프로젝트 개요
