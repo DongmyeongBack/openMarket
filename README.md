@@ -197,13 +197,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/f8606abf-5eb1-4654-9754-ee8606c87ec9
-      " width="100%" alt="구매자 회원가입">
+      <img src="https://github.com/user-attachments/assets/f8606abf-5eb1-4654-9754-ee8606c87ec9" width="100%" alt="구매자 회원가입">
       <br/><b>일반 사용자 가입 프로세스</b>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/19855ad4-3377-42e3-968e-8490c05eb806
-      " width="100%" alt="판매자 회원가입">
+      <img src="https://github.com/user-attachments/assets/19855ad4-3377-42e3-968e-8490c05eb806" width="100%" alt="판매자 회원가입">
       <br/><b>사업자 번호 인증 포함</b>
     </td>
   </tr>
@@ -213,8 +211,7 @@ $ npm run dev
 **2. 로그인**
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/8def5c07-b94c-4147-a933-a00ec7401694
-  " width="600" alt="로그인 시연">
+  <img src="https://github.com/user-attachments/assets/8def5c07-b94c-4147-a933-a00ec7401694" width="600" alt="로그인 시연">
   <br/>
   <b>탭(Tab)을 통한 회원 유형 전환 및 로그인</b>
 </div>
@@ -235,13 +232,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/4fc09867-e7dc-4a99-b248-a747256f38c7
-      " width="100%" alt="구매자 헤더">
+      <img src="https://github.com/user-attachments/assets/4fc09867-e7dc-4a99-b248-a747256f38c7" width="100%" alt="구매자 헤더">
       <br/>장바구니 / 마이페이지 접근
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/add4dd30-aee3-43fd-9f92-f494eab592f7
-      " width="100%" alt="판매자 헤더">
+      <img src="https://github.com/user-attachments/assets/add4dd30-aee3-43fd-9f92-f494eab592f7" width="100%" alt="판매자 헤더">
       <br/>판매자 센터 / 마이페이지 접근
     </td>
   </tr>
@@ -264,13 +259,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/caaf81b8-e64d-4ee5-a33d-cfd8e2746a0c
-      " width="100%" alt="구매자 상세">
+      <img src="https://github.com/user-attachments/assets/caaf81b8-e64d-4ee5-a33d-cfd8e2746a0c" width="100%" alt="구매자 상세">
       <br/>수량 조절 가능 / 장바구니 담기 / 구매
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/92217ae5-a56a-4dcc-9d2e-e14ef86a7dcd
-      " width="100%" alt="판매자 상세">
+      <img src="https://github.com/user-attachments/assets/92217ae5-a56a-4dcc-9d2e-e14ef86a7dcd" width="100%" alt="판매자 상세">
       <br/><b>구매 관련 버튼 비활성화 (Disabled)</b>
     </td>
   </tr>
@@ -292,8 +285,7 @@ $ npm run dev
 <summary><strong>🎥 상품 주문 및 결제 프로세스 (Click)</strong></summary>
 <br/>
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/473aabc4-2149-4d75-9a56-1f8c1b149a33
-  " width="800" alt="구매 및 결제">
+  <img src="https://github.com/user-attachments/assets/473aabc4-2149-4d75-9a56-1f8c1b149a33" width="800" alt="구매 및 결제">
   <br/>
   <b>주문서 작성, 배송지 입력, 최종 결제 및 완료 페이지</b>
 </div>
