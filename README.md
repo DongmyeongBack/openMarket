@@ -13,7 +13,15 @@
 - **개발 기간**: 2026.01 ~ (진행 중)
 - **개발 인원**: Front-End 1명 (Team Project)
 - **배포 주소**: https://modulab-fe6-team5.github.io/openMarket/
-- **API 서버**: 위니브 오픈마켓 서비스 API
+- **Test Account**
+  ```text
+  [구매자]
+  ID : buyer1
+  PW : weniv1
+
+  [판매자]
+  ID : seller1
+  PW : weniv1
 
 ## 2. 기술 스택 (Tech Stack)
 
@@ -24,6 +32,22 @@
 | **Deploy** | <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white"/> | 정적 웹 호스팅 |
 | **API** | <img src="https://img.shields.io/badge/Fetch_API-000000?style=flat&logo=json&logoColor=white"/> | RESTful API 비동기 통신 |
 | **Collaboration** | <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/> | 형상 관리 및 협업 |
+
+## 2.3 페이지 구조 (Page Structure)
+
+이 프로젝트는 **Vite**를 기반으로 한 **MPA(Multi Page Application)** 구조로 설계되었습니다. 
+각 페이지는 독립된 `html` 진입점을 가지며, 디렉토리 기반의 경로로 이동합니다.
+
+| 페이지 | 파일 경로 (URL Path) | 설명 | 접근 권한 |
+| :--- | :--- | :--- | :--- |
+| **메인** | `/` | 상품 목록 및 배너 | All |
+| **로그인** | `/src/pages/login/` | 구매자/판매자 로그인 | Guest |
+| **회원가입** | `/src/pages/signup/` | 회원가입 폼 | Guest |
+| **상품 상세** | `/src/pages/product-detail/` | 상품 상세 정보 및 장바구니 담기 | All |
+| **장바구니** | `/src/pages/cart/` | 장바구니 목록 및 수정 | User |
+| **주문/결제** | `/src/pages/payment/` | 주문서 작성 및 결제 | User |
+| **판매자 센터** | `/src/pages/seller-center/` | 판매 상품 대시보드 | Seller |
+| **상품 등록** | `/src/pages/seller-center/product-upload/` | 상품 등록 및 수정 | Seller |
 
 ---
 ## 3. 주요 기능 (Key Features)
@@ -87,13 +111,34 @@
 - **인터랙티브 배너**: 슬라이드 형태의 배너를 구현하여 자동 롤링 및 좌우 버튼 컨트롤 기능을 제공합니다.
 - **상품 카드**: 상품 이미지, 판매자명, 가격, 상품 이름을 직관적으로 배치하였으며 클릭 시 상세 페이지로 이동합니다.
 
+
 ### 3-4. 상품 상세 (Product Detail)
-- **동적 수량 조절**: 
-  - `+` / `-` 버튼을 통해서만 수량 변경이 가능하며, **재고 수량을 초과할 경우 버튼이 비활성화**됩니다.
-  - 수량 변경에 따른 총 주문 금액을 실시간으로 계산하여 표시합니다.
-- **접근 권한 제어**:
-  - **비회원**: 장바구니 담기나 바로 구매 시 **로그인 유도 모달(Modal)**을 띄웁니다.
-  - **판매자**: 본인의 상품을 구매할 수 없도록 장바구니 및 구매 버튼이 비활성화됩니다.
+
+**동적 상태 관리 및 렌더링**
+* **상품 정보 렌더링**: API를 통해 받아온 이미지, 가격, 배송 정보(택배/직접배송, 무료/유료)를 렌더링합니다.
+* **품절 처리 (Sold Out)**: 재고(`stock`)가 0인 경우, 모든 구매 관련 버튼을 비활성화하고 '품절' 상태를 표시합니다.
+* **실시간 수량 및 가격 계산**
+  * `+` / `-` 버튼으로 수량을 조절하며, **최소 1개 ~ 최대 재고량** 사이에서만 동작하도록 제한합니다.
+  * 수량 변경 시 총 주문 금액이 실시간으로 재계산되어 표시됩니다.
+
+**고도화된 장바구니 로직 (Smart Cart Logic)**
+상품을 장바구니에 담을 때 중복 여부를 체크하여 사용자 경험을 최적화했습니다.
+
+* **중복 상품 감지**: `getCart` API를 먼저 호출하여 현재 보고 있는 상품이 이미 장바구니에 있는지 확인합니다.
+  * **중복 시**: "이미 장바구니에 있는 상품입니다"라는 **모달(Modal)**을 띄워 장바구니 이동 여부를 묻습니다.
+  * **신규 추가 시**: `addToCart` API 호출 후, 시스템 Confirm 창을 통해 장바구니 이동 여부를 확인합니다.
+
+**유저 타입별 권한 제어 (Access Control)**
+로그인 여부 및 유저 타입(`userType`)에 따라 UI 상호작용을 제한합니다.
+
+* **비회원**: 구매 또는 장바구니 버튼 클릭 시 **로그인 유도 모달**(`showLoginModal`)이 호출됩니다.
+* **판매자 (SELLER)**
+  * 본인의 상품 구매를 방지하기 위해 구매하기, 장바구니, 수량 조절 버튼이 모두 **비활성화(Disabled)** 됩니다.
+  * 버튼 스타일이 변경(Cursor Not Allowed, 회색 처리)되어 시각적으로 클릭 불가능함을 안내합니다.
+
+**주문 연동**
+
+* **바로 구매**: 로그인 체크 후, 주문 정보(`order_kind`, `product_id`, `quantity`)를 `localStorage`에 저장하고 결제 페이지로 즉시 이동합니다.
 
 ### 3-5. 장바구니 및 결제 (Cart & Payment)
 - **장바구니 로직**:
@@ -155,15 +200,15 @@ openmarket
 - **GitHub**: https://github.com/backdongmyeong
 - **Email**: backdongmyeong@gmail.com
 
-- **이름**: 백동명
+- **이름**: 박외숙
 - **역할**: Front-End Developer
-- **GitHub**: https://github.com/backdongmyeong
-- **Email**: backdongmyeong@gmail.com
+- **GitHub**: https://github.com/pahkys-prog
+- **Email**: pahkys@gmail.com
 
-- **이름**: 백동명
+- **이름**: 이원희
 - **역할**: Front-End Developer
-- **GitHub**: https://github.com/backdongmyeong
-- **Email**: backdongmyeong@gmail.com
+- **GitHub**: https://github.com/212jeju
+# - **Email**: backdongmyeong@gmail.com
 
 ---
 
