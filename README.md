@@ -55,7 +55,7 @@
             %% 장바구니 기능
             Cart --> CartAction{장바구니 액션}
             CartAction -- 수량 변경/삭제 --> UpdateCart[장바구니 업데이트]:::logic
-            UpdateCart --> Cart
+            UpdateCart
             CartAction -- 상품 구매 --> PayPage
 
             %% 결제
@@ -69,10 +69,10 @@
             
             S_Action -- 상품 등록 --> RegPage[등록 페이지]:::page
             RegPage --> RegAPI[상품 등록 API]:::api
-            RegAPI --> SellerCenter
+            RegAPI
 
             S_Action -- 상품 삭제 --> DelAPI[삭제 API]:::api
-            DelAPI --> SellerCenter
+            DelAPI
 
             S_Action -- 상품 복사 --> CopyPage[복사 페이지 - 기존정보 Load]:::page
             CopyPage --> RegAPI
