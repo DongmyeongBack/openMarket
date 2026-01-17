@@ -20,6 +20,7 @@
   [판매자]
   ID : seller1
   PW : weniv1
+  ```
 
 - **로컬환경 실행법**
 
@@ -118,10 +119,10 @@ sequenceDiagram
     end
 
     alt 로그인 정보 일치 (Server Side)
-        C->>+B: Access/Refresh Token 전달
+        C-->>-B: Access/Refresh Token 전달  %% [수정] 점선 화살표 및 비활성화(-) 적용
         B->>A: 이전 페이지로 이동 (Redirect)
     else 정보 불일치 또는 없음
-        C->>+B: 인증 실패 (False/401)
+        C-->>-B: 인증 실패 (False/401)      %% [수정] 점선 화살표 및 비활성화(-) 적용
         B->>A: 비밀번호 입력창 초기화 (빈칸)
         B->>A: 비밀번호 입력창 focus 이벤트
         B->>A: 경고 문구 노출
