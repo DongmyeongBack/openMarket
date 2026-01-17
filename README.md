@@ -6,26 +6,6 @@
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
 
 ```mermaid
-mindmap
-(핵심 기능)
-    회원가입/로그인
-    구매자/판매자 탭
-    유효성 검사
-    사업자 인증
-    상품/메인
-    검색 Debouncing
-    장바구니 중복 체크
-    수량/가격 계산
-    결제 시스템
-    주소 검색 API
-    결제 수단 연동
-    판매자 센터
-    대시보드
-    상품 등록/수정
-    이미지 Blob 변환
-```
-
-```mermaid
     flowchart TD
         %% 스타일 정의
         classDef api fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
