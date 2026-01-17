@@ -181,13 +181,13 @@ $ npm run dev
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/7d9ecd68-494c-4fc2-b138-c5b97778a18d" width="100%" alt="회원가입 시연">
+      <img src="https://github.com/user-attachments/assets/7d9ecd68-494c-4fc2-b138-c5b97778a18d" height="650px" alt="회원가입 시연">
       <br/>
       <b>회원가입 프로세스</b><br/>
       (유효성 검사 및 중복 확인)
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/47f5e3d9-d1e8-455a-90ed-a9cffcfc4f97" width="100%" height="80%" alt="로그인 시연">
+      <img src="https://github.com/user-attachments/assets/47f5e3d9-d1e8-455a-90ed-a9cffcfc4f97" height="650px" alt="로그인 시연">
       <br/>
       <b>로그인 프로세스</b><br/>
       (구매자/판매자 탭 전환)
