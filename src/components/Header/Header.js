@@ -21,7 +21,7 @@ export default class Header {
     template() {
         const logoHtml = `
             <div class="logo">
-                <a href="${import.meta.env.BASE_URL}index.html" class="logo">
+                <a href="${import.meta.env.BASE_URL}" class="logo">
                     <img src="${logoImg}" alt="HODU" class="logo-img">
                 </a>
             </div>
@@ -43,7 +43,7 @@ export default class Header {
                     <img src="${iconShoppingCart}" alt="장바구니">
                     <span>장바구니</span>
                 </button>
-                <a href="${import.meta.env.BASE_URL}src/pages/login/index.html" class="nav-btn">
+                <a href="${import.meta.env.BASE_URL}src/pages/login/" class="nav-btn">
                     <img src="${iconUser}" alt="로그인">
                     <span>로그인</span>
                 </a>
@@ -60,7 +60,7 @@ export default class Header {
                         <button class="dropdown-item" id="logout-btn">로그아웃</button>
                     </div>
                 </div>
-                <a href="${import.meta.env.BASE_URL}src/pages/seller-center/index.html" class="btn-seller-center">
+                <a href="${import.meta.env.BASE_URL}src/pages/seller-center/" class="btn-seller-center">
                     <img src="${iconShoppingBag}" alt="쇼핑백">
                     판매자 센터
                 </a>
@@ -194,7 +194,7 @@ export default class Header {
 
                 const item = e.target.closest(".search-item");
                 if (item) {
-                    const detailUrl = `${import.meta.env.BASE_URL}src/pages/product-detail/index.html`;
+                    const detailUrl = `${import.meta.env.BASE_URL}src/pages/product-detail/`;
                     window.location.href = `${detailUrl}?productId=${item.dataset.id}`;
                 }
             });
@@ -203,7 +203,7 @@ export default class Header {
             const handleSearch = () => {
                 const keyword = searchInput.value.trim();
                 if (keyword) {
-                    const listUrl = `${import.meta.env.BASE_URL}index.html`;
+                    const listUrl = `${import.meta.env.BASE_URL}`;
                     // Assuming product-list is index.html or handled there?
                     // Original was: ../../pages/product-list/index.html
                     // Wait, vite.config.js checks:
@@ -229,7 +229,7 @@ export default class Header {
 
         if (cartBtn) {
             cartBtn.addEventListener("click", () => {
-                const cartUrl = `${import.meta.env.BASE_URL}src/pages/cart/index.html`;
+                const cartUrl = `${import.meta.env.BASE_URL}src/pages/cart/`;
                 this.token ? (window.location.href = cartUrl) : showLoginModal();
             });
         }
@@ -250,7 +250,7 @@ export default class Header {
             logoutBtn.addEventListener("click", async () => {
                 localStorage.clear();
                 await showLogoutModal();
-                window.location.href = `${import.meta.env.BASE_URL}index.html`;
+                window.location.href = `${import.meta.env.BASE_URL}`;
             });
         }
 
