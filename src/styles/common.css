@@ -1,17 +1,56 @@
 /* common.css */
 
-/* 1. 폰트 임포트 (Spoqa Han Sans Neo) */
-@import url("https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css");
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    src: url('../assets/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 500;
+    src: url('../assets/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    src: url('../assets/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 300;
+    src: url('../assets/fonts/SpoqaHanSansNeo-Light.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 100;
+    src: url('../assets/fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2');
+    font-display: swap;
+}
 
 /* 2. CSS 변수 설정 (색상 테스트) */
 :root {
-    --main-color: #21bf48; /* 메인 그린 */
-    --text-black: #000000; /* 기본 검정 */
-    --text-dark: #333333; /* 진한 회색 (본문 등) */
-    --text-grey: #767676; /* 연한 회색 (설명, 비활성 등) */
-    --text-white: #ffffff; /* 흰색 */
-    --border-color: #c4c4c4; /* 일반적인 테두리 (추후 디자인 요소 따라 조정) */
-    --error-color: #eb5757; /* 경고 문구용 빨간색 (일상적인 색상 추가) */
+    --main-color: #21bf48;
+    /* 메인 그린 */
+    --text-black: #000000;
+    /* 기본 검정 */
+    --text-dark: #333333;
+    /* 진한 회색 (본문 등) */
+    --text-grey: #767676;
+    /* 연한 회색 (설명, 비활성 등) */
+    --text-white: #ffffff;
+    /* 흰색 */
+    --border-color: #c4c4c4;
+    /* 일반적인 테두리 (추후 디자인 요소 따라 조정) */
+    --error-color: #eb5757;
+    /* 경고 문구용 빨간색 (일상적인 색상 추가) */
     --bg-gray: #f2f2f2;
 }
 
@@ -73,7 +112,8 @@ body {
 
 /* 7. 공통 유틸리티 클래스 */
 .error-message {
-    display: none; /* 평소엔 숨김 */
+    display: none;
+    /* 평소엔 숨김 */
     color: var(--error-color);
     font-size: 14px;
     margin-top: 6px;

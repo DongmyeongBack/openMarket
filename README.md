@@ -44,8 +44,8 @@
 | **로그인** | `/src/pages/login/` | 구매자/판매자 로그인 | Guest |
 | **회원가입** | `/src/pages/signup/` | 회원가입 폼 | Guest |
 | **상품 상세** | `/src/pages/product-detail/` | 상품 상세 정보 및 장바구니 담기 | All |
-| **장바구니** | `/src/pages/cart/` | 장바구니 목록 및 수정 | User |
-| **주문/결제** | `/src/pages/payment/` | 주문서 작성 및 결제 | User |
+| **장바구니** | `/src/pages/cart/` | 장바구니 목록 및 수정 | Buyer |
+| **주문/결제** | `/src/pages/payment/` | 주문서 작성 및 결제 | Buyer |
 | **판매자 센터** | `/src/pages/seller-center/` | 판매 상품 대시보드 | Seller |
 | **상품 등록** | `/src/pages/seller-center/product-upload/` | 상품 등록 및 수정 | Seller |
 
