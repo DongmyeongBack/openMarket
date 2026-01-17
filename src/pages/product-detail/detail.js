@@ -156,7 +156,7 @@ function initEventListeners() {
         };
 
         localStorage.setItem("order_data", JSON.stringify(orderData));
-        window.location.href = `${import.meta.env.BASE_URL}src/pages/payment/index.html`;
+        window.location.href = `${import.meta.env.BASE_URL}src/pages/payment/`;
     });
 
     // [장바구니 버튼]
@@ -243,7 +243,10 @@ async function handleCartAction() {
                 cancelText: "아니오"
             });
             if (move) {
-                window.location.href = `${import.meta.env.BASE_URL}src/pages/cart/index.html`;
+                window.location.href = `${import.meta.env.BASE_URL}src/pages/cart/`;
+            }
+            else {
+                window.location.href = `${import.meta.env.BASE_URL}`;
             }
             return;
         }
@@ -259,7 +262,10 @@ async function handleCartAction() {
         // 5. 성공 시 (새로 추가된 경우) 컨펌 창 띄우기
         const moveToCart = confirm("장바구니에 상품을 담았습니다.\n장바구니 페이지로 이동하시겠습니까?");
         if (moveToCart) {
-            window.location.href = `${import.meta.env.BASE_URL}src/pages/cart/index.html`;
+            window.location.href = `${import.meta.env.BASE_URL}src/pages/cart/`;
+        }
+        else {
+            window.location.href = `${import.meta.env.BASE_URL}`;
         }
     } catch (error) {
         console.error("장바구니 처리 중 오류:", error);
