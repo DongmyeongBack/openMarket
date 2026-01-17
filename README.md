@@ -7,40 +7,22 @@
 
 ```mermaid
 mindmap
-  root((HODU OpenMarket))
-    (폴더 구조)
-      public
-        정적 리소스
-      src
-        assets
-          이미지/폰트
-        components
-          Header/Footer
-          Modal
-        pages
-          Cart/Payment
-          Login/Signup
-          Product Detail
-          Seller Center
-        utils
-          API 함수
-    (핵심 기능)
-      회원가입/로그인
-        구매자/판매자 탭
-        유효성 검사
-        사업자 인증
-      상품/메인
-        검색 Debouncing
-        장바구니 중복 체크
-        수량/가격 계산
-      결제 시스템
-        주소 검색 API
-        결제 수단 연동
-      판매자 센터
-        대시보드
-        상품 등록/수정
-        이미지 Blob 변환
-
+(핵심 기능)
+    회원가입/로그인
+    구매자/판매자 탭
+    유효성 검사
+    사업자 인증
+    상품/메인
+    검색 Debouncing
+    장바구니 중복 체크
+    수량/가격 계산
+    결제 시스템
+    주소 검색 API
+    결제 수단 연동
+    판매자 센터
+    대시보드
+    상품 등록/수정
+    이미지 Blob 변환
 ```
 
 ## 1. 프로젝트 개요
@@ -73,11 +55,7 @@ $ npm install
 $ npm run dev
 ```
 
----
-
-## 2. 개발 일정(WBS)
-
-```mermaid
+%%{init: { 'gantt': { 'barHeight': 60, 'fontSize': 20, 'sectionFontSize': 20, 'barGap': 0 } } }%%
 gantt
     title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
     dateFormat YYYY-MM-DD
