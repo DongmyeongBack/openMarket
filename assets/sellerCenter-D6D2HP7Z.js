@@ -1,4 +1,4 @@
-import{h as m,i as u}from"./api-BW4WmqIz.js";import{d as p}from"./Modal-paOObtiz.js";import{F as g}from"./Footer-DnPTH6_A.js";const s=document.getElementById("product-list"),d=document.getElementById("seller-title"),f=document.getElementById("product-count-badge"),b=document.getElementById("product-count-tab"),l=document.getElementById("upload-btn"),i=document.getElementById("footer");i&&new g(i);const h=t=>new Intl.NumberFormat("ko-KR").format(t),I=t=>{const n=t.image?t.image:"../../assets/images/default-image.png";return`
+import{h as m,i as u}from"./api-ZxrN8FjE.js";import{d as p}from"./Modal-paOObtiz.js";import{F as g}from"./Footer-DnPTH6_A.js";const s=document.getElementById("product-list"),d=document.getElementById("seller-title"),f=document.getElementById("product-count-badge"),b=document.getElementById("product-count-tab"),l=document.getElementById("upload-btn"),i=document.getElementById("footer");i&&new g(i);const h=t=>new Intl.NumberFormat("ko-KR").format(t),I=t=>{const n=t.image?t.image:"../../assets/images/default-image.png";return`
         <li class="product-item" data-id="${t.id}">
             <div class="item-info">
                 <img 
