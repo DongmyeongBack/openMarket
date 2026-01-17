@@ -111,7 +111,7 @@ $ npm run dev
 ```
 
 ```mermaid
-%%{init: { 'gantt': { 'barHeight': 60, 'fontSize': 20, 'sectionFontSize': 20, 'barGap': 0 } } }%%
+%%{init: { 'gantt': { 'barHeight': 40, 'fontSize': 10, 'sectionFontSize': 10, 'barGap': 0 } } }%%
 gantt
     title HODU 오픈마켓 주간 개발 계획 (1/13 ~ 1/18)
     dateFormat YYYY-MM-DD
