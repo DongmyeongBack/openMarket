@@ -46,21 +46,21 @@ gantt
     axisFormat %m-%d
 
     section 초기 세팅 (Mon)
-        공통 환경 설정 (파일트리, CSS, Header/Footer) :2026-01-13, 1d
+        환경 설정 (파일트리/CSS)       :2026-01-13, 1d
 
-    section Basic UI 구현 (Tue-Wed)
-        HTML 구조 및 레이아웃 (역할별 작업)          :2026-01-14, 1d
-        페이지 이동/회원가입 흐름 및 스타일 정리      :2026-01-15, 1d
-        PR 및 코드 리뷰                            :2026-01-15, 1d
+    section Basic UI (Tue-Wed)
+        HTML 구조/레이아웃            :2026-01-14, 1d
+        페이지/회원가입 흐름 정리      :2026-01-15, 1d
+        PR 및 코드 리뷰               :2026-01-15, 1d
 
-    section Extended UI 구현 (Thu)
-        판매자 관리(Seller) 및 상품 등록/결제 구현    :2026-01-16, 1d
-        Extended CSS 적용                         :2026-01-16, 1d
+    section Extended UI (Thu)
+        판매자/상품/결제 구현          :2026-01-16, 1d
+        Extended CSS 적용            :2026-01-16, 1d
 
-    section 통합/QA 및 마무리 (Fri-Sat)
-        전체 점검 및 경로 에러 수정(QA)             :2026-01-17, 1d
-        공통 컴포넌트 정리 및 README 보완            :2026-01-17, 1d
-        GitHub Pages 배포 확인 및 최종 제출          :2026-01-18, 1d
+    section 통합/QA (Fri-Sat)
+        전체 점검 및 QA               :2026-01-17, 1d
+        문서 보완(README)             :2026-01-17, 1d
+        배포 확인 및 제출              :2026-01-18, 1d
 ```
 
 ---
