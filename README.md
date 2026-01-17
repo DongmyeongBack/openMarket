@@ -14,15 +14,18 @@
         Root[HODU Market 프로세스] --> Auth[회원가입/로그인]
         
         subgraph Auth_Logic [인증 프로세스]
+            direction TB
             Auth --> A1{유저 타입}
             A1 -- 판매자 --> A2[사업자 인증 API]:::api
             A1 -- 구매자 --> A3[일반 가입]
             A2 & A3 --> A4[유효성 검사]
         end
 
-        Auth_Logic --> Main[메인/검색]
+        %% [수정 포인트 1] 서브그래프 이름 대신 마지막 노드(A4)를 연결
+        A4 --> Main[메인/검색]
         
         subgraph Core_Features [핵심 기능]
+            direction TB
             Main --> S1(검색어 입력)
             S1 --> S2[Debouncing]:::logic
             S2 --> S3[추천 검색어 API]:::api
@@ -30,6 +33,8 @@
             Main --> P1[상품 상세]
             P1 --> P2{장바구니 담기}
             P2 --> P3[중복 체크 로직]:::logic
+        end 
+        %% [수정 포인트 2] 여기에 end를 꼭 넣어주세요!
 ```
 ## 1. 프로젝트 개요
 
