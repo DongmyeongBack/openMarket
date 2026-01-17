@@ -11,10 +11,10 @@ gantt
     axisFormat %m-%d
 
     section 초기 세팅 (Mon)
-        공통 환경 설정 (파일트리, CSS, Header/Footer) :done, 2026-01-13, 1d
+        공통 환경 설정 (파일트리, CSS, Header/Footer) :2026-01-13, 1d
 
     section Basic UI 구현 (Tue-Wed)
-        HTML 구조 및 레이아웃 (역할별 작업)          :active, 2026-01-14, 1d
+        HTML 구조 및 레이아웃 (역할별 작업)          :2026-01-14, 1d
         페이지 이동/회원가입 흐름 및 스타일 정리      :2026-01-15, 1d
         PR 및 코드 리뷰                            :2026-01-15, 1d
 
