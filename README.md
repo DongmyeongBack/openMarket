@@ -6,38 +6,76 @@
 > 판매자는 상품을 등록하여 판매할 수 있고, 구매자는 상품을 검색하고 장바구니에 담아 결제하는 E-Commerce의 핵심 기능을 완벽하게 구현했습니다.
 
 ```mermaid
-    flowchart TD
+        flowchart TD
         %% 스타일 정의
         classDef api fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
         classDef logic fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:black;
+        classDef page fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black;
 
-        Root[HODU Market 프로세스] --> Auth[회원가입/로그인]
-        
-        subgraph Auth_Logic [인증 프로세스]
-            Auth --> A1{유저 타입}
-            A1 -- 판매자 --> A2[사업자 인증 API]:::api
-            A1 -- 구매자 --> A3[일반 가입]
-            A2 & A3 --> A4[유효성 검사]
+        Start((Start)) --> Choice{회원 유형}
+
+        %% 1. 인증 프로세스
+        subgraph Auth_Process [회원가입 및 인증]
+            direction TB
+            Choice -- 구매자 --> B_Join[구매자 회원가입]
+            Choice -- 판매자 --> S_Join[판매자 회원가입]
+            
+            B_Join --> ID_Check1[ID 중복 확인]:::api
+            S_Join --> ID_Check2[ID 중복 확인]:::api
+            
+            ID_Check1 --> B_Valid[가입 완료]
+            
+            ID_Check2 --> Biz_Check[사업자 번호 인증]:::api
+            Biz_Check --> S_Valid[가입 완료]
         end
 
-        Auth_Logic --> Main[메인/검색]
-        
-        subgraph Core_Features [핵심 기능]
-            Main --> S1(검색어 입력)
-            S1 --> S2[Debouncing]:::logic
-            S2 --> S3[추천 검색어 API]:::api
-            
-            Main --> P1[상품 상세]
-            P1 --> P2{장바구니 담기}
-            P2 --> P3[중복 체크 로직]:::logic
-            P3 -- 중복X --> P4[담기 성공]
+        %% 로그인 후 분기
+        B_Valid --> Login[로그인]
+        S_Valid --> Login
+        Login -- 구매자 --> Main[메인 페이지]:::page
+        Login -- 판매자 --> SellerCenter[판매자 센터]:::page
 
-            P4 --> Pay[결제 페이지]
-            Pay --> Final[주문 완료]
+        %% 2. 구매자 핵심 기능
+        subgraph Buyer_Features [구매자 핵심 기능]
+            %% 메인 및 검색
+            Main --> Search(상품 검색)
+            Search --> SearchAPI[검색/추천 API]:::api
+            SearchAPI --> SearchResult[검색 결과 페이지]:::page
+            
+            %% 메인 -> 이동 경로
+            Main --> Cart[장바구니 페이지]:::page
+            Main --> ProdDetail[상품 상세 페이지]:::page
+            SearchResult --> ProdDetail
+
+            %% 상품 상세 로직
+            ProdDetail -- 즉시 구매 --> PayPage[결제 페이지]:::page
+            ProdDetail -- 장바구니 담기 --> AddCartLogic[장바구니 추가 로직]:::logic
+            AddCartLogic --> Cart
+
+            %% 장바구니 기능
+            Cart --> CartAction{장바구니 액션}
+            CartAction -- 수량 변경/삭제 --> UpdateCart[장바구니 업데이트]:::logic
+            UpdateCart --> Cart
+            CartAction -- 상품 구매 --> PayPage
+
+            %% 결제
+            PayPage --> DoPay[결제 요청 API]:::api
+            DoPay --> OrderComplete[주문 완료]:::page
         end
 
-        subgraph Extension_Features [확장 기능]
+        %% 3. 판매자 확장 기능
+        subgraph Seller_Features [판매자 확장 기능]
+            SellerCenter --> S_Action{상품 관리}
             
+            S_Action -- 상품 등록 --> RegPage[등록 페이지]:::page
+            RegPage --> RegAPI[상품 등록 API]:::api
+            RegAPI --> SellerCenter
+
+            S_Action -- 상품 삭제 --> DelAPI[삭제 API]:::api
+            DelAPI --> SellerCenter
+
+            S_Action -- 상품 복사 --> CopyPage[복사 페이지 - 기존정보 Load]:::page
+            CopyPage --> RegAPI
         end
 ```
 ## 1. 프로젝트 개요
@@ -340,18 +378,18 @@ openmarket
 
 ## 7. 팀원 정보
 
-- **이름**: 백동명
-- **역할**: Front-End Developer
+- **이름**: 백동명 (팀장)
+- **역할**: Front-End Developer(공통요소 제작, 메인페이지 제작)
 - **GitHub**: https://github.com/backdongmyeong
 - **Email**: backdongmyeong@gmail.com
 
-- **이름**: 박외숙
-- **역할**: Front-End Developer
+- **이름**: 박외숙 (팀원)
+- **역할**: Front-End Developer(모달창, 상세정보페이지 제작)
 - **GitHub**: https://github.com/pahkys-prog
 - **Email**: pahkys@gmail.com
 
-- **이름**: 이원희
-- **역할**: Front-End Developer
+- **이름**: 이원희 (팀원)
+- **역할**: Front-End Developer(판매잔센터페이지, 구매페이지 제작)
 - **GitHub**: https://github.com/212jeju
 - **Email**: [EMAIL_ADDRESS]
 
