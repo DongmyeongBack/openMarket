@@ -1,4 +1,4 @@
-import{g as d}from"./api-ZxrN8FjE.js";import{H as m}from"./Header-Dx3U_W5F.js";import{F as u}from"./Footer-DnPTH6_A.js";import"./Modal-paOObtiz.js";let n=0;const l=5;let a,c;async function f(){try{const e=await d();g(e.results),p(e.results)}catch{a&&(a.innerHTML=`
+import{g as d}from"./api-ZxrN8FjE.js";import{H as m}from"./Header-CEUy6QMe.js";import{F as u}from"./Footer-DnPTH6_A.js";import"./Modal-paOObtiz.js";let n=0;const l=5;let a,c;async function f(){try{const e=await d();g(e.results),p(e.results)}catch{a&&(a.innerHTML=`
                 <p class="error-message show">
                     상품을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.
                 </p>`)}}function g(e){if(!a)return;if(!e||e.length===0){a.innerHTML='<p style="text-align:center; grid-column: 1/-1;">등록된 상품이 없습니다.</p>';return}const o=e.map(r=>{const t=new Intl.NumberFormat("ko-KR").format(r.price),s=r.seller.store_name||r.seller.username;return`
