@@ -173,12 +173,78 @@ $ npm run dev
 
 ---
 
+## 5. 기능 시연 (Preview)
+
+<details>
+<summary><strong>🎥 1. 회원가입 및 로그인 (Authentication)</strong></summary>
+<br/>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="![Image](https://github.com/user-attachments/assets/7d9ecd68-494c-4fc2-b138-c5b97778a18d)" width="100%" alt="회원가입 시연">
+      <br/>
+      <b>회원가입 프로세스</b><br/>
+      (유효성 검사 및 중복 확인)
+    </td>
+    <td align="center" width="50%">
+      <img src="![Image](https://github.com/user-attachments/assets/47f5e3d9-d1e8-455a-90ed-a9cffcfc4f97)" width="100%" alt="로그인 시연">
+      <br/>
+      <b>로그인 프로세스</b><br/>
+      (구매자/판매자 탭 전환)
+    </td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>🎥 2. 상품 검색 및 장바구니 (Search & Cart)</strong></summary>
+<br/>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="GIF_URL_3_검색" width="100%" alt="검색 시연">
+      <br/>
+      <b>실시간 검색</b><br/>
+      (자동완성 및 디바운싱)
+    </td>
+    <td align="center" width="50%">
+      <img src="GIF_URL_4_장바구니" width="100%" alt="장바구니 시연">
+      <br/>
+      <b>장바구니 로직</b><br/>
+      (수량 변경 및 합계 계산)
+    </td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>🎥 3. 상품 관리 (Seller Admin)</strong></summary>
+<br/>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="GIF_URL_5_등록" width="100%" alt="상품등록 시연">
+      <br/>
+      <b>상품 등록</b><br/>
+      (이미지 미리보기 지원)
+    </td>
+    <td align="center" width="50%">
+      <img src="GIF_URL_6_수정" width="100%" alt="상품수정 시연">
+      <br/>
+      <b>상품 수정/복사</b><br/>
+      (기존 데이터 로드)
+    </td>
+  </tr>
+</table>
+</details>
+
+---
+
 ## 5. 주요 기능 (Key Features)
 
 ### 5-1. 회원가입 및 로그인 (Authentication)
 <details>
 <summary><strong>상세 구현 로직 보기 (Click)</strong></summary>
-<br>
 
 #### 5-1-1. 탭(Tab) 기반 UI: 구매자와 판매자 회원을 탭으로 구분하여, 로그인 타입을 명확히 선택하고 전환할 수 있습니다. 판매자 탭 선택 시 사업자 전용 필드(등록번호, 스토어명)가 동적으로 노출됩니다. 
 #### 5-1-2. 로그인 유효성 검사 및 UX: 
@@ -197,7 +263,6 @@ $ npm run dev
 ### 5-2. 헤더 및 네비게이션 (Global Navigation Bar)
 <details>
 <summary><strong>유저 타입별 UI & 검색 로직 상세 (Click)</strong></summary>
-<br>
 
 #### 5-2-1. 유저 타입별 맞춤 UI
 `localStorage`의 토큰 및 유저 타입(`userType`)에 따라 네비게이션 메뉴를 다르게 렌더링합니다.
@@ -239,7 +304,6 @@ $ npm run dev
 ### 5-3. 메인 및 상품 목록 (Home & Product List)
 <details>
 <summary><strong>배너 및 상품 카드 상세 (Click)</strong></summary>
-<br>
 
 - **인터랙티브 배너**: 슬라이드 형태의 배너를 구현하여 자동 롤링 및 좌우 버튼 컨트롤 기능을 제공합니다.
 - **상품 카드**: 상품 이미지, 판매자명, 가격, 상품 이름을 직관적으로 배치하였으며 클릭 시 상세 페이지로 이동합니다.
@@ -249,7 +313,6 @@ $ npm run dev
 ### 5-4. 상품 상세 (Product Detail)
 <details>
 <summary><strong>렌더링, 장바구니 로직, 권한 제어 상세 (Click)</strong></summary>
-<br>
 
 #### 5-4-1. 동적 상태 관리 및 렌더링
 * **상품 정보 렌더링**: API를 통해 받아온 이미지, 가격, 배송 정보(택배/직접배송, 무료/유료)를 렌더링합니다.
@@ -282,7 +345,6 @@ $ npm run dev
 ### 5-5. 장바구니 및 결제 (Cart & Payment)
 <details>
 <summary><strong>실시간 계산, 주문 연동 및 결제 로직 상세 (Click)</strong></summary>
-<br>
 
 #### 5-5-1. 장바구니 (Cart)
 - **실시간 재고 확인 및 품절 처리**: 장바구니 진입 시 각 상품의 최신 재고(`stock`) 정보를 조회하여, 품절된 상품은 자동으로 비활성화(Dimmed) 처리하고 주문 선택을 방지합니다.
@@ -307,7 +369,6 @@ $ npm run dev
 ### 5-6. 판매자 센터 (Seller Center)
 <details>
 <summary><strong>대시보드 및 상품 관리(복사/수정) 로직 상세 (Click)</strong></summary>
-<br>
 
 #### 5-6-1. 판매자 대시보드 (Dashboard)
 - **상품 현황 모니터링**: 판매자가 등록한 상품의 총 개수를 배지로 시각화하여 보여주며, 상품 리스트를 통해 재고(`stock`)와 가격 정보를 한눈에 파악할 수 있습니다.
@@ -325,6 +386,7 @@ $ npm run dev
 - **유효성 검사**: 상품명, 가격, 재고, 상세 정보 및 이미지 등록 여부를 검사하여 불완전한 데이터 전송을 방지합니다.
 
 </details>
+
 ---
 
 ## 6. 폴더 구조 (Directory Structure)
