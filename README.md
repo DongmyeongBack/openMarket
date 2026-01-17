@@ -22,8 +22,7 @@
   PW : weniv1
   ```
 
-<details>
-<summary><strong>개발 일정 (WBS)</strong></summary>
+- **개발 일정 (WBS)**
 
 ```mermaid
 %%{init: { 'gantt': { 'barHeight': 40, 'fontSize': 10, 'sectionFontSize': 10, 'barGap': 0 } } }%%
@@ -49,7 +48,6 @@ gantt
         배포 확인 및 제출              :2026-01-16, 2d
         문서 보완(README)             :2026-01-17, 1d
 ```
-</details>
 
 - **로컬환경 실행법**
 ```bash
@@ -62,7 +60,21 @@ $ npm install
 $ npm run dev
 ```
 
-## 2. 서비스 아키텍처 (Service Architecture)
+---
+
+## 2. 기술 스택 (Tech Stack)
+
+| 구분 | 기술 | 설명 |
+| :--- | :--- | :--- |
+| **Core** | <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"/> | 웹 표준 및 ES6+ 문법 활용 |
+| **Build** | <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white"/> | 빠른 개발 서버 및 번들링 최적화 |
+| **Deploy** | <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white"/> | 정적 웹 호스팅 |
+| **API** | <img src="https://img.shields.io/badge/Fetch_API-000000?style=flat&logo=json&logoColor=white"/> | RESTful API 비동기 통신 |
+| **Collaboration** | <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/> | 형상 관리 및 협업 |
+
+---
+
+## 3. 서비스 아키텍처 (Service Architecture)
 판매자 및 구매자의 회원가입부터 상품 등록, 장바구니, 결제까지 이어지는 **HODU 오픈마켓의 핵심 프로세스**입니다.
 
 ```mermaid
@@ -140,18 +152,6 @@ $ npm run dev
             DelAPI
         end
 ```
-
----
-
-## 3. 기술 스택 (Tech Stack)
-
-| 구분 | 기술 | 설명 |
-| :--- | :--- | :--- |
-| **Core** | <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"/> | 웹 표준 및 ES6+ 문법 활용 |
-| **Build** | <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white"/> | 빠른 개발 서버 및 번들링 최적화 |
-| **Deploy** | <img src="https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white"/> | 정적 웹 호스팅 |
-| **API** | <img src="https://img.shields.io/badge/Fetch_API-000000?style=flat&logo=json&logoColor=white"/> | RESTful API 비동기 통신 |
-| **Collaboration** | <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/> | 형상 관리 및 협업 |
 
 ---
 
