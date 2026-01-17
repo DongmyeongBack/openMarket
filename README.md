@@ -280,7 +280,7 @@ $ npm run dev
 **🔒 비회원 접근 제어**
 
 <div align="center">
-  <img src="경로/로그인요청모달.gif" width="600" alt="로그인 요청 모달">
+  <!-- <img src="경로/로그인요청모달.gif" width="600" alt="로그인 요청 모달"> -->
   <br/>
   <b>비회원 구매/장바구니 시도 시 로그인 모달 호출</b>
 </div>
@@ -314,11 +314,11 @@ $ npm run dev
   </tr>
   <tr>
     <td align="center">
-      <img src="경로/판매자페이지.gif" width="100%" alt="판매자 대시보드">
+      <!-- <img src="경로/판매자페이지.gif" width="100%" alt="판매자 대시보드"> -->
       <br/>상품 목록 확인 및 삭제
     </td>
     <td align="center">
-      <img src="경로/상품업로드페이지.gif" width="100%" alt="상품 업로드">
+      <!-- <img src="경로/상품업로드페이지.gif" width="100%" alt="상품 업로드"> -->
       <br/>이미지 미리보기 및 상품 정보 입력
     </td>
   </tr>
