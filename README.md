@@ -8,7 +8,7 @@
 ## 1. 프로젝트 개요
 
 - **프로젝트명**: HODU (호두 오픈마켓)
-- **개발 기간**: 2026.01 ~ (진행 중)
+- **개발 기간**: 2026.01.13 ~ 2026.01.18
 - **개발 인원**: Front-End 3명 (Team Project)
 - **배포 주소**: https://modulab-fe6-team5.github.io/openMarket/
 - **Test Account**
@@ -38,7 +38,7 @@ gantt
     section Basic UI (Tue-Thu)
         페이지 제작(HTML/CSS)            :2026-01-13, 2d
         페이지에 핵심 로직 추가      :2026-01-14, 2d
-        PR 및 코드 리뷰               :2026-01-15, 1d
+        전체적인 코드 리뷰               :2026-01-15, 1d
 
     section Extended UI (Thu-Fri)
         판매자/상품/결제 구현          :2026-01-15, 2d
@@ -46,8 +46,8 @@ gantt
 
     section 통합/QA (Fri-Sat)
         전체 점검 및 QA               :2026-01-16, 1d
-        배포 확인 및 제출              :2026-01-16, 2d
-        문서 보완(README)             :2026-01-17, 1d
+        배포 확인 최종수정              :2026-01-16, 2d
+        문서 보완(README)             :2026-01-17, 2d
 ```
 
 - **로컬환경 실행법**
@@ -183,7 +183,7 @@ $ npm run dev
 ### 5-1. 메인 페이지 (Main Page)
 
 **메인 상품 목록 및 배너**
-슬라이드 배너와 상품 목록을 조회하고, 검색 기능을 사용할 수 있습니다.
+슬라이드 배너와 상품 목록을 조회하고, 상품을 눌러 상세페이지로 이동합니다.
 
 <div align="center">
   <img src="./docs/메인페이지.gif" width="800" alt="메인 페이지">
@@ -208,7 +208,7 @@ $ npm run dev
     </td>
     <td align="center">
       <img src="./docs/seller회원가입.gif" width="100%" alt="판매자 회원가입">
-      <br/><b>사업자 번호 인증 포함</b>
+      <br/><b>사업자 번호 인증 추가 포함</b>
     </td>
   </tr>
 </table>
@@ -219,12 +219,12 @@ $ npm run dev
 <div align="center">
   <img src="./docs/로그인.gif" width="600" alt="로그인 시연">
   <br/>
-  <b>탭(Tab)을 통한 회원 유형 전환 및 로그인</b>
+  <b>로그인 성공시 메인페이지로 이동</b>
 </div>
 
 ### 5-3. 헤더 및 네비게이션 (Navigation)
 
-로그인한 유저의 타입(구매자/판매자)에 따라 네비게이션 바의 메뉴와 이동 경로가 동적으로 변경됩니다.
+검색기능을 지원하고 유저의 타입(구매자/판매자)에 따라 네비게이션 바의 메뉴와 이동 경로가 동적으로 변경됩니다.
 
 <div align="center">
 <table>
@@ -235,11 +235,11 @@ $ npm run dev
   <tr>
     <td align="center">
       <img src="./docs/buyer헤더.gif" width="100%" alt="구매자 헤더">
-      <br/>장바구니 / 마이페이지 접근
+      <br/>장바구니 접근/ 검색기능 사용가능
     </td>
     <td align="center">
       <img src="./docs/seller헤더.gif" width="100%" alt="판매자 헤더">
-      <br/>판매자 센터 / 마이페이지 접근
+      <br/>판매자 센터 접근/ 검색기능 사용가능
     </td>
   </tr>
 </table>
@@ -247,7 +247,7 @@ $ npm run dev
 
 ### 5-4. 상품 상세 및 권한 제어 (Product Detail)
 
-판매자는 본인의 상품을 구매할 수 없으며, 비회원은 구매 시도 시 로그인이 필요합니다.
+판매자는 상품을 구매할 수 없으며, 비회원은 구매 시도 시 로그인이 필요합니다.
 
 <div align="center">
 <table>
@@ -258,17 +258,17 @@ $ npm run dev
   <tr>
     <td align="center">
       <img src="./docs/buyer상품디테일.gif" width="100%" alt="구매자 상세">
-      <br/>수량 조절 가능 / 장바구니 담기 / 구매
+      <br/>수량 조절 가능 / 장바구니 담기 / 바로 구매
     </td>
     <td align="center">
       <img src="./docs/seller상품디테일.gif" width="100%" alt="판매자 상세">
-      <br/><b>구매 관련 버튼 비활성화 (Disabled)</b>
+      <br/><b>구매 관련 버튼 비활성화</b>
     </td>
   </tr>
 </table>
 </div>
 
-**🔒 비회원 접근 제어**
+**비회원 접근 제어**
 
 <div align="center">
   <img src="./docs/로그인요청모달.gif" width="600" alt="로그인 요청 모달">
@@ -308,11 +308,11 @@ $ npm run dev
   <tr>
     <td align="center">
       <img src="./docs/판매자페이지.gif" width="100%" alt="판매자 대시보드">
-      <br/>상품 목록 확인 및 삭제
+      <br/>상품 목록 확인/새 상품 등록/기존 상품정보를 복사/ 상품삭제
     </td>
     <td align="center">
       <img src="./docs/상품업로드페이지.gif" width="100%" alt="상품 업로드">
-      <br/>이미지 미리보기 및 상품 정보 입력
+      <br/>이미지 미리보기/ 상품 정보 입력 후 등록
     </td>
   </tr>
 </table>
@@ -373,10 +373,33 @@ $ npm run dev
 - **실시간 검색 제안 (Auto-complete)**
     - 검색어 입력 시 `searchProducts` API를 호출하여 검색어를 포함하는 상품 리스트를 드롭다운으로 보여줍니다.
     - 상품 클릭 시 해당 상품의 상세 페이지(`product-detail`)로 즉시 이동합니다.
+- **성능 최적화 (Debouncing)** - 잦은 API 호출을 방지하기 위해 **300ms**의 디바운스(Debounce) 타이머를 적용했습니다. - 마지막 요청 키워드 추적(`lastFetchedKeyword`)을 통해 중복 호출 및 불필요한 네트워크 트래픽을 차단합니다.
 
-- **성능 최적화 (Debouncing)**
-    - 잦은 API 호출을 방지하기 위해 **300ms**의 디바운스(Debounce) 타이머를 적용했습니다.
-    - 마지막 요청 키워드 추적(`lastFetchedKeyword`)을 통해 중복 호출 및 불필요한 네트워크 트래픽을 차단합니다.
+```javascript
+let debounceTimer; // 디바운싱용 타이머
+let lastFetchedKeyword = ""; // 중복 요청 차단용 (마지막으로 API 호출한 키워드 저장)
+// ...
+searchInput.addEventListener("input", (e) => {
+    // ...
+    const keyword = e.target.value.trim();
+    lastKeyword = keyword;
+
+    // [디바운싱 핵심 1] 새로운 입력이 들어오면 기존 대기 중이던 타이머(요청)를 취소
+    clearTimeout(debounceTimer);
+    // ...
+    // [디바운싱 핵심 2] 입력이 멈춘 뒤 300ms가 지나야 내부 로직 실행
+    debounceTimer = setTimeout(async () => {
+        // 방금 API로 불러온 키워드와 현재 키워드가 같으면 실행 중단 (API 호출 안 함)
+        if (keyword === lastFetchedKeyword) return;
+
+        lastFetchedKeyword = keyword; // API 호출 전 현재 키워드를 '마지막 키워드'로 갱신
+
+        const products = await this.fetchProducts(keyword); // 실제 검색 API 호출
+
+        // ...
+    }, 300); // 300ms 딜레이 설정
+});
+```
 
 - **UX 디테일**
     - 입력창 포커스 아웃(Blur) 시 추천 목록이 닫히지만, 목록 클릭 시에는 이벤트가 유지되도록(`mousedown` 처리) 하여 사용성을 높였습니다.
@@ -414,11 +437,11 @@ $ npm run dev
 
 #### 6-4-2. 고도화된 장바구니 로직 (Smart Cart Logic)
 
-상품을 장바구니에 담을 때 중복 여부를 체크하여 사용자 경험을 최적화했습니다.
+API 명세상 장바구니에 동일한 상품이 있을 경우 POST 요청 시 수량이 자동으로 합산되도록 설계되어 있었으나, 상품을 장바구니에 담을 때 중복 여부를 체크하여 사용자 경험을 최적화했습니다.
 
-- **중복 상품 감지**: `getCart` API를 먼저 호출하여 현재 보고 있는 상품이 이미 장바구니에 있는지 확인합니다.
+- **중복 상품 감지**: `getCart` (GET)API를 먼저 호출하여 현재 보고 있는 상품이 이미 장바구니에 있는지 확인합니다.
     - **중복 시**: "이미 장바구니에 있는 상품입니다"라는 **모달(Modal)**을 띄워 장바구니 이동 여부를 묻습니다.
-    - **신규 추가 시**: `addToCart` API 호출 후, 시스템 Confirm 창을 통해 장바구니 이동 여부를 확인합니다.
+    - **신규 추가 시**: `addToCart` (POST)API 호출 후, 시스템 Confirm 창을 통해 장바구니 이동 여부를 확인합니다.
 
 #### 6-4-3. 유저 타입별 권한 제어 (Access Control)
 
@@ -478,7 +501,7 @@ $ npm run dev
 - **통합 관리 페이지**: 하나의 페이지(`upload.js`)에서 **신규 등록**, **기존 상품 수정**, **상품 복사** 기능을 모드(`mode`)에 따라 분기하여 효율적으로 처리합니다.
 - **스마트한 상품 복사 (Duplicate)**:
     - 기존 상품의 정보를 불러와 입력 필드를 자동으로 채워줍니다.
-    - **이미지 자동 변환**: 기존 상품의 이미지 URL을 `fetch`하여 `Blob` 객체로 변환함으로써, 사용자가 이미지를 다시 업로드하지 않아도 복제 등록이 가능하도록 구현했습니다. (로컬 환경을 위한 Proxy 처리 포함)
+    - **이미지 자동 변환**: 기존 상품의 이미지 URL을 `fetch`하여 `Blob` 객체로 변환함으로써, 사용자가 이미지를 다시 업로드하지 않아도 복제된 이미지의 등록이 가능하도록 구현했습니다. (로컬 환경을 위한 Proxy 처리 포함)
 - **직관적인 UX**:
     - **이미지 미리보기**: `FileReader`를 사용하여 이미지를 업로드하기 전에 미리 볼 수 있습니다.
     - **배송 설정**: 택배(Parcel)와 직접 배송(Delivery)을 버튼 토글 방식으로 간편하게 선택할 수 있습니다.
@@ -528,7 +551,7 @@ openmarket
 - **트러블 슈팅 (CORS 이슈)**:
     - **현상**: 로컬 환경에서는 정상 작동하던 이미지 복사 기능이 GitHub Pages 배포 환경에서는 작동하지 않는 문제가 발생했습니다.
     - **원인**: 백엔드 서버에서 배포 도메인에 대한 CORS(Cross-Origin Resource Sharing) 허용 정책이 엄격하게 설정되어 있어, 클라이언트(JS)에서 이미지 데이터를 직접 조작(`fetch`)하는 것이 차단되었습니다.
-    - **대처**: 배포 환경에서의 보안 제약 사항을 확인하고, 현재 환경(프론트엔드 단독 배포)에서의 한계점을 명확히 인지하였습니다. (추후 Proxy 서버 구축 등을 통한 해결 방안 모색)
+    - **회고**: 단순히 코드를 수정하는 것이 아니라, 배포 인프라 레벨에서의 해결이 필요함을 학습했습니다. 차기 프로젝트에서는 Netlify와 같은 플랫폼에 있는 Netlify Redirects 기능을 사용하여 /proxy/\* 경로 요청을 백엔드 API로 우회시키는 방식(Serverless Edge Proxy)으로, 별도의 백엔드 구축 없이도 이 문제를 해결할 수 있음을 기술적 대안으로 수립하였습니다.
 
 ### 8-3. Vite 환경 변수를 활용한 배포 경로 최적화
 
