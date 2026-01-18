@@ -573,7 +573,7 @@ openmarket
 ## 9. 팀원 정보 및 회고
 
 - **이름**: 백동명 (팀장)
-- **역할**: Front-End Developer(공통요소 제작, 메인페이지 제작)
+- **역할**: Front-End Developer(공통요소 제작, 메인/장바구니페이지 제작)
 - **GitHub**: https://github.com/backdongmyeong
 - **Email**: backdongmyeong@gmail.com
 - **회고**:
